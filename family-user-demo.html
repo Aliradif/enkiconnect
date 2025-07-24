@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👨‍👩‍👧‍👦 Family User Demo - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="user-demo-page">
+    <div class="user-demo-container">
+        <header class="demo-header">
+            <h1><i class="fas fa-home"></i> Family Member User Experience</h1>
+            <p>Complete journey from family invite to payment - The Johnson Family Exchange</p>
+        </header>
+
+        <main class="demo-main">
+            <div class="demo-tabs">
+                <button class="demo-tab active" onclick="showStep('invite')">📞 Family Invite</button>
+                <button class="demo-tab" onclick="showStep('landing')">🏠 Family Page</button>
+                <button class="demo-tab" onclick="showStep('signup')">👨‍👩‍👧 Join Family</button>
+                <button class="demo-tab" onclick="showStep('payment')">💳 Parent Payment</button>
+                <button class="demo-tab" onclick="showStep('confirmation')">✅ Family Ready</button>
+            </div>
+
+            <!-- Step 1: Family Invitation -->
+            <div class="demo-step active" id="invite-step">
+                <div class="phone-mockup family">
+                    <div class="phone-header">
+                        <div class="time">7:45 PM</div>
+                        <div class="battery">
+                            <i class="fas fa-battery-full"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="messages-screen">
+                        <div class="messages-header">
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="contact-name">Mom (Linda)</span>
+                            <i class="fas fa-video"></i>
+                        </div>
+
+                        <div class="messages-body">
+                            <div class="message received">
+                                <div class="message-bubble">
+                                    Hi Emma! 👋 Exciting news - we're doing a family gift exchange this year!
+                                </div>
+                                <div class="message-time">7:30 PM</div>
+                            </div>
+
+                            <div class="message sent">
+                                <div class="message-bubble">
+                                    Really? That sounds fun! How does it work?
+                                </div>
+                                <div class="message-time">7:32 PM</div>
+                            </div>
+
+                            <div class="message received">
+                                <div class="message-bubble">
+                                    It's through this cool app called EnkiConnect. Everyone gets surprise gifts! 🎁
+                                </div>
+                                <div class="message-time">7:33 PM</div>
+                            </div>
+
+                            <div class="message received special-invite">
+                                <div class="family-invite-card">
+                                    <div class="invite-header">
+                                        <i class="fas fa-water"></i>
+                                        <span>EnkiConnect Family Invite</span>
+                                    </div>
+                                    <div class="invite-content">
+                                        <h4>🏠 The Johnson Family Exchange</h4>
+                                        <p><strong>You're part of the family!</strong> Join our holiday tradition powered by ancient wisdom.</p>
+                                        
+                                        <div class="family-details">
+                                            <div class="detail">
+                                                <i class="fas fa-users"></i>
+                                                <span>7 family members</span>
+                                            </div>
+                                            <div class="detail">
+                                                <i class="fas fa-shield-alt"></i>
+                                                <span>Parent supervised</span>
+                                            </div>
+                                            <div class="detail">
+                                                <i class="fas fa-home"></i>
+                                                <span>Gifts to family home</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="family-members-preview">
+                                            <span class="preview-label">Family joining:</span>
+                                            <div class="family-avatars">
+                                                <div class="family-avatar mom">M</div>
+                                                <div class="family-avatar dad">D</div>
+                                                <div class="family-avatar grandma">G</div>
+                                                <div class="family-avatar plus">+4</div>
+                                            </div>
+                                        </div>
+
+                                        <a href="#" class="family-join-btn" onclick="showStep('landing')">
+                                            🏺 Join Family Exchange
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="message-time">7:35 PM</div>
+                            </div>
+
+                            <div class="message received">
+                                <div class="message-bubble">
+                                    Don't worry - it's totally safe and I'll handle the payment part! Just set your gift preferences 😊
+                                </div>
+                                <div class="message-time">7:36 PM</div>
+                            </div>
+                        </div>
+
+                        <div class="message-input">
+                            <i class="fas fa-plus-circle"></i>
+                            <input type="text" placeholder="Message...">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Family Landing Page -->
+            <div class="demo-step" id="landing-step">
+                <div class="family-landing">
+                    <div class="landing-header">
+                        <div class="brand-logo">
+                            <i class="fas fa-water"></i>
+                            <span>EnkiConnect</span>
+                        </div>
+                        <p class="tagline">Ancient wisdom, family connections</p>
+                    </div>
+
+                    <div class="family-welcome">
+                        <h2>🏠 Welcome to the Johnson Family Exchange</h2>
+                        <p>Linda Johnson (Mom) invited you to join the family tradition</p>
+                    </div>
+
+                    <div class="family-safety-badge">
+                        <div class="safety-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="safety-content">
+                            <h3>Family-Safe Environment</h3>
+                            <ul>
+                                <li>✅ Parent supervised and approved</li>
+                                <li>✅ Family-appropriate gift selections</li>
+                                <li>✅ All gifts delivered to family home</li>
+                                <li>✅ Monitored chat with time limits</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="family-info">
+                        <h3>👨‍👩‍👧‍👦 Who's Participating</h3>
+                        <div class="family-grid">
+                            <div class="family-member">
+                                <div class="member-avatar mom">L</div>
+                                <span>Mom Linda</span>
+                                <small>Organizer</small>
+                            </div>
+                            <div class="family-member">
+                                <div class="member-avatar dad">R</div>
+                                <span>Dad Robert</span>
+                                <small>Adult</small>
+                            </div>
+                            <div class="family-member">
+                                <div class="member-avatar grandma">G</div>
+                                <span>Grandma</span>
+                                <small>Adult</small>
+                            </div>
+                            <div class="family-member">
+                                <div class="member-avatar uncle">M</div>
+                                <span>Uncle Mike</span>
+                                <small>Adult</small>
+                            </div>
+                            <div class="family-member you">
+                                <div class="member-avatar teen">E</div>
+                                <span>You (Emma)</span>
+                                <small>Teen - Supervised</small>
+                            </div>
+                            <div class="family-member">
+                                <div class="member-avatar kid">J</div>
+                                <span>Jake (12)</span>
+                                <small>Kid - Supervised</small>
+                            </div>
+                            <div class="family-member">
+                                <div class="member-avatar kid">S</div>
+                                <span>Sophie (8)</span>
+                                <small>Kid - Supervised</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="how-family-works">
+                        <h3>🏺 How Family Exchange Works:</h3>
+                        <div class="family-steps">
+                            <div class="family-step">
+                                <div class="step-icon">1</div>
+                                <h4>Join with Parent Permission</h4>
+                                <p>Mom handles payment, you choose preferences</p>
+                            </div>
+                            <div class="family-step">
+                                <div class="step-icon">2</div>
+                                <h4>Family-Safe Matching</h4>
+                                <p>Paired with family member, age-appropriate</p>
+                            </div>
+                            <div class="family-step">
+                                <div class="step-icon">3</div>
+                                <h4>Approved Gifts</h4>
+                                <p>All gifts reviewed by parents first</p>
+                            </div>
+                            <div class="family-step">
+                                <div class="step-icon">4</div>
+                                <h4>Family Celebration</h4>
+                                <p>Open gifts together at home</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="landing-actions">
+                        <button class="join-btn primary" onclick="showStep('signup')">
+                            <i class="fas fa-home"></i> Join Our Family Exchange
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Family Sign Up -->
+            <div class="demo-step" id="signup-step">
+                <div class="family-signup">
+                    <div class="form-header">
+                        <h2>🏺 Join the Johnson Family Exchange</h2>
+                        <p>Hi Emma! Let's set up your profile with mom's supervision.</p>
+                    </div>
+
+                    <div class="parent-supervision-notice">
+                        <div class="supervision-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="supervision-content">
+                            <h3>👩 Parent Supervised Account</h3>
+                            <p>Linda Johnson (Mom) will review and approve all your settings. Your information is protected and family-safe.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>👤 Your Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" value="Emma" readonly>
+                                <small>Parent verified</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" value="Johnson" readonly>
+                                <small>Family name</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="age">Age</label>
+                                <input type="text" id="age" value="16" readonly>
+                                <small>Parent confirmed</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="relation">Family Relation</label>
+                                <input type="text" id="relation" value="Daughter" readonly>
+                                <small>Family member</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>🎯 Gift Preferences</h3>
+                        <p>What kind of surprises would make you happy? (Parent will review)</p>
+                        
+                        <div class="teen-preferences">
+                            <label class="pref-item">
+                                <input type="checkbox" checked>
+                                <span>🎨 Art Supplies</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox" checked>
+                                <span>📚 Books & Novels</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox">
+                                <span>🎵 Music & Instruments</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox" checked>
+                                <span>📱 Tech Accessories</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox">
+                                <span>👗 Fashion & Style</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox">
+                                <span>🏃‍♀️ Sports & Activity</span>
+                            </label>
+                        </div>
+
+                        <div class="restrictions-notice">
+                            <h4>🛡️ Family Safety Guidelines</h4>
+                            <ul>
+                                <li>All gifts must be age-appropriate (16+)</li>
+                                <li>Parent will review gift selections before purchase</li>
+                                <li>No personal information shared with gift partner</li>
+                                <li>Chat limited to 8 AM - 8 PM with family oversight</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>💰 Budget Information</h3>
+                        <div class="budget-info">
+                            <div class="budget-card">
+                                <h4>Family Budget: $30 per person</h4>
+                                <p>Set by Mom (Linda). Your gift contribution will be handled by parents - no payment needed from you!</p>
+                                <div class="parent-payment-badge">
+                                    <i class="fas fa-credit-card"></i>
+                                    <span>Parent handles payment</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="back-btn" onclick="showStep('landing')">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="next-btn" onclick="showStep('payment')">
+                            <i class="fas fa-shield-alt"></i> Submit for Parent Approval
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Parent Payment Process -->
+            <div class="demo-step" id="payment-step">
+                <div class="parent-payment">
+                    <div class="form-header">
+                        <h2>👩 Parent Payment & Approval</h2>
+                        <p>Linda, please review Emma's preferences and complete payment for the family exchange.</p>
+                    </div>
+
+                    <div class="parent-review">
+                        <h3>👀 Review Emma's Settings</h3>
+                        <div class="review-card">
+                            <h4>Emma's Gift Preferences:</h4>
+                            <div class="approved-prefs">
+                                <span class="pref-approved">✅ Art Supplies</span>
+                                <span class="pref-approved">✅ Books & Novels</span>
+                                <span class="pref-approved">✅ Tech Accessories</span>
+                            </div>
+                            <div class="parent-controls">
+                                <button class="edit-btn">✏️ Edit Preferences</button>
+                                <button class="approve-btn">✅ Approve All</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="family-payment-summary">
+                        <h3>💳 Family Exchange Payment</h3>
+                        <div class="payment-breakdown">
+                            <div class="family-member-payment">
+                                <span>Emma Johnson (Age 16)</span>
+                                <span>$30.00</span>
+                            </div>
+                            <div class="family-member-payment">
+                                <span>Jake Johnson (Age 12)</span>
+                                <span>$30.00</span>
+                            </div>
+                            <div class="family-member-payment">
+                                <span>Sophie Johnson (Age 8)</span>
+                                <span>$30.00</span>
+                            </div>
+                            <div class="payment-note">
+                                <i class="fas fa-info-circle"></i>
+                                <span>Adult payments handled separately</span>
+                            </div>
+                            <div class="summary-subtotal">
+                                <span>Kids' Contributions Subtotal</span>
+                                <span>$90.00</span>
+                            </div>
+                            <div class="summary-fee">
+                                <span>EnkiConnect Service Fee</span>
+                                <span>$4.50</span>
+                            </div>
+                            <div class="summary-total">
+                                <span>Total for Kids</span>
+                                <span>$94.50</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="parent-payment-form">
+                        <h3>💳 Parent Payment Method</h3>
+                        
+                        <div class="card-form">
+                            <div class="form-group">
+                                <label for="parentCard">Card Number</label>
+                                <input type="text" id="parentCard" placeholder="1234 5678 9012 3456" value="4111 1111 1111 1111">
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="parentExpiry">Expiry</label>
+                                    <input type="text" id="parentExpiry" placeholder="MM/YY" value="09/29">
+                                </div>
+                                <div class="form-group">
+                                    <label for="parentCvv">CVV</label>
+                                    <input type="text" id="parentCvv" placeholder="123" value="321">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="parentName">Name on Card</label>
+                                <input type="text" id="parentName" value="Linda Johnson">
+                            </div>
+                        </div>
+
+                        <div class="parent-consent">
+                            <label class="consent-checkbox">
+                                <input type="checkbox" checked>
+                                <span>I consent to my children participating in this family-safe gift exchange</span>
+                            </label>
+                            <label class="consent-checkbox">
+                                <input type="checkbox" checked>
+                                <span>I will supervise all chat activities and gift opening</span>
+                            </label>
+                            <label class="consent-checkbox">
+                                <input type="checkbox" checked>
+                                <span>I approve the selected gift preferences for my children</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="back-btn" onclick="showStep('signup')">
+                            <i class="fas fa-arrow-left"></i> Back to Review
+                        </button>
+                        <button class="parent-pay-btn" onclick="processFamilyPayment()">
+                            <i class="fas fa-shield-alt"></i> Pay $94.50 for Kids
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Family Confirmation -->
+            <div class="demo-step" id="confirmation-step">
+                <div class="family-success">
+                    <div class="success-animation">
+                        <div class="family-success-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="success-hearts">
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                            <i class="fas fa-heart"></i>
+                        </div>
+                    </div>
+                    
+                    <h2>🏠 Welcome to the Family Exchange!</h2>
+                    <p>Emma, you're all set! The Johnson family exchange is ready.</p>
+
+                    <div class="family-confirmation">
+                        <h3>👨‍👩‍👧‍👦 Family Exchange Details</h3>
+                        <div class="family-detail-item">
+                            <span>Family:</span>
+                            <span>The Johnson Family Exchange</span>
+                        </div>
+                        <div class="family-detail-item">
+                            <span>Your Status:</span>
+                            <span>Teen Member (Supervised)</span>
+                        </div>
+                        <div class="family-detail-item">
+                            <span>Your Budget:</span>
+                            <span>$30.00 (Parent paid)</span>
+                        </div>
+                        <div class="family-detail-item">
+                            <span>Transaction ID:</span>
+                            <span>ENK-FAM-2024-000456</span>
+                        </div>
+                        <div class="family-detail-item">
+                            <span>Delivery:</span>
+                            <span>Johnson Family Home</span>
+                        </div>
+                        <div class="family-detail-item">
+                            <span>Exchange Date:</span>
+                            <span>December 22, 2024</span>
+                        </div>
+                    </div>
+
+                    <div class="family-safety-reminder">
+                        <h3>🛡️ Family Safety Reminders</h3>
+                        <ul>
+                            <li>✅ All your gift selections were approved by Mom</li>
+                            <li>✅ You'll be matched with a family member</li>
+                            <li>✅ Chat is limited to family-friendly hours (8 AM - 8 PM)</li>
+                            <li>✅ Gifts will be opened together as a family</li>
+                        </ul>
+                    </div>
+
+                    <div class="family-timeline">
+                        <h3>🗓️ What Happens Next?</h3>
+                        <div class="family-steps-timeline">
+                            <div class="timeline-item active">
+                                <div class="timeline-point">✅</div>
+                                <div class="timeline-content">
+                                    <strong>You're In!</strong>
+                                    <span>Welcome to the family exchange</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">👨‍👩‍👧‍👦</div>
+                                <div class="timeline-content">
+                                    <strong>Family Complete (Dec 16)</strong>
+                                    <span>All family members joined</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🤖</div>
+                                <div class="timeline-content">
+                                    <strong>Family Matching (Dec 18)</strong>
+                                    <span>Paired with family member</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🎁</div>
+                                <div class="timeline-content">
+                                    <strong>Gifts Arrive (Dec 22)</strong>
+                                    <span>All gifts delivered to home</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🏠</div>
+                                <div class="timeline-content">
+                                    <strong>Family Celebration</strong>
+                                    <span>Open gifts together!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="success-actions">
+                        <button class="primary-btn" onclick="downloadFamilyReceipt()">
+                            <i class="fas fa-download"></i> Download Receipt
+                        </button>
+                        <button class="secondary-btn" onclick="viewFamilyStatus()">
+                            <i class="fas fa-home"></i> View Family Exchange
+                        </button>
+                        <button class="secondary-btn" onclick="window.location.href='categories.html'">
+                            <i class="fas fa-water"></i> Back to EnkiConnect
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="demo-controls">
+            <button class="demo-control-btn" onclick="window.location.href='family-dashboard.html'">
+                <i class="fas fa-arrow-left"></i> Family Dashboard
+            </button>
+            <button class="demo-control-btn" onclick="window.location.href='investor-demo.html'">
+                <i class="fas fa-presentation"></i> Investor Demo
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function showStep(stepName) {
+            document.querySelectorAll('.demo-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.demo-step').forEach(step => step.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(stepName + '-step').classList.add('active');
+        }
+
+        function processFamilyPayment() {
+            const payBtn = document.querySelector('.parent-pay-btn');
+            const originalText = payBtn.innerHTML;
+            
+            payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Family Payment...';
+            payBtn.disabled = true;
+            
+            setTimeout(() => {
+                showStep('confirmation');
+                payBtn.innerHTML = originalText;
+                payBtn.disabled = false;
+            }, 3000);
+        }
+
+        function downloadFamilyReceipt() {
+            alert('📄 Family receipt downloaded: enkiconnect-family-receipt-ENK-FAM-2024-000456.pdf');
+        }
+
+        function viewFamilyStatus() {
+            alert('🏠 Redirecting to Johnson Family Exchange dashboard...');
+        }
+    </script>
+</body>
+</html> 

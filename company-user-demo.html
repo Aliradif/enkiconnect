@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👨‍💼 Company Employee Demo - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="user-demo-page">
+    <div class="user-demo-container">
+        <header class="demo-header">
+            <h1><i class="fas fa-briefcase"></i> Company Employee User Experience</h1>
+            <p>Complete journey from invitation to payment - TechCorp Holiday Exchange</p>
+        </header>
+
+        <main class="demo-main">
+            <div class="demo-tabs">
+                <button class="demo-tab active" onclick="showStep('invitation')">📧 Email Invitation</button>
+                <button class="demo-tab" onclick="showStep('signup')">📝 Sign Up</button>
+                <button class="demo-tab" onclick="showStep('preferences')">🎯 Preferences</button>
+                <button class="demo-tab" onclick="showStep('payment')">💳 Payment</button>
+                <button class="demo-tab" onclick="showStep('confirmation')">✅ Confirmation</button>
+            </div>
+
+            <!-- Step 1: Email Invitation -->
+            <div class="demo-step active" id="invitation-step">
+                <div class="email-client">
+                    <div class="email-header">
+                        <div class="email-from">
+                            <strong>From:</strong> EnkiConnect Team &lt;noreply@enkiconnect.com&gt;<br/>
+                            <strong>To:</strong> sarah.johnson@techcorp.com<br/>
+                            <strong>Subject:</strong> 🎁 Join TechCorp's Holiday Gift Exchange!
+                        </div>
+                        <div class="email-date">Dec 15, 2024 10:30 AM</div>
+                    </div>
+                    
+                    <div class="email-body">
+                        <div class="email-banner">
+                            <h2>🏺 TechCorp Holiday Exchange</h2>
+                            <p>Ancient traditions, modern connections</p>
+                        </div>
+
+                        <div class="email-content">
+                            <p>Hi Sarah,</p>
+                            
+                            <p>You're invited to join TechCorp's holiday gift exchange powered by <strong>EnkiConnect</strong> - where ancient wisdom meets modern giving!</p>
+
+                            <div class="exchange-details">
+                                <h3>📋 Exchange Details:</h3>
+                                <ul>
+                                    <li><strong>Budget Range:</strong> $20 - $50 per person</li>
+                                    <li><strong>Participants:</strong> All TechCorp employees</li>
+                                    <li><strong>Delivery:</strong> TechCorp main office</li>
+                                    <li><strong>Exchange Date:</strong> December 22, 2024</li>
+                                    <li><strong>AI-Curated:</strong> Surprise gifts chosen by Enki's wisdom!</li>
+                                </ul>
+                            </div>
+
+                            <div class="cta-section">
+                                <button class="join-btn" onclick="showStep('signup')">
+                                    <i class="fas fa-gift"></i> Join Gift Exchange
+                                </button>
+                                <p class="deadline">⏰ <strong>RSVP by December 18th</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Sign Up -->
+            <div class="demo-step" id="signup-step">
+                <div class="signup-form">
+                    <div class="form-header">
+                        <h2>🏺 Join TechCorp's Exchange</h2>
+                        <p>Welcome to EnkiConnect, Sarah! Let's get you set up.</p>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-step completed">
+                            <div class="step-circle">1</div>
+                            <span>Verify</span>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="step-circle">2</div>
+                            <span>Sign Up</span>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle">3</div>
+                            <span>Preferences</span>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle">4</div>
+                            <span>Payment</span>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>👤 Your Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" value="Sarah" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" value="Johnson" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="workEmail">Work Email</label>
+                                <input type="email" id="workEmail" value="sarah.johnson@techcorp.com" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="department">Department</label>
+                                <input type="text" id="department" value="Engineering" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>💰 Your Budget</h3>
+                        <p>Choose your contribution (company range: $20-$50)</p>
+                        
+                        <div class="budget-slider">
+                            <input type="range" id="budgetSlider" min="20" max="50" value="35" oninput="updateBudget()">
+                            <div class="budget-display">
+                                <span id="budgetAmount">$35</span>
+                                <span class="budget-label">Your contribution</span>
+                            </div>
+                            <div class="budget-markers">
+                                <span>$20</span>
+                                <span>$35</span>
+                                <span>$50</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="next-btn" onclick="showStep('preferences')">
+                            <i class="fas fa-arrow-right"></i> Continue to Preferences
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Preferences -->
+            <div class="demo-step" id="preferences-step">
+                <div class="preferences-form">
+                    <div class="form-header">
+                        <h2>🎯 Gift Preferences</h2>
+                        <p>Help Enki's wisdom find the perfect surprise for you!</p>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-step completed">
+                            <div class="step-circle">1</div>
+                            <span>Verify</span>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="step-circle">2</div>
+                            <span>Sign Up</span>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="step-circle">3</div>
+                            <span>Preferences</span>
+                        </div>
+                        <div class="progress-step">
+                            <div class="step-circle">4</div>
+                            <span>Payment</span>
+                        </div>
+                    </div>
+
+                    <div class="preferences-grid">
+                        <label class="pref-item">
+                            <input type="checkbox" checked>
+                            <i class="fas fa-laptop"></i>
+                            <span>Tech Gadgets</span>
+                        </label>
+                        <label class="pref-item">
+                            <input type="checkbox">
+                            <i class="fas fa-book"></i>
+                            <span>Books</span>
+                        </label>
+                        <label class="pref-item">
+                            <input type="checkbox" checked>
+                            <i class="fas fa-coffee"></i>
+                            <span>Coffee & Tea</span>
+                        </label>
+                        <label class="pref-item">
+                            <input type="checkbox">
+                            <i class="fas fa-dumbbell"></i>
+                            <span>Fitness</span>
+                        </label>
+                        <label class="pref-item">
+                            <input type="checkbox" checked>
+                            <i class="fas fa-home"></i>
+                            <span>Home Office</span>
+                        </label>
+                        <label class="pref-item">
+                            <input type="checkbox">
+                            <i class="fas fa-palette"></i>
+                            <span>Art & Crafts</span>
+                        </label>
+                    </div>
+
+                    <div class="delivery-section">
+                        <h3>📍 Delivery Confirmation</h3>
+                        <div class="delivery-info">
+                            <i class="fas fa-building"></i>
+                            <div>
+                                <strong>TechCorp Office</strong><br/>
+                                123 Innovation Drive<br/>
+                                San Francisco, CA 94105
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="back-btn" onclick="showStep('signup')">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="next-btn" onclick="showStep('payment')">
+                            <i class="fas fa-credit-card"></i> Continue to Payment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Payment -->
+            <div class="demo-step" id="payment-step">
+                <div class="payment-form">
+                    <div class="form-header">
+                        <h2>💳 Secure Payment</h2>
+                        <p>Complete your $35 contribution to TechCorp's exchange</p>
+                    </div>
+
+                    <div class="progress-bar">
+                        <div class="progress-step completed">
+                            <div class="step-circle">1</div>
+                            <span>Verify</span>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="step-circle">2</div>
+                            <span>Sign Up</span>
+                        </div>
+                        <div class="progress-step completed">
+                            <div class="step-circle">3</div>
+                            <span>Preferences</span>
+                        </div>
+                        <div class="progress-step active">
+                            <div class="step-circle">4</div>
+                            <span>Payment</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-summary">
+                        <h3>📋 Order Summary</h3>
+                        <div class="summary-item">
+                            <span>TechCorp Holiday Exchange</span>
+                            <span>$35.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>EnkiConnect Service Fee</span>
+                            <span>$1.75</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span>$36.75</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <h3>💳 Payment Method</h3>
+                        <div class="payment-options">
+                            <label class="payment-option selected">
+                                <input type="radio" name="payment" value="card" checked>
+                                <i class="fas fa-credit-card"></i>
+                                <span>Credit/Debit Card</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="paypal">
+                                <i class="fab fa-paypal"></i>
+                                <span>PayPal</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="apple">
+                                <i class="fab fa-apple-pay"></i>
+                                <span>Apple Pay</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card-form">
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="4532 1234 5678 9012" value="4532 1234 5678 9012">
+                            <div class="card-icons">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" value="12/27">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123" value="456">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardName">Name on Card</label>
+                            <input type="text" id="cardName" placeholder="Sarah Johnson" value="Sarah Johnson">
+                        </div>
+                    </div>
+
+                    <div class="billing-address">
+                        <h3>📍 Billing Address</h3>
+                        <div class="form-group">
+                            <input type="text" placeholder="Address" value="456 Engineering Lane">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" placeholder="City" value="San Francisco">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="State" value="CA">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="ZIP" value="94105">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="security-info">
+                        <div class="security-badge">
+                            <i class="fas fa-lock"></i>
+                            <span>Secured by EnkiConnect SSL</span>
+                        </div>
+                        <p>Your payment information is encrypted and secure. We never store your card details.</p>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="back-btn" onclick="showStep('preferences')">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="pay-btn" onclick="processPayment()">
+                            <i class="fas fa-lock"></i> Pay $36.75 Securely
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Confirmation -->
+            <div class="demo-step" id="confirmation-step">
+                <div class="confirmation-page">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    
+                    <h2>🎉 Welcome to the Exchange!</h2>
+                    <p>Your payment of $36.75 has been processed successfully.</p>
+
+                    <div class="confirmation-details">
+                        <h3>📋 Exchange Details</h3>
+                        <div class="detail-item">
+                            <span>Exchange:</span>
+                            <span>TechCorp Holiday Exchange</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Your Contribution:</span>
+                            <span>$35.00</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Transaction ID:</span>
+                            <span>ENK-TC-2024-001247</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Delivery Location:</span>
+                            <span>TechCorp Office</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Expected Delivery:</span>
+                            <span>December 22, 2024</span>
+                        </div>
+                    </div>
+
+                    <div class="next-steps">
+                        <h3>🔮 What Happens Next?</h3>
+                        <div class="steps-timeline">
+                            <div class="timeline-item active">
+                                <div class="timeline-point">✅</div>
+                                <div class="timeline-content">
+                                    <strong>Payment Complete</strong>
+                                    <span>You're officially in the exchange!</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🤖</div>
+                                <div class="timeline-content">
+                                    <strong>AI Matching (Dec 18)</strong>
+                                    <span>Enki's wisdom pairs you with a colleague</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🎁</div>
+                                <div class="timeline-content">
+                                    <strong>Gift Delivery (Dec 22)</strong>
+                                    <span>Your surprise arrives at the office!</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">💬</div>
+                                <div class="timeline-content">
+                                    <strong>24-Hour Chat</strong>
+                                    <span>Connect with your gift partner</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="confirmation-actions">
+                        <button class="primary-btn" onclick="downloadReceipt()">
+                            <i class="fas fa-download"></i> Download Receipt
+                        </button>
+                        <button class="secondary-btn" onclick="viewExchange()">
+                            <i class="fas fa-eye"></i> View Exchange Status
+                        </button>
+                        <button class="secondary-btn" onclick="window.location.href='categories.html'">
+                            <i class="fas fa-home"></i> Back to EnkiConnect
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="demo-controls">
+            <button class="demo-control-btn" onclick="window.location.href='company-invite-demo.html'">
+                <i class="fas fa-arrow-left"></i> Back to Invite Demo
+            </button>
+            <button class="demo-control-btn" onclick="window.location.href='investor-demo.html'">
+                <i class="fas fa-presentation"></i> Investor Demo
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function showStep(stepName) {
+            // Remove active class from all tabs and steps
+            document.querySelectorAll('.demo-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.demo-step').forEach(step => step.classList.remove('active'));
+            
+            // Add active class to selected tab and step
+            event.target.classList.add('active');
+            document.getElementById(stepName + '-step').classList.add('active');
+        }
+
+        function updateBudget() {
+            const slider = document.getElementById('budgetSlider');
+            const display = document.getElementById('budgetAmount');
+            display.textContent = '$' + slider.value;
+        }
+
+        function processPayment() {
+            const payBtn = document.querySelector('.pay-btn');
+            const originalText = payBtn.innerHTML;
+            
+            payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            payBtn.disabled = true;
+            
+            setTimeout(() => {
+                showStep('confirmation');
+                payBtn.innerHTML = originalText;
+                payBtn.disabled = false;
+            }, 3000);
+        }
+
+        function downloadReceipt() {
+            alert('📄 Receipt downloaded: enkiconnect-receipt-ENK-TC-2024-001247.pdf');
+        }
+
+        function viewExchange() {
+            alert('👥 Redirecting to your exchange dashboard...');
+        }
+
+        // Auto-navigate demonstration
+        let autoDemo = false;
+        function startAutoDemo() {
+            autoDemo = true;
+            setTimeout(() => autoDemo && showStep('signup'), 5000);
+            setTimeout(() => autoDemo && showStep('preferences'), 10000);
+            setTimeout(() => autoDemo && showStep('payment'), 15000);
+            setTimeout(() => autoDemo && processPayment(), 20000);
+        }
+    </script>
+</body>
+</html> 

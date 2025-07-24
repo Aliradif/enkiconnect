@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Test - Profile Rating</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            background: #f0f0f0;
+        }
+        .test-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        .stat {
+            display: inline-block;
+            text-align: center;
+            margin: 10px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            min-width: 100px;
+        }
+        .stat-number {
+            display: block;
+            font-size: 24px;
+            font-weight: bold;
+            color: #4c63d2;
+        }
+        .stat-label {
+            display: block;
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        button {
+            background: #4c63d2;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #3a4fd4;
+        }
+    </style>
+</head>
+<body>
+    <h1>🏺 Profile Rating Test</h1>
+    
+    <div class="test-card">
+        <h3>Current Profile Stats (Before Fix)</h3>
+        <div class="stat">
+            <span class="stat-number" id="giftsSent">0</span>
+            <span class="stat-label">Gifts Sent</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number" id="giftsReceived">0</span>
+            <span class="stat-label">Gifts Received</span>
+        </div>
+        <div class="stat">
+            <span class="stat-number" id="exchangesJoined">0</span>
+            <span class="stat-label">Exchanges</span>
+        </div>
+    </div>
+    
+    <div class="test-card">
+        <h3>Test Controls</h3>
+        <button onclick="updateToNew()">Update to "New" Rating</button>
+        <button onclick="updateToOld()">Update to "5.0" Rating</button>
+        <button onclick="checkElements()">Check Elements</button>
+        <button onclick="simulateProfileLoad()">Simulate Profile Load</button>
+    </div>
+    
+    <div class="test-card">
+        <h3>Debug Output</h3>
+        <div id="debugOutput" style="background: #1a1a1a; color: #00ff00; padding: 15px; border-radius: 5px; font-family: monospace; min-height: 100px; overflow-y: auto;"></div>
+    </div>
+    
+    <div class="test-card">
+        <h3>Links</h3>
+        <button onclick="window.open('profile.html', '_blank')">Open Real Profile</button>
+        <button onclick="window.open('test-auth.html', '_blank')">Open Auth Test</button>
+        <button onclick="window.open('index.html', '_blank')">Open Sign In</button>
+    </div>
+
+    <script>
+        let debugDiv = document.getElementById('debugOutput');
+        
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugDiv.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            debugDiv.scrollTop = debugDiv.scrollHeight;
+            console.log(message);
+        }
+        
+        function updateToNew() {
+            const exchangesEl = document.getElementById('exchangesJoined');
+            if (exchangesEl) {
+                exchangesEl.textContent = '0';
+                log('✅ Updated exchanges to "0" (new user default)');
+            } else {
+                log('❌ Could not find exchangesJoined element');
+            }
+        }
+        
+        function updateToOld() {
+            const exchangesEl = document.getElementById('exchangesJoined');
+            if (exchangesEl) {
+                exchangesEl.textContent = '3';
+                log('✅ Updated exchanges to "3"');
+            } else {
+                log('❌ Could not find exchangesJoined element');
+            }
+        }
+        
+        function checkElements() {
+            const giftsSent = document.getElementById('giftsSent');
+            const giftsReceived = document.getElementById('giftsReceived');
+            const exchangesJoined = document.getElementById('exchangesJoined');
+            
+            log('🔍 Element Check:');
+            log(`  giftsSent: ${giftsSent ? 'Found' : 'Missing'} - Value: "${giftsSent?.textContent}"`);
+            log(`  giftsReceived: ${giftsReceived ? 'Found' : 'Missing'} - Value: "${giftsReceived?.textContent}"`);
+            log(`  exchangesJoined: ${exchangesJoined ? 'Found' : 'Missing'} - Value: "${exchangesJoined?.textContent}"`);
+        }
+        
+        function simulateProfileLoad() {
+            log('🏺 Simulating profile load...');
+            
+            // Simulate the same logic as in profile.js
+            const giftsSentEl = document.getElementById('giftsSent');
+            const giftsReceivedEl = document.getElementById('giftsReceived');
+            const exchangesJoinedEl = document.getElementById('exchangesJoined');
+            
+            if (giftsSentEl) {
+                giftsSentEl.textContent = '0';
+                log('✅ Set gifts sent to 0');
+            }
+            if (giftsReceivedEl) {
+                giftsReceivedEl.textContent = '0';
+                log('✅ Set gifts received to 0');
+            }
+            if (exchangesJoinedEl) {
+                exchangesJoinedEl.textContent = '0';
+                log('✅ Set exchanges to "0" (new user default)');
+            }
+            
+            log('🎉 Profile simulation complete!');
+        }
+        
+        // Initialize
+        window.addEventListener('load', function() {
+            log('🏺 Quick test page loaded');
+            checkElements();
+        });
+    </script>
+</body>
+</html> 

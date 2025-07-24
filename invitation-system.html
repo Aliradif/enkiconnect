@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invitation System - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="invitation-container">
+        <!-- Header -->
+        <header class="invitation-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='categories.html'">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </button>
+            </div>
+            <div class="header-center">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="profile.html" class="profile-btn">
+                    <i class="fas fa-user-circle"></i> Profile
+                </a>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="invitation-main">
+            <div class="invitation-hero">
+                <div class="hero-content">
+                    <h1><i class="fas fa-paper-plane"></i> Invitation System Demo</h1>
+                    <p>Test all invitation methods: Email, SMS, and Shareable Links</p>
+                </div>
+            </div>
+
+            <!-- Invitation Methods -->
+            <div class="invitation-methods">
+                <!-- Email Invitations -->
+                <div class="method-card">
+                    <div class="method-header">
+                        <div class="method-icon email-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="method-info">
+                            <h3>Email Invitations</h3>
+                            <p>Send personalized email invites with beautiful templates</p>
+                        </div>
+                    </div>
+                    
+                    <div class="method-form">
+                        <div class="form-group">
+                            <label for="emailRecipient">Recipient Email</label>
+                            <input type="email" id="emailRecipient" placeholder="friend@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="emailMessage">Personal Message</label>
+                            <textarea id="emailMessage" rows="3" placeholder="Hey! Join me for a fun gift exchange..."></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="exchangeType">Exchange Type</label>
+                            <select id="exchangeType">
+                                <option value="company">Company Exchange</option>
+                                <option value="friend">Friend Exchange</option>
+                                <option value="family">Family Exchange</option>
+                                <option value="world">World Exchange</option>
+                            </select>
+                        </div>
+                        <button class="invite-btn email-btn" onclick="sendEmailInvite()">
+                            <i class="fas fa-paper-plane"></i> Send Email Invite
+                        </button>
+                    </div>
+
+                    <!-- Email Preview -->
+                    <div class="email-preview" id="emailPreview">
+                        <div class="preview-header">
+                            <h4><i class="fas fa-eye"></i> Email Preview</h4>
+                            <button class="close-preview" onclick="closeEmailPreview()">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                        <div class="email-template">
+                            <div class="email-subject">
+                                <strong>Subject:</strong> You're invited to join EnkiConnect Gift Exchange!
+                            </div>
+                            <div class="email-body">
+                                <div class="email-logo">
+                                    <i class="fas fa-gamepad"></i> EnkiConnect
+                                </div>
+                                <h2>You're Invited!</h2>
+                                <p id="previewMessage">Join me for an amazing gift exchange experience!</p>
+                                <div class="email-details">
+                                    <p><strong>Exchange Type:</strong> <span id="previewType">Friend Exchange</span></p>
+                                    <p><strong>Organizer:</strong> <span id="previewOrganizer">You</span></p>
+                                </div>
+                                <div class="email-cta">
+                                    <button class="cta-button">Accept Invitation</button>
+                                </div>
+                                <div class="email-footer">
+                                    <p>This invitation expires in 7 days.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SMS Invitations -->
+                <div class="method-card">
+                    <div class="method-header">
+                        <div class="method-icon sms-icon">
+                            <i class="fas fa-sms"></i>
+                        </div>
+                        <div class="method-info">
+                            <h3>SMS Invitations</h3>
+                            <p>Quick text message invites with join links</p>
+                        </div>
+                    </div>
+                    
+                    <div class="method-form">
+                        <div class="form-group">
+                            <label for="smsRecipient">Recipient Phone</label>
+                            <input type="tel" id="smsRecipient" placeholder="+1 (555) 123-4567" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Message Template</label>
+                            <div class="sms-template">
+                                <p id="smsTemplate">Hi! Join my EnkiConnect gift exchange: <span class="link-placeholder">[JOIN_LINK]</span></p>
+                            </div>
+                        </div>
+                        <div class="character-count">
+                            <span id="smsCharCount">48</span>/160 characters
+                        </div>
+                        <button class="invite-btn sms-btn" onclick="sendSMSInvite()">
+                            <i class="fas fa-mobile-alt"></i> Send SMS Invite
+                        </button>
+                    </div>
+
+                    <!-- SMS Preview -->
+                    <div class="sms-preview" id="smsPreview">
+                        <div class="phone-mockup">
+                            <div class="phone-screen">
+                                <div class="message-bubble">
+                                    <p id="smsPreviewText">Hi! Join my EnkiConnect gift exchange: https://enkiconnect.app/join/abc123</p>
+                                    <span class="message-time">now</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Link Sharing -->
+                <div class="method-card">
+                    <div class="method-header">
+                        <div class="method-icon link-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="method-info">
+                            <h3>Shareable Links</h3>
+                            <p>Generate unique invitation links to share anywhere</p>
+                        </div>
+                    </div>
+                    
+                    <div class="method-form">
+                        <div class="form-group">
+                            <label for="linkExpiry">Link Expiry</label>
+                            <select id="linkExpiry">
+                                <option value="1">1 day</option>
+                                <option value="7" selected>7 days</option>
+                                <option value="30">30 days</option>
+                                <option value="0">Never expires</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="maxUses">Maximum Uses</label>
+                            <select id="maxUses">
+                                <option value="1">1 person</option>
+                                <option value="5">5 people</option>
+                                <option value="10" selected>10 people</option>
+                                <option value="0">Unlimited</option>
+                            </select>
+                        </div>
+                        <button class="invite-btn link-btn" onclick="generateInviteLink()">
+                            <i class="fas fa-magic"></i> Generate Invite Link
+                        </button>
+                    </div>
+
+                    <!-- Generated Link -->
+                    <div class="generated-link" id="generatedLink" style="display: none;">
+                        <div class="link-container">
+                            <div class="link-url" id="inviteLink">
+                                https://enkiconnect.app/join/xyz789abc
+                            </div>
+                            <div class="link-actions">
+                                <button class="action-btn copy-btn" onclick="copyInviteLink()">
+                                    <i class="fas fa-copy"></i> Copy
+                                </button>
+                                <button class="action-btn qr-btn" onclick="showQRCode()">
+                                    <i class="fas fa-qrcode"></i> QR Code
+                                </button>
+                                <button class="action-btn share-btn" onclick="shareLink()">
+                                    <i class="fas fa-share-alt"></i> Share
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="link-stats">
+                            <div class="stat-item">
+                                <span class="stat-value">0</span>
+                                <span class="stat-label">Clicks</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">7</span>
+                                <span class="stat-label">Days Left</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-value">10</span>
+                                <span class="stat-label">Uses Left</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Invitation History -->
+            <div class="invitation-history">
+                <div class="history-header">
+                    <h3><i class="fas fa-history"></i> Recent Invitations</h3>
+                    <button class="refresh-btn" onclick="refreshHistory()">
+                        <i class="fas fa-sync-alt"></i>
+                    </button>
+                </div>
+                
+                <div class="history-list">
+                    <div class="history-item">
+                        <div class="history-icon email-sent">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="history-content">
+                            <div class="history-title">Email to sarah@example.com</div>
+                            <div class="history-details">Company Exchange • Sent 2 minutes ago</div>
+                        </div>
+                        <div class="history-status pending">
+                            <i class="fas fa-clock"></i> Pending
+                        </div>
+                    </div>
+                    
+                    <div class="history-item">
+                        <div class="history-icon sms-sent">
+                            <i class="fas fa-sms"></i>
+                        </div>
+                        <div class="history-content">
+                            <div class="history-title">SMS to +1 (555) 123-4567</div>
+                            <div class="history-details">Friend Exchange • Sent 15 minutes ago</div>
+                        </div>
+                        <div class="history-status delivered">
+                            <i class="fas fa-check"></i> Delivered
+                        </div>
+                    </div>
+                    
+                    <div class="history-item">
+                        <div class="history-icon link-shared">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="history-content">
+                            <div class="history-title">Shareable Link</div>
+                            <div class="history-details">World Exchange • 3 clicks • Created 1 hour ago</div>
+                        </div>
+                        <div class="history-status active">
+                            <i class="fas fa-eye"></i> Active
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="qr-modal" id="qrModal" style="display: none;">
+        <div class="modal-overlay" onclick="closeQRModal()"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>QR Code</h3>
+                <button class="close-btn" onclick="closeQRModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="qr-code-container">
+                <div class="qr-code" id="qrCode">
+                    <!-- QR Code will be generated here -->
+                    <div class="qr-placeholder">
+                        <i class="fas fa-qrcode"></i>
+                        <p>QR Code</p>
+                    </div>
+                </div>
+                <p>Scan to join the exchange</p>
+            </div>
+            <div class="modal-actions">
+                <button class="download-btn" onclick="downloadQR()">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal" style="display: none;">
+        <div class="modal-overlay" onclick="closeSuccessModal()"></div>
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3 id="successTitle">Invitation Sent!</h3>
+            <p id="successMessage">Your invitation has been sent successfully.</p>
+            <button class="continue-btn" onclick="closeSuccessModal()">
+                Continue
+            </button>
+        </div>
+    </div>
+
+    <!-- External Services CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    
+    <!-- EnkiConnect Scripts -->
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    <script src="invitation-backend.js"></script>
+    <script src="invitation-system.js"></script>
+</body>
+</html> 

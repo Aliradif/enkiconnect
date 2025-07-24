@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📱 Friend Invitation Demo - PlayConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="invite-demo-page">
+    <div class="invite-demo-container">
+        <header class="demo-header">
+            <h1><i class="fas fa-mobile-alt"></i> Friend Invitation Demo</h1>
+            <p>See how friends receive and join gift exchange groups</p>
+        </header>
+
+        <main class="demo-main">
+            <div class="demo-tabs">
+                <button class="demo-tab active" onclick="showDemo('sms')">💬 SMS Invitation</button>
+                <button class="demo-tab" onclick="showDemo('join')">🎁 Join Group</button>
+                <button class="demo-tab" onclick="showDemo('organizer')">👤 Organizer View</button>
+            </div>
+
+            <!-- SMS Invitation Demo -->
+            <div class="demo-section active" id="sms-demo">
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="time">2:34 PM</div>
+                        <div class="battery">
+                            <i class="fas fa-battery-three-quarters"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="messages-screen">
+                        <div class="messages-header">
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="contact-name">Alex Chen</span>
+                            <i class="fas fa-phone"></i>
+                        </div>
+
+                        <div class="messages-body">
+                            <div class="message received">
+                                <div class="message-bubble">
+                                    Hey! 👋 Are you free for dinner next Friday?
+                                </div>
+                                <div class="message-time">1:45 PM</div>
+                            </div>
+
+                            <div class="message sent">
+                                <div class="message-bubble">
+                                    Yeah! What did you have in mind?
+                                </div>
+                                <div class="message-time">1:47 PM</div>
+                            </div>
+
+                            <div class="message received">
+                                <div class="message-bubble">
+                                    Actually, something even better! 🎁✨
+                                </div>
+                                <div class="message-time">2:15 PM</div>
+                            </div>
+
+                            <div class="message received special-invite">
+                                <div class="invite-card">
+                                    <div class="invite-header">
+                                        <i class="fas fa-gift"></i>
+                                        <span>Gift Exchange Invitation</span>
+                                    </div>
+                                    <div class="invite-content">
+                                        <h4>🎄 Alex's Holiday Squad Exchange</h4>
+                                        <p><strong>You're invited!</strong> Join our friend group mystery gift exchange.</p>
+                                        
+                                        <div class="invite-details">
+                                            <div class="detail">
+                                                <i class="fas fa-users"></i>
+                                                <span>8 friends invited</span>
+                                            </div>
+                                            <div class="detail">
+                                                <i class="fas fa-dollar-sign"></i>
+                                                <span>$15 - $40 budget</span>
+                                            </div>
+                                            <div class="detail">
+                                                <i class="fas fa-calendar"></i>
+                                                <span>Exchange: Dec 20th</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="participant-preview">
+                                            <span class="preview-label">Already joined:</span>
+                                            <div class="participant-avatars">
+                                                <div class="avatar">A</div>
+                                                <div class="avatar">M</div>
+                                                <div class="avatar">S</div>
+                                                <div class="avatar plus">+2</div>
+                                            </div>
+                                        </div>
+
+                                        <a href="#" class="invite-join-btn" onclick="showDemo('join')">
+                                            🎁 Join Exchange
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="message-time">2:30 PM</div>
+                            </div>
+
+                            <div class="message received">
+                                <div class="message-bubble">
+                                    It's going to be so fun! Everyone gets a mystery gift and we can chat about what we got! 😄
+                                </div>
+                                <div class="message-time">2:31 PM</div>
+                            </div>
+                        </div>
+
+                        <div class="message-input">
+                            <i class="fas fa-plus-circle"></i>
+                            <input type="text" placeholder="Message...">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Join Group Demo -->
+            <div class="demo-section" id="join-demo">
+                <div class="join-form">
+                    <div class="form-header">
+                        <h2>🎁 Join Alex's Holiday Squad Exchange</h2>
+                        <p>You're joining a friend group gift exchange!</p>
+                    </div>
+
+                    <div class="group-info">
+                        <div class="organizer-info">
+                            <div class="organizer-avatar">A</div>
+                            <div class="organizer-details">
+                                <strong>Organized by Alex Chen</strong>
+                                <span>Friend since 2019 • Mutual: 12 friends</span>
+                            </div>
+                        </div>
+
+                        <div class="group-stats">
+                            <div class="stat">
+                                <i class="fas fa-users"></i>
+                                <span>8 invited</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-check-circle"></i>
+                                <span>5 joined</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-calendar"></i>
+                                <span>Dec 20th</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="friend-list">
+                        <h3>👥 Who's Joining</h3>
+                        <div class="friends-grid">
+                            <div class="friend-item confirmed">
+                                <div class="friend-avatar">A</div>
+                                <span class="friend-name">Alex</span>
+                                <i class="fas fa-crown organizer-badge" title="Organizer"></i>
+                            </div>
+                            <div class="friend-item confirmed">
+                                <div class="friend-avatar">M</div>
+                                <span class="friend-name">Maya</span>
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="friend-item confirmed">
+                                <div class="friend-avatar">S</div>
+                                <span class="friend-name">Sam</span>
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="friend-item confirmed">
+                                <div class="friend-avatar">J</div>
+                                <span class="friend-name">Jordan</span>
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="friend-item confirmed">
+                                <div class="friend-avatar">T</div>
+                                <span class="friend-name">Taylor</span>
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="friend-item pending">
+                                <div class="friend-avatar">E</div>
+                                <span class="friend-name">Emma</span>
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="friend-item pending">
+                                <div class="friend-avatar">D</div>
+                                <span class="friend-name">David</span>
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="friend-item you">
+                                <div class="friend-avatar">Y</div>
+                                <span class="friend-name">You</span>
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="budget-section">
+                        <h3>💰 Your Budget</h3>
+                        <p>Alex set the range at $15-$40. Choose your amount:</p>
+                        
+                        <div class="budget-slider">
+                            <input type="range" id="friendBudget" min="15" max="40" value="25" oninput="updateFriendBudget()">
+                            <div class="budget-display">
+                                <span id="friendBudgetAmount">$25</span>
+                                <span class="budget-label">Your contribution</span>
+                            </div>
+                            <div class="budget-markers">
+                                <span>$15</span>
+                                <span>$25</span>
+                                <span>$40</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="preferences-section">
+                        <h3>🎯 Quick Preferences</h3>
+                        <div class="quick-prefs">
+                            <label class="quick-pref">
+                                <input type="checkbox" checked>
+                                <span>🎮 Gaming</span>
+                            </label>
+                            <label class="quick-pref">
+                                <input type="checkbox">
+                                <span>📚 Books</span>
+                            </label>
+                            <label class="quick-pref">
+                                <input type="checkbox" checked>
+                                <span>☕ Coffee/Tea</span>
+                            </label>
+                            <label class="quick-pref">
+                                <input type="checkbox">
+                                <span>🎵 Music</span>
+                            </label>
+                            <label class="quick-pref">
+                                <input type="checkbox" checked>
+                                <span>🏋️ Fitness</span>
+                            </label>
+                            <label class="quick-pref">
+                                <input type="checkbox">
+                                <span>🎨 Art & Crafts</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="address-section">
+                        <h3>📍 Your Address</h3>
+                        <p>Where should your gift be delivered?</p>
+                        <div class="address-form">
+                            <input type="text" placeholder="123 Main Street" class="address-input">
+                            <div class="address-row">
+                                <input type="text" placeholder="City" class="address-input small">
+                                <input type="text" placeholder="State" class="address-input small">
+                                <input type="text" placeholder="ZIP" class="address-input small">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="join-confirm-btn" onclick="confirmFriendJoin()">
+                            <i class="fas fa-user-plus"></i> Join Gift Exchange
+                        </button>
+                        <button class="decline-btn" onclick="declineInvite()">
+                            <i class="fas fa-times"></i> Maybe Next Time
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Organizer View Demo -->
+            <div class="demo-section" id="organizer-demo">
+                <div class="organizer-dashboard">
+                    <div class="dashboard-header">
+                        <h2>🎁 Alex's Holiday Squad Exchange</h2>
+                        <p>Manage your friend group gift exchange</p>
+                    </div>
+
+                    <div class="quick-stats">
+                        <div class="quick-stat">
+                            <span class="stat-number">6</span>
+                            <span class="stat-label">Friends Joined</span>
+                        </div>
+                        <div class="quick-stat">
+                            <span class="stat-number">2</span>
+                            <span class="stat-label">Still Pending</span>
+                        </div>
+                        <div class="quick-stat">
+                            <span class="stat-number">$158</span>
+                            <span class="stat-label">Total Pool</span>
+                        </div>
+                        <div class="quick-stat">
+                            <span class="stat-number">3</span>
+                            <span class="stat-label">Days Left</span>
+                        </div>
+                    </div>
+
+                    <div class="friend-management">
+                        <h3>👥 Friend Status</h3>
+                        <div class="friend-status-list">
+                            <div class="friend-status-item joined">
+                                <div class="friend-info">
+                                    <div class="friend-avatar">M</div>
+                                    <div class="friend-details">
+                                        <strong>Maya Rodriguez</strong>
+                                        <span>Joined 2 days ago • $30 budget</span>
+                                    </div>
+                                </div>
+                                <div class="friend-actions">
+                                    <span class="status-badge joined">✅ Joined</span>
+                                    <button class="action-btn">View</button>
+                                </div>
+                            </div>
+
+                            <div class="friend-status-item joined">
+                                <div class="friend-info">
+                                    <div class="friend-avatar">S</div>
+                                    <div class="friend-details">
+                                        <strong>Sam Johnson</strong>
+                                        <span>Joined 1 day ago • $25 budget</span>
+                                    </div>
+                                </div>
+                                <div class="friend-actions">
+                                    <span class="status-badge joined">✅ Joined</span>
+                                    <button class="action-btn">View</button>
+                                </div>
+                            </div>
+
+                            <div class="friend-status-item pending">
+                                <div class="friend-info">
+                                    <div class="friend-avatar">E</div>
+                                    <div class="friend-details">
+                                        <strong>Emma Wilson</strong>
+                                        <span>Invited 3 days ago • No response yet</span>
+                                    </div>
+                                </div>
+                                <div class="friend-actions">
+                                    <span class="status-badge pending">⏳ Pending</span>
+                                    <button class="action-btn remind">Remind</button>
+                                </div>
+                            </div>
+
+                            <div class="friend-status-item just-joined">
+                                <div class="friend-info">
+                                    <div class="friend-avatar">Y</div>
+                                    <div class="friend-details">
+                                        <strong>You (Demo User)</strong>
+                                        <span>Just joined! • $25 budget</span>
+                                    </div>
+                                </div>
+                                <div class="friend-actions">
+                                    <span class="status-badge new">🎉 Just Joined!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="organizer-actions">
+                        <button class="organizer-btn primary">
+                            <i class="fas fa-user-plus"></i> Invite More Friends
+                        </button>
+                        <button class="organizer-btn secondary">
+                            <i class="fas fa-paper-plane"></i> Send Reminders
+                        </button>
+                        <button class="organizer-btn secondary">
+                            <i class="fas fa-edit"></i> Edit Details
+                        </button>
+                        <button class="organizer-btn launch">
+                            <i class="fas fa-rocket"></i> Start Exchange
+                        </button>
+                    </div>
+
+                    <div class="exchange-timeline">
+                        <h3>📅 Timeline</h3>
+                        <div class="timeline-items">
+                            <div class="timeline-item completed">
+                                <div class="timeline-icon">✅</div>
+                                <div class="timeline-content">
+                                    <strong>Exchange Created</strong>
+                                    <span>Dec 12 - Invitations sent to friends</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item active">
+                                <div class="timeline-icon">⏳</div>
+                                <div class="timeline-content">
+                                    <strong>Friends Joining</strong>
+                                    <span>Dec 12-17 - 6 of 8 friends have joined</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-icon">🤖</div>
+                                <div class="timeline-content">
+                                    <strong>AI Matching</strong>
+                                    <span>Dec 18 - Automatic gift matching</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-icon">🎁</div>
+                                <div class="timeline-content">
+                                    <strong>Gift Exchange</strong>
+                                    <span>Dec 20 - Gifts delivered & chat opens</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="demo-controls">
+            <button class="demo-control-btn" onclick="window.location.href='setup-friends.html'">
+                <i class="fas fa-arrow-left"></i> Back to Friends Setup
+            </button>
+            <button class="demo-control-btn" onclick="window.location.href='investor-demo.html'">
+                <i class="fas fa-presentation"></i> Investor Demo
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function showDemo(type) {
+            document.querySelectorAll('.demo-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.demo-section').forEach(section => section.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(type + '-demo').classList.add('active');
+        }
+
+        function updateFriendBudget() {
+            const slider = document.getElementById('friendBudget');
+            const display = document.getElementById('friendBudgetAmount');
+            display.textContent = '$' + slider.value;
+        }
+
+        function confirmFriendJoin() {
+            const budget = document.getElementById('friendBudget').value;
+            alert(`🎉 Awesome! You've joined Alex's gift exchange with a $${budget} budget. You'll get matched with a friend soon!`);
+            showDemo('organizer');
+        }
+
+        function declineInvite() {
+            alert('😢 You declined the invitation. Alex will be notified that you can\'t make it this time.');
+        }
+    </script>
+</body>
+</html> 

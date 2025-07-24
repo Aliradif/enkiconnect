@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friends Gift Exchange Setup - PlayConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="setup-page friends-page">
+    <div class="setup-container">
+        <header class="setup-header">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <span>PlayConnect</span>
+            </div>
+            <nav class="breadcrumb">
+                <a href="categories.html">Categories</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Friends Setup</span>
+            </nav>
+        </header>
+        
+        <main class="setup-main">
+            <div class="setup-progress">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <span>Event Details</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <span>Add Friends</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <span>Set Limits</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <span>Share & Launch</span>
+                </div>
+            </div>
+            
+            <div class="setup-content">
+                <!-- Step 1: Event Details -->
+                <div class="setup-step active" id="step1">
+                    <div class="step-header">
+                        <h2><i class="fas fa-user-friends"></i> Friends Gift Exchange Setup</h2>
+                        <p>Organize a fun gift exchange with your friends</p>
+                    </div>
+                    
+                    <form class="setup-form" id="eventDetailsForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="eventName">Event Name *</label>
+                                <input type="text" id="eventName" name="eventName" placeholder="e.g., Christmas Gift Exchange, Birthday Surprise" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="organizerName">Your Name *</label>
+                                <input type="text" id="organizerName" name="organizerName" placeholder="Your full name" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="organizerPhone">Your Phone Number *</label>
+                                <input type="tel" id="organizerPhone" name="organizerPhone" placeholder="+1 (555) 123-4567" required>
+                                <small>Used for event coordination and friend verification</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="organizerEmail">Your Email</label>
+                                <input type="email" id="organizerEmail" name="organizerEmail" placeholder="your.email@example.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDescription">Event Description</label>
+                            <textarea id="eventDescription" name="eventDescription" rows="3" placeholder="Describe your gift exchange event and any special themes or instructions..."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="exchangeDate">Gift Exchange Date</label>
+                                <input type="date" id="exchangeDate" name="exchangeDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="meetupLocation">Meetup Location (Optional)</label>
+                                <input type="text" id="meetupLocation" name="meetupLocation" placeholder="Where will you exchange gifts?">
+                            </div>
+                        </div>
+                        
+                        <div class="delivery-preferences">
+                            <h3>Delivery Preferences</h3>
+                            <div class="delivery-options">
+                                <label class="delivery-option">
+                                    <input type="radio" name="deliveryMethod" value="individual" checked>
+                                    <div class="option-content">
+                                        <h4><i class="fas fa-home"></i> Individual Addresses</h4>
+                                        <p>Each friend receives gifts at their own address</p>
+                                    </div>
+                                </label>
+                                <label class="delivery-option">
+                                    <input type="radio" name="deliveryMethod" value="central">
+                                    <div class="option-content">
+                                        <h4><i class="fas fa-map-marker-alt"></i> Central Location</h4>
+                                        <p>All gifts delivered to one address for pickup/distribution</p>
+                                    </div>
+                                </label>
+                            </div>
+                            
+                            <div class="central-address-section" id="centralAddressSection" style="display: none;">
+                                <div class="form-group">
+                                    <label for="centralAddress">Central Delivery Address *</label>
+                                    <textarea id="centralAddress" name="centralAddress" rows="3" placeholder="Address where all gifts will be delivered"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="next-btn" onclick="nextStep(2)">
+                            <span>Next: Add Friends</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Step 2: Add Friends -->
+                <div class="setup-step" id="step2">
+                    <div class="step-header">
+                        <h2><i class="fas fa-users"></i> Add Friends</h2>
+                        <p>Add friends using their phone numbers. They'll receive SMS invitations to join.</p>
+                    </div>
+                    
+                    <div class="friends-management">
+                        <div class="add-friend-section">
+                            <h3>Add Friend</h3>
+                            <div class="add-friend-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="friendName">Friend's Name</label>
+                                        <input type="text" id="friendName" placeholder="Full name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="friendPhone">Phone Number *</label>
+                                        <input type="tel" id="friendPhone" placeholder="+1 (555) 123-4567" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="friendNickname">Nickname (Optional)</label>
+                                        <input type="text" id="friendNickname" placeholder="How they'll appear in the group">
+                                    </div>
+                                    <div class="form-group add-btn-group">
+                                        <button type="button" class="add-friend-btn" onclick="addFriend()">
+                                            <i class="fas fa-plus"></i> Add Friend
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="contacts-import">
+                                <h4><i class="fas fa-address-book"></i> Import from Contacts</h4>
+                                <p>Quickly add friends from your contacts</p>
+                                <button type="button" class="contacts-import-btn" onclick="importContacts()">
+                                    <i class="fas fa-download"></i> Import Contacts
+                                </button>
+                                <small>We'll never store your contacts permanently</small>
+                            </div>
+                        </div>
+                        
+                        <div class="friends-list">
+                            <div class="list-header">
+                                <h3>Friends (<span id="friendCount">0</span>)</h3>
+                                <div class="list-actions">
+                                    <button class="action-btn" onclick="selectAllFriends()">
+                                        <i class="fas fa-check-square"></i> Select All
+                                    </button>
+                                    <button class="action-btn" onclick="removeSelectedFriends()">
+                                        <i class="fas fa-trash"></i> Remove Selected
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="friends-container" id="friendsContainer">
+                                <div class="empty-state">
+                                    <i class="fas fa-user-friends"></i>
+                                    <h4>No friends added yet</h4>
+                                    <p>Add friends using phone numbers or import from contacts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-navigation">
+                        <button type="button" class="prev-btn" onclick="prevStep(1)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button type="button" class="next-btn" onclick="nextStep(3)" id="step2NextBtn" disabled>
+                            <span>Next: Set Limits</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Set Limits -->
+                <div class="setup-step" id="step3">
+                    <div class="step-header">
+                        <h2><i class="fas fa-dollar-sign"></i> Set Spending Limits</h2>
+                        <p>Configure the spending range for your friends gift exchange</p>
+                    </div>
+                    
+                    <form class="setup-form" id="limitsForm">
+                        <div class="limits-section">
+                            <h3>Spending Range</h3>
+                            <div class="range-inputs">
+                                <div class="form-group">
+                                    <label for="minAmount">Minimum Amount *</label>
+                                    <div class="amount-input">
+                                        <select id="currency" name="currency">
+                                            <option value="CAD">CAD</option>
+                                            <option value="USD">USD</option>
+                                            <option value="EUR">EUR</option>
+                                            <option value="GBP">GBP</option>
+                                        </select>
+                                        <input type="number" id="minAmount" name="minAmount" min="10" max="500" value="20" required>
+                                    </div>
+                                </div>
+                                <div class="range-separator">to</div>
+                                <div class="form-group">
+                                    <label for="maxAmount">Maximum Amount *</label>
+                                    <div class="amount-input">
+                                        <input type="number" id="maxAmount" name="maxAmount" min="10" max="500" value="40" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="range-preview">
+                                <h4>Preview</h4>
+                                <div class="preview-card">
+                                    <i class="fas fa-gift"></i>
+                                    <span>Friends will contribute between <strong id="previewMin">$20</strong> and <strong id="previewMax">$40</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="matching-preferences">
+                            <h3>Matching Preferences</h3>
+                            <div class="checkbox-list">
+                                <label>
+                                    <input type="checkbox" name="allowFriendMatching" checked>
+                                    <span>Allow friends to be matched with each other</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="allowExternalMatching" checked>
+                                    <span>Allow friends to be matched with external users worldwide</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="preventCoupleMatching">
+                                    <span>Prevent couples/partners from being matched together</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="sameRegionPreference">
+                                    <span>Prefer matching within the same region/country</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="gift-themes">
+                            <h3>Gift Themes (Optional)</h3>
+                            <div class="themes-grid">
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="handmade">
+                                    <div class="theme-content">
+                                        <i class="fas fa-heart"></i>
+                                        <span>Handmade Gifts</span>
+                                    </div>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="local">
+                                    <div class="theme-content">
+                                        <i class="fas fa-map-marked-alt"></i>
+                                        <span>Local Specialties</span>
+                                    </div>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="books">
+                                    <div class="theme-content">
+                                        <i class="fas fa-book"></i>
+                                        <span>Books & Reading</span>
+                                    </div>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="food">
+                                    <div class="theme-content">
+                                        <i class="fas fa-utensils"></i>
+                                        <span>Food & Treats</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-settings">
+                            <h3>Event Timeline</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="registrationDeadline">Registration Deadline</label>
+                                    <input type="date" id="registrationDeadline" name="registrationDeadline" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="giftDeadline">Gift Selection Deadline</label>
+                                    <input type="date" id="giftDeadline" name="giftDeadline" required>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="step-navigation">
+                        <button type="button" class="prev-btn" onclick="prevStep(2)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button type="button" class="next-btn" onclick="nextStep(4)">
+                            <span>Next: Share & Launch</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Share & Launch -->
+                <div class="setup-step" id="step4">
+                    <div class="step-header">
+                        <h2><i class="fas fa-share-alt"></i> Share & Launch</h2>
+                        <p>Review your friends gift exchange and share the invitation</p>
+                    </div>
+                    
+                    <div class="review-summary">
+                        <div class="summary-card">
+                            <h3><i class="fas fa-calendar-alt"></i> Event Details</h3>
+                            <div class="summary-content" id="eventSummary">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3><i class="fas fa-user-friends"></i> Friends</h3>
+                            <div class="summary-content" id="friendsSummary">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3><i class="fas fa-dollar-sign"></i> Settings</h3>
+                            <div class="summary-content" id="settingsSummary">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sharing-section">
+                        <div class="invitation-methods">
+                            <h3><i class="fas fa-paper-plane"></i> Send Invitations</h3>
+                            
+                            <div class="invitation-options">
+                                <div class="invitation-option">
+                                    <h4><i class="fas fa-sms"></i> SMS Invitations</h4>
+                                    <p>Send personalized SMS invitations to all friends</p>
+                                    <button class="send-sms-btn" onclick="sendSMSInvitations()">
+                                        <i class="fas fa-mobile-alt"></i> Send SMS to All
+                                    </button>
+                                </div>
+                                
+                                <div class="invitation-option">
+                                    <h4><i class="fas fa-link"></i> Share Link</h4>
+                                    <p>Share a link that friends can use to join</p>
+                                    <div class="share-link-container">
+                                        <input type="text" id="shareLink" value="https://playconnect.com/join/abc123" readonly>
+                                        <button class="copy-link-btn" onclick="copyShareLink()">
+                                            <i class="fas fa-copy"></i>
+                                        </button>
+                                    </div>
+                                    <div class="social-share">
+                                        <button class="social-btn whatsapp" onclick="shareToWhatsApp()">
+                                            <i class="fab fa-whatsapp"></i> WhatsApp
+                                        </button>
+                                        <button class="social-btn facebook" onclick="shareToFacebook()">
+                                            <i class="fab fa-facebook"></i> Facebook
+                                        </button>
+                                        <button class="social-btn twitter" onclick="shareToTwitter()">
+                                            <i class="fab fa-twitter"></i> Twitter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="sms-preview">
+                            <h3><i class="fas fa-eye"></i> SMS Preview</h3>
+                            <div class="sms-preview-container">
+                                <div class="phone-mockup">
+                                    <div class="phone-screen">
+                                        <div class="sms-bubble">
+                                            <strong>PlayConnect</strong><br>
+                                            🎁 You're invited to a gift exchange!<br><br>
+                                            <strong id="previewEventName">Event Name</strong><br>
+                                            Organized by <span id="previewOrganizerName">Organizer</span><br>
+                                            Budget: <span id="previewBudgetRange">$20-40</span><br><br>
+                                            Join here: <span class="link-preview">playconnect.com/join/abc123</span><br><br>
+                                            Reply STOP to opt out.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="launch-actions">
+                            <div class="final-checklist">
+                                <h4><i class="fas fa-clipboard-check"></i> Final Checklist</h4>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>Event details are correct</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>All friend phone numbers are valid</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>Spending limits are reasonable for your group</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>Timeline and dates work for everyone</span>
+                                </label>
+                            </div>
+                            
+                            <button type="button" class="launch-btn" onclick="launchFriendsExchange()" id="launchBtn" disabled>
+                                <i class="fas fa-rocket"></i>
+                                <span>Launch Gift Exchange</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="step-navigation">
+                        <button type="button" class="prev-btn" onclick="prevStep(3)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Previous</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+            <!-- Supabase CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        
+        <script src="config.js"></script>
+        <script src="supabase-cdn.js"></script>
+        <script src="auth.js"></script>
+        <script src="script.js"></script>
+        <script src="setup.js"></script>
+</body>
+</html> 

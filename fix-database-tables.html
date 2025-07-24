@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fix Database Tables - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="fix-content">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+                <h1>🔧 Database Table Installer</h1>
+                <p>Install missing tables to fix invitation system</p>
+            </div>
+
+            <div class="fix-section">
+                <h2>📊 Missing Tables Installation</h2>
+                
+                <div class="table-status" id="tableStatus">
+                    <div class="table-item">
+                        <i class="fas fa-envelope"></i>
+                        <span>email_logs</span>
+                        <div class="status pending">Pending</div>
+                    </div>
+                    <div class="table-item">
+                        <i class="fas fa-sms"></i>
+                        <span>sms_logs</span>
+                        <div class="status pending">Pending</div>
+                    </div>
+                    <div class="table-item">
+                        <i class="fas fa-chart-bar"></i>
+                        <span>invitation_analytics</span>
+                        <div class="status pending">Pending</div>
+                    </div>
+                </div>
+
+                <button class="fix-btn" onclick="installAllTables()">
+                    <i class="fas fa-database"></i> Install All Missing Tables
+                </button>
+
+                <div class="progress-log" id="progressLog" style="display: none;">
+                    <h3><i class="fas fa-terminal"></i> Installation Progress</h3>
+                    <div class="log-content" id="logContent"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+
+    <script>
+        async function installAllTables() {
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Installing...';
+            btn.disabled = true;
+
+            document.getElementById('progressLog').style.display = 'block';
+            
+            try {
+                addLog('🏺 Starting table installation...');
+                
+                // Install email_logs table
+                await installEmailLogsTable();
+                updateTableStatus('email_logs', 'success');
+
+                // Install sms_logs table
+                await installSmsLogsTable();
+                updateTableStatus('sms_logs', 'success');
+
+                // Install invitation_analytics table
+                await installInvitationAnalyticsTable();
+                updateTableStatus('invitation_analytics', 'success');
+
+                addLog('✅ All tables installed successfully!');
+                addLog('🔄 Redirecting to invitation system...');
+
+                setTimeout(() => {
+                    window.location.href = 'company-invite-demo.html';
+                }, 3000);
+
+            } catch (error) {
+                addLog('❌ Installation failed: ' + error.message);
+                console.error('Installation error:', error);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        async function installEmailLogsTable() {
+            addLog('📧 Installing email_logs table...');
+            
+            const createEmailLogs = `
+                CREATE TABLE IF NOT EXISTS public.email_logs (
+                  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+                  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+                  
+                  invitation_id UUID REFERENCES public.invitations(id) ON DELETE CASCADE,
+                  
+                  service_provider TEXT NOT NULL DEFAULT 'emailjs',
+                  service_id TEXT,
+                  template_id TEXT,
+                  
+                  to_email TEXT NOT NULL,
+                  from_email TEXT,
+                  subject TEXT,
+                  
+                  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'sent', 'delivered', 'failed', 'bounced')),
+                  
+                  sent_at TIMESTAMP WITH TIME ZONE,
+                  delivered_at TIMESTAMP WITH TIME ZONE,
+                  failed_at TIMESTAMP WITH TIME ZONE,
+                  
+                  error_message TEXT,
+                  service_response JSONB,
+                  
+                  metadata JSONB DEFAULT '{}'::jsonb
+                );
+
+                -- Create indexes for better performance
+                CREATE INDEX IF NOT EXISTS idx_email_logs_invitation_id ON public.email_logs(invitation_id);
+                CREATE INDEX IF NOT EXISTS idx_email_logs_status ON public.email_logs(status);
+                CREATE INDEX IF NOT EXISTS idx_email_logs_created_at ON public.email_logs(created_at);
+
+                -- Enable RLS
+                ALTER TABLE public.email_logs ENABLE ROW LEVEL SECURITY;
+
+                -- Create RLS policies
+                CREATE POLICY "Users can view their own email logs" ON public.email_logs
+                FOR SELECT USING (
+                  invitation_id IN (
+                    SELECT id FROM public.invitations WHERE inviter_id = auth.uid()
+                  )
+                );
+
+                CREATE POLICY "Users can insert their own email logs" ON public.email_logs
+                FOR INSERT WITH CHECK (
+                  invitation_id IN (
+                    SELECT id FROM public.invitations WHERE inviter_id = auth.uid()
+                  )
+                );
+            `;
+
+            const { error } = await window.EnkiConnect.supabase.rpc('exec_sql', { 
+                sql: createEmailLogs 
+            });
+
+            if (error) {
+                // Try alternative method - individual queries
+                const queries = createEmailLogs.split(';').filter(q => q.trim());
+                for (const query of queries) {
+                    if (query.trim()) {
+                        const { error: queryError } = await window.EnkiConnect.supabase
+                            .from('_sql_exec')
+                            .select()
+                            .eq('query', query.trim());
+                        
+                        if (queryError && !queryError.message.includes('already exists')) {
+                            console.warn('Query warning:', queryError);
+                        }
+                    }
+                }
+            }
+
+            // Verify table exists
+            const { data, error: checkError } = await window.EnkiConnect.supabase
+                .from('email_logs')
+                .select('count')
+                .limit(1);
+
+            if (checkError && checkError.message.includes('does not exist')) {
+                throw new Error('Failed to create email_logs table');
+            }
+
+            addLog('✅ email_logs table installed');
+        }
+
+        async function installSmsLogsTable() {
+            addLog('📱 Installing sms_logs table...');
+            
+            const createSmsLogs = `
+                CREATE TABLE IF NOT EXISTS public.sms_logs (
+                  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+                  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+                  
+                  invitation_id UUID REFERENCES public.invitations(id) ON DELETE CASCADE,
+                  
+                  service_provider TEXT NOT NULL DEFAULT 'twilio',
+                  service_account_sid TEXT,
+                  service_message_sid TEXT,
+                  
+                  to_phone TEXT NOT NULL,
+                  from_phone TEXT,
+                  message_body TEXT,
+                  
+                  status TEXT DEFAULT 'pending' CHECK (status IN ('pending', 'queued', 'sent', 'delivered', 'undelivered', 'failed')),
+                  
+                  sent_at TIMESTAMP WITH TIME ZONE,
+                  delivered_at TIMESTAMP WITH TIME ZONE,
+                  failed_at TIMESTAMP WITH TIME ZONE,
+                  
+                  error_code TEXT,
+                  error_message TEXT,
+                  service_response JSONB,
+                  
+                  cost_amount DECIMAL(10,4),
+                  cost_currency TEXT DEFAULT 'USD',
+                  
+                  metadata JSONB DEFAULT '{}'::jsonb
+                );
+
+                -- Create indexes
+                CREATE INDEX IF NOT EXISTS idx_sms_logs_invitation_id ON public.sms_logs(invitation_id);
+                CREATE INDEX IF NOT EXISTS idx_sms_logs_status ON public.sms_logs(status);
+                CREATE INDEX IF NOT EXISTS idx_sms_logs_created_at ON public.sms_logs(created_at);
+
+                -- Enable RLS
+                ALTER TABLE public.sms_logs ENABLE ROW LEVEL SECURITY;
+
+                -- Create RLS policies
+                CREATE POLICY "Users can view their own sms logs" ON public.sms_logs
+                FOR SELECT USING (
+                  invitation_id IN (
+                    SELECT id FROM public.invitations WHERE inviter_id = auth.uid()
+                  )
+                );
+
+                CREATE POLICY "Users can insert their own sms logs" ON public.sms_logs
+                FOR INSERT WITH CHECK (
+                  invitation_id IN (
+                    SELECT id FROM public.invitations WHERE inviter_id = auth.uid()
+                  )
+                );
+            `;
+
+            // Similar installation process
+            const { error } = await window.EnkiConnect.supabase.rpc('exec_sql', { 
+                sql: createSmsLogs 
+            });
+
+            // Verify table exists
+            const { data, error: checkError } = await window.EnkiConnect.supabase
+                .from('sms_logs')
+                .select('count')
+                .limit(1);
+
+            if (checkError && checkError.message.includes('does not exist')) {
+                throw new Error('Failed to create sms_logs table');
+            }
+
+            addLog('✅ sms_logs table installed');
+        }
+
+        async function installInvitationAnalyticsTable() {
+            addLog('📊 Installing invitation_analytics table...');
+            
+            const createAnalytics = `
+                CREATE TABLE IF NOT EXISTS public.invitation_analytics (
+                  id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+                  created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
+                  
+                  invitation_id UUID REFERENCES public.invitations(id) ON DELETE CASCADE,
+                  user_id UUID REFERENCES public.users(id) ON DELETE CASCADE,
+                  
+                  event_type TEXT NOT NULL CHECK (event_type IN ('sent', 'delivered', 'opened', 'clicked', 'joined', 'declined', 'expired', 'failed')),
+                  event_timestamp TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+                  
+                  -- User agent and device info
+                  user_agent TEXT,
+                  ip_address INET,
+                  device_type TEXT,
+                  browser TEXT,
+                  os TEXT,
+                  
+                  -- Location info (optional)
+                  country TEXT,
+                  city TEXT,
+                  timezone TEXT,
+                  
+                  -- Referrer info
+                  referrer_url TEXT,
+                  utm_source TEXT,
+                  utm_medium TEXT,
+                  utm_campaign TEXT,
+                  
+                  -- Additional metadata
+                  metadata JSONB DEFAULT '{}'::jsonb
+                );
+
+                -- Create indexes
+                CREATE INDEX IF NOT EXISTS idx_invitation_analytics_invitation_id ON public.invitation_analytics(invitation_id);
+                CREATE INDEX IF NOT EXISTS idx_invitation_analytics_user_id ON public.invitation_analytics(user_id);
+                CREATE INDEX IF NOT EXISTS idx_invitation_analytics_event_type ON public.invitation_analytics(event_type);
+                CREATE INDEX IF NOT EXISTS idx_invitation_analytics_timestamp ON public.invitation_analytics(event_timestamp);
+
+                -- Enable RLS
+                ALTER TABLE public.invitation_analytics ENABLE ROW LEVEL SECURITY;
+
+                -- Create RLS policies
+                CREATE POLICY "Users can view their own analytics" ON public.invitation_analytics
+                FOR SELECT USING (
+                  user_id = auth.uid() OR 
+                  invitation_id IN (
+                    SELECT id FROM public.invitations WHERE inviter_id = auth.uid()
+                  )
+                );
+
+                CREATE POLICY "Anyone can insert analytics" ON public.invitation_analytics
+                FOR INSERT WITH CHECK (true);
+            `;
+
+            // Similar installation process
+            const { error } = await window.EnkiConnect.supabase.rpc('exec_sql', { 
+                sql: createAnalytics 
+            });
+
+            // Verify table exists
+            const { data, error: checkError } = await window.EnkiConnect.supabase
+                .from('invitation_analytics')
+                .select('count')
+                .limit(1);
+
+            if (checkError && checkError.message.includes('does not exist')) {
+                throw new Error('Failed to create invitation_analytics table');
+            }
+
+            addLog('✅ invitation_analytics table installed');
+        }
+
+        function updateTableStatus(tableName, status) {
+            const tableItems = document.querySelectorAll('.table-item');
+            tableItems.forEach(item => {
+                const span = item.querySelector('span');
+                if (span && span.textContent === tableName) {
+                    const statusDiv = item.querySelector('.status');
+                    statusDiv.textContent = status === 'success' ? 'Installed' : 'Failed';
+                    statusDiv.className = `status ${status}`;
+                }
+            });
+        }
+
+        function addLog(message) {
+            const log = document.getElementById('logContent');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .fix-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .fix-section h2 {
+            margin-bottom: 30px;
+            color: #1f2937;
+        }
+
+        .table-status {
+            margin-bottom: 30px;
+        }
+
+        .table-item {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            gap: 15px;
+        }
+
+        .table-item i {
+            font-size: 20px;
+            color: #6b7280;
+            width: 20px;
+        }
+
+        .table-item span {
+            flex: 1;
+            font-weight: 500;
+            color: #1f2937;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status.pending {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .status.success {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status.error {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .fix-btn {
+            background: #dc2626;
+            color: white;
+            padding: 16px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .fix-btn:hover:not(:disabled) {
+            background: #b91c1c;
+            transform: translateY(-2px);
+        }
+
+        .fix-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .progress-log {
+            margin-top: 30px;
+            background: #1f2937;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .progress-log h3 {
+            margin: 0 0 15px 0;
+            color: white;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .log-content {
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Monaco', monospace;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            color: #d1d5db;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+    </style>
+</body>
+</html> 

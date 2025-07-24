@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="signin-container">
+        <!-- Background Image Placeholder -->
+        <div class="background-overlay"></div>
+        
+        <div class="signin-content">
+            <div class="signin-left">
+                <!-- Logo/Brand -->
+                <div class="logo-placeholder">
+                    <i class="fas fa-gamepad"></i>
+                    <h1>EnkiConnect</h1>
+                </div>
+                
+                <div class="welcome-text">
+                    <h2>Join the Community</h2>
+                    <p>Create your account and start connecting with players worldwide</p>
+                </div>
+            </div>
+            
+            <div class="signin-right">
+                <div class="signin-form">
+                    <h3>Create your EnkiConnect account</h3>
+                    
+                    <div class="social-buttons">
+                        <div class="social-notice">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Social signup requires a web server. Use email/password below.</span>
+                        </div>
+                        
+                        <button class="social-btn google-btn" data-provider="google" disabled>
+                            <i class="fab fa-google"></i>
+                            <span>Sign up with Google</span>
+                        </button>
+                        
+                        <button class="social-btn apple-btn" data-provider="apple" disabled>
+                            <i class="fab fa-apple"></i>
+                            <span>Sign up with Apple</span>
+                        </button>
+                    </div>
+                    
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    
+                    <form class="email-form" id="signupForm">
+                        <input type="text" id="fullName" placeholder="Full Name" required>
+                        <input type="email" id="email" placeholder="Email address" required>
+                        <input type="password" id="password" placeholder="Password (min 6 characters)" required minlength="6">
+                        <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                        
+                        <div class="terms-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="termsAgree" required>
+                                <span class="checkmark"></span>
+                                I agree to the <a href="#" target="_blank">Terms of Service</a> and <a href="#" target="_blank">Privacy Policy</a>
+                            </label>
+                        </div>
+                        
+                        <div class="newsletter-checkbox">
+                            <label class="checkbox-container">
+                                <input type="checkbox" id="newsletter">
+                                <span class="checkmark"></span>
+                                Send me updates about new features and events
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="signin-btn signup-btn">
+                            <i class="fas fa-user-plus"></i>
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="form-footer">
+                        <p>Already have an account? <a href="index.html" class="signin-link">Sign In</a></p>
+                        
+                        <!-- Demo/Skip Button -->
+                        <button type="button" class="demo-btn" onclick="skipToCategories()">
+                            <i class="fas fa-play"></i> Skip to Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="signup-modal" id="successModal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Account Created Successfully!</h3>
+            <p>Please check your email to verify your account before signing in.</p>
+            <button class="continue-btn" onclick="goToSignIn()">
+                Continue to Sign In
+            </button>
+        </div>
+    </div>
+    
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeSignup();
+        });
+        
+        function initializeSignup() {
+            const form = document.getElementById('signupForm');
+            form.addEventListener('submit', handleSignup);
+            
+            // Real-time password confirmation validation
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            
+            confirmPassword.addEventListener('input', function() {
+                if (password.value !== confirmPassword.value) {
+                    confirmPassword.setCustomValidity('Passwords do not match');
+                } else {
+                    confirmPassword.setCustomValidity('');
+                }
+            });
+        }
+        
+        async function handleSignup(e) {
+            e.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+            const termsAgree = document.getElementById('termsAgree').checked;
+            const newsletter = document.getElementById('newsletter').checked;
+            
+            // Validation
+            if (!fullName || !email || !password) {
+                showSignupError('Please fill in all required fields');
+                return;
+            }
+            
+            if (password.length < 6) {
+                showSignupError('Password must be at least 6 characters long');
+                return;
+            }
+            
+            if (password !== confirmPassword) {
+                showSignupError('Passwords do not match');
+                return;
+            }
+            
+            if (!termsAgree) {
+                showSignupError('Please agree to the Terms of Service and Privacy Policy');
+                return;
+            }
+            
+            const submitBtn = e.target.querySelector('.signup-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            submitBtn.disabled = true;
+            
+            try {
+                console.log('🏺 Creating new account for:', email);
+                
+                // Check if EnkiConnect is available
+                if (!window.EnkiConnect) {
+                    throw new Error('Authentication system not ready. Please refresh and try again.');
+                }
+                
+                // Create account
+                const result = await window.EnkiConnect.auth.signUp(email, password, {
+                    full_name: fullName,
+                    newsletter: newsletter
+                });
+                
+                if (!result.success) {
+                    throw new Error(result.error || 'Failed to create account');
+                }
+                
+                console.log('✅ Account created successfully!');
+                
+                // Show success modal
+                showSuccessModal();
+                
+            } catch (error) {
+                console.error('❌ Signup error:', error);
+                showSignupError(error.message || 'Failed to create account. Please try again.');
+            } finally {
+                // Reset button
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+        
+        function showSignupError(message) {
+            // Remove existing errors
+            document.querySelectorAll('.signup-error').forEach(e => e.remove());
+            
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'signup-error auth-message error';
+            errorDiv.innerHTML = `
+                <i class="fas fa-exclamation-circle"></i>
+                <span>${message}</span>
+            `;
+            
+            const form = document.getElementById('signupForm');
+            form.insertBefore(errorDiv, form.firstChild);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                errorDiv.remove();
+            }, 5000);
+        }
+        
+        function showSuccessModal() {
+            const modal = document.getElementById('successModal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function goToSignIn() {
+            window.location.href = 'index.html';
+        }
+        
+        function skipToCategories() {
+            // Demo functionality
+            console.log('🎮 Skipping to demo');
+            window.location.href = 'categories.html';
+        }
+    </script>
+</body>
+</html> 

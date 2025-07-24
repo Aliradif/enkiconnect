@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Friend Exchange Setup - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="exchange-setup-container">
+        <!-- Header -->
+        <header class="setup-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='categories.html'">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </button>
+            </div>
+            <div class="header-center">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="profile.html" class="profile-btn">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- Progress Steps -->
+        <div class="setup-progress">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Details</div>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Friends</div>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Launch</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="setup-main">
+            <!-- Step 1: Exchange Details -->
+            <div class="setup-step active" id="step1">
+                <div class="step-header">
+                    <h1><i class="fas fa-users"></i> Friend Gift Exchange</h1>
+                    <p>Create a fun gift exchange with your close friends</p>
+                </div>
+
+                <div class="form-container">
+                    <form class="setup-form">
+                        <div class="form-group">
+                            <label for="exchangeName">Exchange Name *</label>
+                            <input type="text" id="exchangeName" name="exchangeName" required placeholder="e.g., Holiday Friend Exchange 2025">
+                            <small class="form-help">Give your exchange a fun name</small>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="organizerName">Your Name *</label>
+                                <input type="text" id="organizerName" name="organizerName" required placeholder="Your full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="organizerPhone">Your Phone *</label>
+                                <input type="tel" id="organizerPhone" name="organizerPhone" required placeholder="+1 (555) 123-4567">
+                            </div>
+                        </div>
+
+                        <div class="budget-section">
+                            <h3>Gift Budget</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="minBudget">Minimum Budget *</label>
+                                    <div class="currency-input">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="minBudget" name="minBudget" min="5" max="200" required placeholder="15" value="15">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxBudget">Maximum Budget *</label>
+                                    <div class="currency-input">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="maxBudget" name="maxBudget" min="5" max="500" required placeholder="50" value="50">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="budget-preview">
+                                Budget Range: <span id="budgetRange">$15 - $50</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exchangeDate">Exchange Date *</label>
+                            <input type="date" id="exchangeDate" name="exchangeDate" required>
+                            <small class="form-help">When do you want to have the gift exchange?</small>
+                        </div>
+
+                        <div class="rules-section">
+                            <h3>Exchange Preferences</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="allowWishlist" name="allowWishlist" checked>
+                                    <span class="checkmark"></span>
+                                    Allow friends to share gift preferences
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="anonymousGifts" name="anonymousGifts" checked>
+                                    <span class="checkmark"></span>
+                                    Keep gift givers secret until reveal
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="chatEnabled" name="chatEnabled" checked>
+                                    <span class="checkmark"></span>
+                                    Enable 24-hour chat after exchange
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="next-btn" onclick="nextStep()">
+                                Next: Invite Friends <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Step 2: Invite Friends -->
+            <div class="setup-step" id="step2">
+                <div class="step-header">
+                    <h1><i class="fas fa-user-plus"></i> Invite Your Friends</h1>
+                    <p>Add friends by phone number to join your exchange</p>
+                </div>
+
+                <div class="form-container">
+                    <div class="friend-section">
+                        <div class="add-friend-form">
+                            <h3>Add Friends</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="friendName" placeholder="Friend's Name">
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" id="friendPhone" placeholder="+1 (555) 123-4567">
+                                </div>
+                                <button type="button" class="add-btn" onclick="addFriend()">
+                                    <i class="fas fa-plus"></i> Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="friend-limit-notice">
+                            <i class="fas fa-info-circle"></i>
+                            <p>Friend exchanges work best with 4-12 participants. You need at least 3 friends to start.</p>
+                        </div>
+
+                        <div class="friend-list">
+                            <h4>Friends Invited (<span id="friendCount">0</span>)</h4>
+                            <div class="friend-cards" id="friendCards">
+                                <!-- Dynamic friend cards will be added here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="prev-btn" onclick="prevStep()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="next-btn" onclick="nextStep()" id="launchBtn" disabled>
+                            Launch Exchange <i class="fas fa-rocket"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Launch Confirmation -->
+            <div class="setup-step" id="step3">
+                <div class="step-header">
+                    <h1><i class="fas fa-rocket"></i> Ready to Launch!</h1>
+                    <p>Review your friend exchange and send invitations</p>
+                </div>
+
+                <div class="form-container">
+                    <div class="launch-summary">
+                        <div class="summary-card">
+                            <h3>Exchange Summary</h3>
+                            <div class="summary-item">
+                                <strong>Exchange:</strong> <span id="summaryName">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Organizer:</strong> <span id="summaryOrganizer">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Budget Range:</strong> <span id="summaryBudget">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Friends Invited:</strong> <span id="summaryFriends">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Exchange Date:</strong> <span id="summaryDate">-</span>
+                            </div>
+                        </div>
+
+                        <div class="launch-info">
+                            <div class="info-card">
+                                <i class="fas fa-sms"></i>
+                                <h4>SMS Invitations</h4>
+                                <p>Your friends will receive text message invitations with a link to join the exchange.</p>
+                            </div>
+                        </div>
+
+                        <div class="launch-actions">
+                            <button type="button" class="prev-btn" onclick="prevStep()">
+                                <i class="fas fa-arrow-left"></i> Back to Edit
+                            </button>
+                            <button type="button" class="launch-btn" onclick="launchExchange()">
+                                <i class="fas fa-rocket"></i> Launch Friend Exchange
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    <script src="friend-exchange-setup.js"></script>
+</body>
+</html> 

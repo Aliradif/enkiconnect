@@ -1,0 +1,707 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌍 World User Demo - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="user-demo-page">
+    <div class="user-demo-container">
+        <header class="demo-header">
+            <h1><i class="fas fa-globe-americas"></i> World User Experience</h1>
+            <p>Complete journey from discovery to global gift exchange - Connect with the world!</p>
+        </header>
+
+        <main class="demo-main">
+            <div class="demo-tabs">
+                <button class="demo-tab active" onclick="showStep('discovery')">🔍 Discovery</button>
+                <button class="demo-tab" onclick="showStep('explore')">🌍 Explore World</button>
+                <button class="demo-tab" onclick="showStep('signup')">📝 Join Queue</button>
+                <button class="demo-tab" onclick="showStep('payment')">💳 Payment</button>
+                <button class="demo-tab" onclick="showStep('matching')">🤝 Matching</button>
+            </div>
+
+            <!-- Step 1: Discovery -->
+            <div class="demo-step active" id="discovery-step">
+                <div class="discovery-browser">
+                    <div class="browser-header">
+                        <div class="browser-controls">
+                            <span class="control red"></span>
+                            <span class="control yellow"></span>
+                            <span class="control green"></span>
+                        </div>
+                        <div class="browser-url">
+                            <span>https://www.enkiconnect.com</span>
+                        </div>
+                    </div>
+
+                    <div class="browser-content">
+                        <div class="hero-section">
+                            <div class="hero-left">
+                                <div class="brand-hero">
+                                    <i class="fas fa-water"></i>
+                                    <h1>EnkiConnect</h1>
+                                </div>
+                                <p class="hero-tagline">Ancient wisdom meets modern connections</p>
+                                <h2>🌍 Exchange mystery gifts with people worldwide</h2>
+                                <p class="hero-description">
+                                    Experience the wisdom of Enki - the ancient Sumerian god of gifts, wisdom, and connections. 
+                                    Join thousands exchanging cultural treasures across continents.
+                                </p>
+                                
+                                <div class="hero-stats">
+                                    <div class="stat">
+                                        <strong>47,832</strong>
+                                        <span>Global Members</span>
+                                    </div>
+                                    <div class="stat">
+                                        <strong>142</strong>
+                                        <span>Countries</span>
+                                    </div>
+                                    <div class="stat">
+                                        <strong>$2.8M</strong>
+                                        <span>Gifts Exchanged</span>
+                                    </div>
+                                </div>
+
+                                <button class="hero-cta" onclick="showStep('explore')">
+                                    <i class="fas fa-globe-americas"></i> Explore the World
+                                </button>
+                            </div>
+
+                            <div class="hero-right">
+                                <div class="world-animation">
+                                    <div class="globe">
+                                        <div class="country-dot canada">🇨🇦</div>
+                                        <div class="country-dot germany">🇩🇪</div>
+                                        <div class="country-dot japan">🇯🇵</div>
+                                        <div class="country-dot brazil">🇧🇷</div>
+                                        <div class="country-dot australia">🇦🇺</div>
+                                        <div class="connection-line line1"></div>
+                                        <div class="connection-line line2"></div>
+                                        <div class="connection-line line3"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="testimonials-scroll">
+                            <div class="testimonial">
+                                <div class="testimonial-flag">🇯🇵</div>
+                                <p>"Received a beautiful Canadian maple syrup set from Toronto!"</p>
+                                <span>- Yuki from Tokyo</span>
+                            </div>
+                            <div class="testimonial">
+                                <div class="testimonial-flag">🇩🇪</div>
+                                <p>"Amazing Brazilian coffee beans arrived from São Paulo!"</p>
+                                <span>- Klaus from Berlin</span>
+                            </div>
+                            <div class="testimonial">
+                                <div class="testimonial-flag">🇦🇺</div>
+                                <p>"Got authentic German Christmas ornaments - so special!"</p>
+                                <span>- Emma from Sydney</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Explore World -->
+            <div class="demo-step" id="explore-step">
+                <div class="world-explorer">
+                    <div class="explorer-header">
+                        <h2>🌍 Discover Global Connections</h2>
+                        <p>See who's exchanging gifts around the world right now</p>
+                    </div>
+
+                    <div class="world-map">
+                        <div class="map-container">
+                            <div class="active-exchange north-america">
+                                <div class="exchange-popup">
+                                    <div class="popup-flag">🇨🇦</div>
+                                    <div class="popup-content">
+                                        <strong>Sarah from Toronto</strong>
+                                        <span>Looking for: European crafts</span>
+                                        <span>Budget: $35 CAD</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="active-exchange europe">
+                                <div class="exchange-popup">
+                                    <div class="popup-flag">🇩🇪</div>
+                                    <div class="popup-content">
+                                        <strong>Klaus from Munich</strong>
+                                        <span>Looking for: Asian specialties</span>
+                                        <span>Budget: €28 EUR</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="active-exchange asia">
+                                <div class="exchange-popup">
+                                    <div class="popup-flag">🇯🇵</div>
+                                    <div class="popup-content">
+                                        <strong>Yuki from Tokyo</strong>
+                                        <span>Looking for: American treats</span>
+                                        <span>Budget: ¥4,200 JPY</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="active-exchange south-america">
+                                <div class="exchange-popup">
+                                    <div class="popup-flag">🇧🇷</div>
+                                    <div class="popup-content">
+                                        <strong>Carlos from Rio</strong>
+                                        <span>Looking for: Nordic items</span>
+                                        <span>Budget: R$180 BRL</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="active-exchange oceania">
+                                <div class="exchange-popup">
+                                    <div class="popup-flag">🇦🇺</div>
+                                    <div class="popup-content">
+                                        <strong>Emma from Sydney</strong>
+                                        <span>Looking for: Middle Eastern goods</span>
+                                        <span>Budget: $45 AUD</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="connection-lines">
+                                <div class="live-connection"></div>
+                                <div class="live-connection delay-1"></div>
+                                <div class="live-connection delay-2"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="recent-matches">
+                        <h3>🤝 Recent Global Matches</h3>
+                        <div class="matches-grid">
+                            <div class="match-card">
+                                <div class="match-flags">
+                                    <span>🇮🇶</span>
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span>🇨🇦</span>
+                                </div>
+                                <div class="match-details">
+                                    <strong>Baghdad ↔ Vancouver</strong>
+                                    <span>Iraqi dates ↔ Canadian maple cookies</span>
+                                </div>
+                                <div class="match-time">2 hours ago</div>
+                            </div>
+
+                            <div class="match-card">
+                                <div class="match-flags">
+                                    <span>🇫🇷</span>
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span>🇰🇷</span>
+                                </div>
+                                <div class="match-details">
+                                    <strong>Paris ↔ Seoul</strong>
+                                    <span>French macarons ↔ Korean tea set</span>
+                                </div>
+                                <div class="match-time">4 hours ago</div>
+                            </div>
+
+                            <div class="match-card">
+                                <div class="match-flags">
+                                    <span>🇲🇽</span>
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span>🇳🇴</span>
+                                </div>
+                                <div class="match-details">
+                                    <strong>Mexico City ↔ Oslo</strong>
+                                    <span>Handmade pottery ↔ Norwegian wool</span>
+                                </div>
+                                <div class="match-time">6 hours ago</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="join-world-section">
+                        <h3>🏺 Ready to Connect with the World?</h3>
+                        <p>Join thousands of global gift exchangers. Set your budget, share your culture, discover the world.</p>
+                        
+                        <div class="world-benefits">
+                            <div class="benefit">
+                                <i class="fas fa-globe"></i>
+                                <span>Connect across 142 countries</span>
+                            </div>
+                            <div class="benefit">
+                                <i class="fas fa-gift"></i>
+                                <span>Receive authentic cultural gifts</span>
+                            </div>
+                            <div class="benefit">
+                                <i class="fas fa-comments"></i>
+                                <span>24-hour chat with your partner</span>
+                            </div>
+                            <div class="benefit">
+                                <i class="fas fa-shipping-fast"></i>
+                                <span>Local delivery, no international shipping</span>
+                            </div>
+                        </div>
+
+                        <button class="join-world-btn" onclick="showStep('signup')">
+                            <i class="fas fa-water"></i> Join the Global Exchange
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Join World Queue -->
+            <div class="demo-step" id="signup-step">
+                <div class="world-signup">
+                    <div class="form-header">
+                        <h2>🌍 Join the Global Exchange</h2>
+                        <p>Connect with gift exchangers worldwide through Enki's ancient wisdom</p>
+                    </div>
+
+                    <div class="user-location">
+                        <div class="location-detected">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="location-info">
+                                <strong>Detected Location: Toronto, Canada 🇨🇦</strong>
+                                <span>You'll receive gifts from your local Amazon.ca with international themes</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>👤 Your Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" value="Alex" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" value="Chen" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" value="alex.chen@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country</label>
+                                <select id="country">
+                                    <option value="CA" selected>🇨🇦 Canada</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>💰 Mystery Gift Budget</h3>
+                        <p>Set your budget and let Enki's wisdom find you the perfect international surprise!</p>
+                        
+                        <div class="world-budget-slider">
+                            <input type="range" id="worldBudget" min="15" max="100" value="40" oninput="updateWorldBudget()">
+                            <div class="budget-display">
+                                <span id="worldBudgetAmount">$40</span>
+                                <span class="budget-label">CAD - Mystery budget</span>
+                            </div>
+                            <div class="budget-markers">
+                                <span>$15</span>
+                                <span>$40</span>
+                                <span>$75</span>
+                                <span>$100</span>
+                            </div>
+                        </div>
+
+                        <div class="budget-explanation">
+                            <h4>🏺 How Your Budget Works:</h4>
+                            <ul>
+                                <li>💰 You contribute $<span id="dynamicBudget1">40</span> CAD</li>
+                                <li>🌍 Matched with someone worldwide paying equivalent amount</li>
+                                <li>🛒 Enki auto-buys themed gift from Amazon.ca worth $<span id="dynamicBudget2">40</span> CAD</li>
+                                <li>📦 You receive authentic surprise representing their culture!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>🎯 Cultural Interests</h3>
+                        <p>What global cultures and items interest you most?</p>
+                        
+                        <div class="cultural-preferences">
+                            <label class="cultural-pref">
+                                <input type="checkbox" checked>
+                                <span>🏺 Ancient/Historical Items</span>
+                            </label>
+                            <label class="cultural-pref">
+                                <input type="checkbox" checked>
+                                <span>🍜 International Food & Spices</span>
+                            </label>
+                            <label class="cultural-pref">
+                                <input type="checkbox">
+                                <span>🎨 Traditional Arts & Crafts</span>
+                            </label>
+                            <label class="cultural-pref">
+                                <input type="checkbox">
+                                <span>📚 Books & Literature</span>
+                            </label>
+                            <label class="cultural-pref">
+                                <input type="checkbox" checked>
+                                <span>🎵 Music & Instruments</span>
+                            </label>
+                            <label class="cultural-pref">
+                                <input type="checkbox">
+                                <span>👗 Fashion & Textiles</span>
+                            </label>
+                            <label class="cultural-pref">
+                                <input type="checkbox">
+                                <span>🧸 Toys & Games</span>
+                            </label>
+                            <label class="cultural-pref">
+                                <input type="checkbox" checked>
+                                <span>🏠 Home & Decor</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>📍 Delivery Address</h3>
+                        <div class="address-form">
+                            <input type="text" placeholder="Street Address" class="address-input" value="456 Maple Street">
+                            <div class="address-row">
+                                <input type="text" placeholder="City" class="address-input small" value="Toronto">
+                                <input type="text" placeholder="Province" class="address-input small" value="ON">
+                                <input type="text" placeholder="Postal Code" class="address-input small" value="M5V 3A8">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="back-btn" onclick="showStep('explore')">
+                            <i class="fas fa-arrow-left"></i> Back to Explore
+                        </button>
+                        <button class="next-btn" onclick="showStep('payment')">
+                            <i class="fas fa-credit-card"></i> Continue to Payment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Payment -->
+            <div class="demo-step" id="payment-step">
+                <div class="world-payment">
+                    <div class="form-header">
+                        <h2>💳 Secure Global Payment</h2>
+                        <p>Complete your $40 CAD contribution to the global exchange</p>
+                    </div>
+
+                    <div class="global-payment-summary">
+                        <h3>📋 Global Exchange Summary</h3>
+                        <div class="summary-item">
+                            <span>World Mystery Gift Exchange</span>
+                            <span>$40.00 CAD</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>EnkiConnect Global Service Fee</span>
+                            <span>$2.00 CAD</span>
+                        </div>
+                        <div class="summary-note">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Includes international matching, AI curation, and local fulfillment</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span>$42.00 CAD</span>
+                        </div>
+                    </div>
+
+                    <div class="global-info">
+                        <h3>🌍 Your Global Exchange Details</h3>
+                        <div class="global-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span><strong>From:</strong> Toronto, Canada 🇨🇦</span>
+                        </div>
+                        <div class="global-detail">
+                            <i class="fas fa-globe"></i>
+                            <span><strong>Matching Pool:</strong> 142 countries worldwide</span>
+                        </div>
+                        <div class="global-detail">
+                            <i class="fas fa-shipping-fast"></i>
+                            <span><strong>Delivery:</strong> From Amazon.ca to your door</span>
+                        </div>
+                        <div class="global-detail">
+                            <i class="fas fa-gift"></i>
+                            <span><strong>Gift Type:</strong> Authentic item themed to your partner's culture</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <h3>💳 Payment Method</h3>
+                        <div class="payment-options">
+                            <label class="payment-option selected">
+                                <input type="radio" name="payment" value="card" checked>
+                                <i class="fas fa-credit-card"></i>
+                                <span>Credit/Debit Card</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="paypal">
+                                <i class="fab fa-paypal"></i>
+                                <span>PayPal</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="apple">
+                                <i class="fab fa-apple-pay"></i>
+                                <span>Apple Pay</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card-form">
+                        <div class="form-group">
+                            <label for="worldCard">Card Number</label>
+                            <input type="text" id="worldCard" placeholder="1234 5678 9012 3456" value="4242 4242 4242 4242">
+                            <div class="card-icons">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="worldExpiry">Expiry Date</label>
+                                <input type="text" id="worldExpiry" placeholder="MM/YY" value="12/26">
+                            </div>
+                            <div class="form-group">
+                                <label for="worldCvv">CVV</label>
+                                <input type="text" id="worldCvv" placeholder="123" value="123">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="worldCardName">Name on Card</label>
+                            <input type="text" id="worldCardName" placeholder="Alex Chen" value="Alex Chen">
+                        </div>
+                    </div>
+
+                    <div class="global-security">
+                        <div class="security-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Protected by Enki's Global Security</span>
+                        </div>
+                        <p>Your payment is secured with international banking standards. EnkiConnect operates in full compliance with global financial regulations.</p>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="back-btn" onclick="showStep('signup')">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="world-pay-btn" onclick="processWorldPayment()">
+                            <i class="fas fa-globe"></i> Pay $42.00 CAD & Join World
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Matching -->
+            <div class="demo-step" id="matching-step">
+                <div class="world-success">
+                    <div class="matching-animation">
+                        <div class="globe-success">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <div class="orbiting-flags">
+                            <div class="flag-orbit flag1">🇮🇶</div>
+                            <div class="flag-orbit flag2">🇩🇪</div>
+                            <div class="flag-orbit flag3">🇯🇵</div>
+                            <div class="flag-orbit flag4">🇧🇷</div>
+                        </div>
+                    </div>
+                    
+                    <h2>🌍 Welcome to the Global Exchange!</h2>
+                    <p>Alex, you're now connected with gift exchangers worldwide!</p>
+
+                    <div class="matching-status">
+                        <h3>🔍 Finding Your Perfect Match...</h3>
+                        <div class="matching-progress">
+                            <div class="progress-text">
+                                <span>Enki's wisdom is working...</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar matching" style="width: 75%"></div>
+                            </div>
+                        </div>
+                        <p>🤖 Analyzing cultural preferences across 142 countries...</p>
+                    </div>
+
+                    <div class="world-confirmation">
+                        <h3>🏺 Your Global Exchange Details</h3>
+                        <div class="world-detail-item">
+                            <span>Exchange Type:</span>
+                            <span>Global Mystery Exchange</span>
+                        </div>
+                        <div class="world-detail-item">
+                            <span>Your Contribution:</span>
+                            <span>$40.00 CAD</span>
+                        </div>
+                        <div class="world-detail-item">
+                            <span>Transaction ID:</span>
+                            <span>ENK-WORLD-2024-047832</span>
+                        </div>
+                        <div class="world-detail-item">
+                            <span>Your Location:</span>
+                            <span>Toronto, Canada 🇨🇦</span>
+                        </div>
+                        <div class="world-detail-item">
+                            <span>Matching Pool:</span>
+                            <span>142 countries worldwide</span>
+                        </div>
+                        <div class="world-detail-item">
+                            <span>Expected Match:</span>
+                            <span>Within 24 hours</span>
+                        </div>
+                    </div>
+
+                    <div class="world-timeline">
+                        <h3>🗓️ Your Global Journey</h3>
+                        <div class="world-steps-timeline">
+                            <div class="timeline-item active">
+                                <div class="timeline-point">✅</div>
+                                <div class="timeline-content">
+                                    <strong>Joined Global Queue</strong>
+                                    <span>Welcome to the worldwide community</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item active">
+                                <div class="timeline-point">🔄</div>
+                                <div class="timeline-content">
+                                    <strong>Enki Matching (In Progress)</strong>
+                                    <span>Finding your perfect cultural partner</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🤝</div>
+                                <div class="timeline-content">
+                                    <strong>Match Found (24-48 hrs)</strong>
+                                    <span>Meet your international gift partner</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🛒</div>
+                                <div class="timeline-content">
+                                    <strong>AI Gift Selection (24-72 hrs)</strong>
+                                    <span>Enki curates your cultural surprise</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🎁</div>
+                                <div class="timeline-content">
+                                    <strong>Gift Delivery (3-7 days)</strong>
+                                    <span>Your international surprise arrives!</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="world-community">
+                        <h3>🌐 Join the Global Community</h3>
+                        <p>While you wait for your match, explore our global community of cultural exchangers!</p>
+                        
+                        <div class="community-stats">
+                            <div class="community-stat">
+                                <strong>47,833</strong>
+                                <span>Global members (you're the newest!)</span>
+                            </div>
+                            <div class="community-stat">
+                                <strong>2,847</strong>
+                                <span>Active exchanges this month</span>
+                            </div>
+                            <div class="community-stat">
+                                <strong>4.9/5</strong>
+                                <span>Average satisfaction rating</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="success-actions">
+                        <button class="primary-btn" onclick="downloadWorldReceipt()">
+                            <i class="fas fa-download"></i> Download Receipt
+                        </button>
+                        <button class="secondary-btn" onclick="exploreGlobalCommunity()">
+                            <i class="fas fa-globe"></i> Explore Global Community
+                        </button>
+                        <button class="secondary-btn" onclick="window.location.href='categories.html'">
+                            <i class="fas fa-water"></i> Back to EnkiConnect
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="demo-controls">
+            <button class="demo-control-btn" onclick="window.location.href='setup-world.html'">
+                <i class="fas fa-arrow-left"></i> World Setup
+            </button>
+            <button class="demo-control-btn" onclick="window.location.href='investor-demo.html'">
+                <i class="fas fa-presentation"></i> Investor Demo
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function showStep(stepName) {
+            document.querySelectorAll('.demo-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.demo-step').forEach(step => step.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(stepName + '-step').classList.add('active');
+        }
+
+        function updateWorldBudget() {
+            const slider = document.getElementById('worldBudget');
+            const display = document.getElementById('worldBudgetAmount');
+            const dynamic1 = document.getElementById('dynamicBudget1');
+            const dynamic2 = document.getElementById('dynamicBudget2');
+            
+            const value = slider.value;
+            display.textContent = '$' + value;
+            if (dynamic1) dynamic1.textContent = value;
+            if (dynamic2) dynamic2.textContent = value;
+        }
+
+        function processWorldPayment() {
+            const payBtn = document.querySelector('.world-pay-btn');
+            const originalText = payBtn.innerHTML;
+            
+            payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing Global Payment...';
+            payBtn.disabled = true;
+            
+            setTimeout(() => {
+                showStep('matching');
+                payBtn.innerHTML = originalText;
+                payBtn.disabled = false;
+            }, 4000);
+        }
+
+        function downloadWorldReceipt() {
+            alert('📄 Global exchange receipt downloaded: enkiconnect-world-receipt-ENK-WORLD-2024-047832.pdf');
+        }
+
+        function exploreGlobalCommunity() {
+            alert('🌍 Redirecting to EnkiConnect global community dashboard...');
+        }
+
+        // Auto-start matching animation
+        setInterval(() => {
+            const flags = document.querySelectorAll('.flag-orbit');
+            flags.forEach(flag => {
+                flag.style.animation = 'none';
+                setTimeout(() => flag.style.animation = 'orbit 10s linear infinite', 10);
+            });
+        }, 10000);
+    </script>
+</body>
+</html> 

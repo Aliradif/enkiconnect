@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Gift Exchange Setup - PlayConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="setup-page company-page">
+    <div class="setup-container">
+        <header class="setup-header">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <span>PlayConnect</span>
+            </div>
+            <nav class="breadcrumb">
+                <a href="categories.html">Categories</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Company Setup</span>
+            </nav>
+        </header>
+        
+        <main class="setup-main">
+            <div class="setup-progress">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <span>Company Details</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <span>Add Employees</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <span>Set Limits</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <span>Launch</span>
+                </div>
+            </div>
+            
+            <div class="setup-content">
+                <!-- Step 1: Company Details -->
+                <div class="setup-step active" id="step1">
+                    <div class="step-header">
+                        <h2><i class="fas fa-building"></i> Company Gift Exchange Setup</h2>
+                        <p class="white-text">Create a memorable team building experience for your employees</p>
+                    </div>
+                    
+                    <form class="setup-form" id="companyDetailsForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="companyName">Company Name *</label>
+                                <input type="text" id="companyName" name="companyName" placeholder="e.g., Acme Corporation" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="department">Department (Optional)</label>
+                                <input type="text" id="department" name="department" placeholder="e.g., Marketing, IT, Sales">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="organizerName">Organizer Name *</label>
+                                <input type="text" id="organizerName" name="organizerName" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="organizerEmail">Organizer Email *</label>
+                                <input type="email" id="organizerEmail" name="organizerEmail" placeholder="your.email@company.com" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="companyAddress">Company Address *</label>
+                            <textarea id="companyAddress" name="companyAddress" rows="3" placeholder="All gifts will be delivered to this address for distribution" required></textarea>
+                            <small><i class="fas fa-info-circle"></i> All employee gifts will be delivered to this single address for easy distribution</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventTitle">Event Title</label>
+                            <input type="text" id="eventTitle" name="eventTitle" placeholder="e.g., Holiday Gift Exchange 2024, Team Building Event">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDescription">Event Description (Optional)</label>
+                            <textarea id="eventDescription" name="eventDescription" rows="3" placeholder="Describe the purpose and any special instructions for your team..."></textarea>
+                        </div>
+                        
+                        <button type="button" class="next-btn" onclick="nextStep(2)">
+                            <span>Next: Add Employees</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Step 2: Add Employees -->
+                <div class="setup-step" id="step2">
+                    <div class="step-header">
+                        <h2><i class="fas fa-users"></i> Add Employees</h2>
+                        <p>Add employees using their work email addresses. They'll receive invitations to join the gift exchange.</p>
+                    </div>
+                    
+                    <div class="employee-management">
+                        <div class="add-employee-section">
+                            <h3>Add Employee</h3>
+                            <div class="add-employee-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="employeeName">Employee Name</label>
+                                        <input type="text" id="employeeName" placeholder="Full name">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="employeeEmail">Work Email *</label>
+                                        <input type="email" id="employeeEmail" placeholder="employee@company.com" required>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="employeeRole">Role/Position</label>
+                                        <input type="text" id="employeeRole" placeholder="e.g., Software Engineer, Manager">
+                                    </div>
+                                    <div class="form-group add-btn-group">
+                                        <button type="button" class="add-employee-btn" onclick="addEmployee()">
+                                            <i class="fas fa-plus"></i> Add Employee
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="bulk-import">
+                                <h4><i class="fas fa-file-csv"></i> Bulk Import</h4>
+                                <p>Upload a CSV file with columns: Name, Email, Role</p>
+                                <input type="file" id="csvFile" accept=".csv" style="display: none;" onchange="importCSV()">
+                                <button type="button" class="bulk-import-btn" onclick="document.getElementById('csvFile').click()">
+                                    <i class="fas fa-upload"></i> Import CSV
+                                </button>
+                                <a href="#" onclick="downloadTemplate()" class="template-link">
+                                    <i class="fas fa-download"></i> Download Template
+                                </a>
+                            </div>
+                        </div>
+                        
+                        <div class="employees-list">
+                            <div class="list-header">
+                                <h3>Employees (<span id="employeeCount">0</span>)</h3>
+                                <div class="list-actions">
+                                    <button class="action-btn" onclick="selectAllEmployees()">
+                                        <i class="fas fa-check-square"></i> Select All
+                                    </button>
+                                    <button class="action-btn" onclick="removeSelectedEmployees()">
+                                        <i class="fas fa-trash"></i> Remove Selected
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="employees-container" id="employeesContainer">
+                                <div class="empty-state">
+                                    <i class="fas fa-users"></i>
+                                    <h4>No employees added yet</h4>
+                                    <p>Add employees using the form above or import from CSV</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-navigation">
+                        <button type="button" class="prev-btn" onclick="prevStep(1)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button type="button" class="next-btn" onclick="nextStep(3)" id="step2NextBtn" disabled>
+                            <span>Next: Set Limits</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Set Limits -->
+                <div class="setup-step" id="step3">
+                    <div class="step-header">
+                        <h2><i class="fas fa-dollar-sign"></i> Set Spending Limits</h2>
+                        <p>Configure the spending range for your company gift exchange</p>
+                    </div>
+                    
+                    <form class="setup-form" id="limitsForm">
+                        <div class="limits-section">
+                            <h3>Spending Range</h3>
+                            <div class="range-inputs">
+                                <div class="form-group">
+                                    <label for="minAmount">Minimum Amount *</label>
+                                    <div class="amount-input">
+                                        <select id="currency" name="currency">
+                                            <option value="CAD">CAD</option>
+                                            <option value="USD">USD</option>
+                                            <option value="EUR">EUR</option>
+                                            <option value="GBP">GBP</option>
+                                        </select>
+                                        <input type="number" id="minAmount" name="minAmount" min="10" max="500" value="25" required>
+                                    </div>
+                                </div>
+                                <div class="range-separator">to</div>
+                                <div class="form-group">
+                                    <label for="maxAmount">Maximum Amount *</label>
+                                    <div class="amount-input">
+                                        <input type="number" id="maxAmount" name="maxAmount" min="10" max="500" value="50" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="range-preview">
+                                <h4>Preview</h4>
+                                <div class="preview-card">
+                                    <i class="fas fa-gift"></i>
+                                    <span>Employees will contribute between <strong id="previewMin">$25</strong> and <strong id="previewMax">$50</strong></span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="matching-preferences">
+                            <h3>Matching Preferences</h3>
+                            <div class="checkbox-list">
+                                <label>
+                                    <input type="checkbox" name="allowInternalMatching" checked>
+                                    <span>Allow employees to be matched with each other</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="allowExternalMatching" checked>
+                                    <span>Allow employees to be matched with external users worldwide</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="requireSameDepartment">
+                                    <span>Prefer matching within the same department</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-settings">
+                            <h3>Payment Collection</h3>
+                            <div class="payment-options">
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="individual" checked>
+                                    <div class="option-content">
+                                        <h4>Individual Payment</h4>
+                                        <p>Each employee pays their own contribution</p>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="company">
+                                    <div class="option-content">
+                                        <h4>Company Sponsored</h4>
+                                        <p>Company covers all contributions</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-settings">
+                            <h3>Event Timeline</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="registrationDeadline">Registration Deadline</label>
+                                    <input type="date" id="registrationDeadline" name="registrationDeadline" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="exchangeDate">Gift Exchange Date</label>
+                                    <input type="date" id="exchangeDate" name="exchangeDate" required>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="step-navigation">
+                        <button type="button" class="prev-btn" onclick="prevStep(2)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button type="button" class="next-btn" onclick="nextStep(4)">
+                            <span>Next: Review & Launch</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Launch -->
+                <div class="setup-step" id="step4">
+                    <div class="step-header">
+                        <h2><i class="fas fa-rocket"></i> Review & Launch</h2>
+                        <p>Review your company gift exchange setup and launch the event</p>
+                    </div>
+                    
+                    <div class="review-summary">
+                        <div class="summary-card">
+                            <h3><i class="fas fa-building"></i> Company Details</h3>
+                            <div class="summary-content" id="companySummary">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3><i class="fas fa-users"></i> Employees</h3>
+                            <div class="summary-content" id="employeesSummary">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3><i class="fas fa-dollar-sign"></i> Spending & Settings</h3>
+                            <div class="summary-content" id="settingsSummary">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="launch-section">
+                        <div class="launch-preview">
+                            <h3><i class="fas fa-envelope"></i> Invitation Preview</h3>
+                            <div class="email-preview">
+                                <div class="email-header">
+                                    <strong>From:</strong> PlayConnect &lt;noreply@playconnect.com&gt;<br>
+                                    <strong>To:</strong> employee@company.com<br>
+                                    <strong>Subject:</strong> You're invited to join the company gift exchange!
+                                </div>
+                                <div class="email-body">
+                                    <h4>🎁 You're Invited to a Gift Exchange!</h4>
+                                    <p>Hi [Employee Name],</p>
+                                    <p>[Organizer Name] has invited you to participate in a company gift exchange through PlayConnect.</p>
+                                    <div class="invitation-details">
+                                        <strong>Event:</strong> <span id="previewEventTitle"></span><br>
+                                        <strong>Company:</strong> <span id="previewCompanyName"></span><br>
+                                        <strong>Contribution Range:</strong> <span id="previewRange"></span><br>
+                                        <strong>Registration Deadline:</strong> <span id="previewDeadline"></span>
+                                    </div>
+                                    <button class="email-cta">Join Gift Exchange</button>
+                                    <p><small>This is a secure, verified company event. All participants are verified employees.</small></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="launch-actions">
+                            <div class="final-checklist">
+                                <h4><i class="fas fa-clipboard-check"></i> Final Checklist</h4>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>Company information is correct</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>All employee emails are valid work addresses</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>Spending limits are appropriate for your team</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>Timeline and dates are correct</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>I have authority to organize this company event</span>
+                                </label>
+                            </div>
+                            
+                            <button type="button" class="launch-btn" onclick="launchCompanyExchange()" id="launchBtn" disabled>
+                                <i class="fas fa-rocket"></i>
+                                <span>Launch Gift Exchange</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="step-navigation">
+                        <button type="button" class="prev-btn" onclick="prevStep(3)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Previous</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+            <!-- Supabase CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        
+        <script src="config.js"></script>
+        <script src="supabase-cdn.js"></script>
+        <script src="auth.js"></script>
+        <script src="script.js"></script>
+        <script src="setup.js"></script>
+</body>
+</html> 

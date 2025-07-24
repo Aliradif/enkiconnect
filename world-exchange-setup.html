@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>World Exchange Setup - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="exchange-setup-container">
+        <!-- Header -->
+        <header class="setup-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='categories.html'">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </button>
+            </div>
+            <div class="header-center">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="profile.html" class="profile-btn">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- Progress Steps -->
+        <div class="setup-progress">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Profile</div>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Preferences</div>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Join</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="setup-main">
+            <!-- Step 1: Profile Setup -->
+            <div class="setup-step active" id="step1">
+                <div class="step-header">
+                    <h1><i class="fas fa-globe-americas"></i> World Gift Exchange</h1>
+                    <p>Connect with amazing people worldwide through meaningful gift exchanges</p>
+                </div>
+
+                <div class="form-container">
+                    <form class="setup-form">
+                        <div class="form-group">
+                            <label for="displayName">Display Name *</label>
+                            <input type="text" id="displayName" name="displayName" required placeholder="How others will see you (e.g., Sarah from Canada)">
+                            <small class="form-help">This name will be shown to your gift partner</small>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="country">Your Country *</label>
+                                <select id="country" name="country" required>
+                                    <option value="">Select your country</option>
+                                    <option value="US">🇺🇸 United States</option>
+                                    <option value="CA">🇨🇦 Canada</option>
+                                    <option value="UK">🇬🇧 United Kingdom</option>
+                                    <option value="AU">🇦🇺 Australia</option>
+                                    <option value="DE">🇩🇪 Germany</option>
+                                    <option value="FR">🇫🇷 France</option>
+                                    <option value="JP">🇯🇵 Japan</option>
+                                    <option value="other">🌍 Other</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="timezone">Timezone *</label>
+                                <select id="timezone" name="timezone" required>
+                                    <option value="">Select timezone</option>
+                                    <option value="EST">Eastern (EST)</option>
+                                    <option value="CST">Central (CST)</option>
+                                    <option value="MST">Mountain (MST)</option>
+                                    <option value="PST">Pacific (PST)</option>
+                                    <option value="GMT">GMT (London)</option>
+                                    <option value="CET">Central Europe</option>
+                                    <option value="JST">Japan Standard</option>
+                                    <option value="AEST">Australia Eastern</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="shippingAddress">Shipping Address *</label>
+                            <textarea id="shippingAddress" name="shippingAddress" rows="4" required placeholder="Complete address where you can receive international packages"></textarea>
+                            <small class="form-help">Make sure this address can receive international mail</small>
+                        </div>
+
+                        <div class="budget-section">
+                            <h3>Gift Budget (USD)</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="minBudget">Minimum Budget *</label>
+                                    <div class="currency-input">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="minBudget" name="minBudget" min="15" max="200" required placeholder="25" value="25">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxBudget">Maximum Budget *</label>
+                                    <div class="currency-input">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="maxBudget" name="maxBudget" min="15" max="500" required placeholder="100" value="100">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="budget-preview">
+                                Budget Range: <span id="budgetRange">$25 - $100 USD</span>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="next-btn" onclick="nextStep()">
+                                Next: Preferences <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Step 2: Global Preferences -->
+            <div class="setup-step" id="step2">
+                <div class="step-header">
+                    <h1><i class="fas fa-heart"></i> Gift Preferences</h1>
+                    <p>Help us find you the perfect global gift partner</p>
+                </div>
+
+                <div class="form-container">
+                    <div class="preferences-section">
+                        <div class="preference-group">
+                            <h3>Cultural Interests</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="art" name="interests" value="art">
+                                    <span class="checkmark"></span>
+                                    Art & Crafts
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="food" name="interests" value="food">
+                                    <span class="checkmark"></span>
+                                    Local Foods & Snacks
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="books" name="interests" value="books">
+                                    <span class="checkmark"></span>
+                                    Books & Literature
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="music" name="interests" value="music">
+                                    <span class="checkmark"></span>
+                                    Music & Instruments
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="fashion" name="interests" value="fashion">
+                                    <span class="checkmark"></span>
+                                    Fashion & Accessories
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="games" name="interests" value="games">
+                                    <span class="checkmark"></span>
+                                    Games & Puzzles
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="preference-group">
+                            <h3>Matching Preferences</h3>
+                            <div class="form-group">
+                                <label for="preferredRegions">Preferred Regions (Optional)</label>
+                                <select id="preferredRegions" name="preferredRegions" multiple>
+                                    <option value="north_america">North America</option>
+                                    <option value="europe">Europe</option>
+                                    <option value="asia">Asia</option>
+                                    <option value="oceania">Oceania</option>
+                                    <option value="south_america">South America</option>
+                                    <option value="africa">Africa</option>
+                                </select>
+                                <small class="form-help">Leave empty to match with anyone worldwide</small>
+                            </div>
+
+                            <div class="checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="sameLanguage" name="sameLanguage">
+                                    <span class="checkmark"></span>
+                                    Prefer matches who speak my language
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="culturalExchange" name="culturalExchange" checked>
+                                    <span class="checkmark"></span>
+                                    I want to learn about different cultures
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="repeatParticipant" name="repeatParticipant">
+                                    <span class="checkmark"></span>
+                                    I've participated in global exchanges before
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="giftMessage">Personal Message (Optional)</label>
+                            <textarea id="giftMessage" name="giftMessage" rows="3" placeholder="Tell your future gift partner a bit about yourself and what you'd love to receive..."></textarea>
+                            <small class="form-help">This helps your partner choose the perfect gift for you</small>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="prev-btn" onclick="prevStep()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="next-btn" onclick="nextStep()">
+                            Join Global Pool <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Join Global Pool -->
+            <div class="setup-step" id="step3">
+                <div class="step-header">
+                    <h1><i class="fas fa-rocket"></i> Join the Global Community!</h1>
+                    <p>You're about to connect with someone amazing from around the world</p>
+                </div>
+
+                <div class="form-container">
+                    <div class="global-summary">
+                        <div class="summary-card">
+                            <h3>Your Global Profile</h3>
+                            <div class="summary-item">
+                                <strong>Display Name:</strong> <span id="summaryName">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Country:</strong> <span id="summaryCountry">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Budget Range:</strong> <span id="summaryBudget">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Interests:</strong> <span id="summaryInterests">-</span>
+                            </div>
+                        </div>
+
+                        <div class="global-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">2.5M+</div>
+                                <div class="stat-label">Global Players</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">195</div>
+                                <div class="stat-label">Countries</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">50+</div>
+                                <div class="stat-label">Languages</div>
+                            </div>
+                        </div>
+
+                        <div class="launch-info">
+                            <div class="info-card">
+                                <i class="fas fa-magic"></i>
+                                <h4>Smart Matching</h4>
+                                <p>Our algorithm will find you the perfect gift partner based on your preferences, budget, and interests.</p>
+                            </div>
+                        </div>
+
+                        <div class="launch-actions">
+                            <button type="button" class="prev-btn" onclick="prevStep()">
+                                <i class="fas fa-arrow-left"></i> Back to Edit
+                            </button>
+                            <button type="button" class="launch-btn" onclick="joinGlobalPool()">
+                                <i class="fas fa-globe"></i> Join Global Exchange
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    <script src="world-exchange-setup.js"></script>
+</body>
+</html> 

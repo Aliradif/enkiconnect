@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Exchange Setup - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="exchange-setup-container">
+        <!-- Header -->
+        <header class="setup-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='categories.html'">
+                    <i class="fas fa-arrow-left"></i> Back to Categories
+                </button>
+            </div>
+            <div class="header-center">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <a href="profile.html" class="profile-btn">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- Progress Steps -->
+        <div class="setup-progress">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Details</div>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Family</div>
+            </div>
+            <div class="progress-line"></div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Launch</div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <main class="setup-main">
+            <!-- Step 1: Exchange Details -->
+            <div class="setup-step active" id="step1">
+                <div class="step-header">
+                    <h1><i class="fas fa-heart"></i> Family Gift Exchange</h1>
+                    <p>Create a heartwarming gift exchange for your family</p>
+                </div>
+
+                <div class="form-container">
+                    <form class="setup-form">
+                        <div class="form-group">
+                            <label for="exchangeName">Exchange Name *</label>
+                            <input type="text" id="exchangeName" name="exchangeName" required placeholder="e.g., Smith Family Holiday Exchange">
+                            <small class="form-help">Give your family exchange a special name</small>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="organizerName">Your Name *</label>
+                                <input type="text" id="organizerName" name="organizerName" required placeholder="Your full name">
+                            </div>
+                            <div class="form-group">
+                                <label for="organizerPhone">Your Phone *</label>
+                                <input type="tel" id="organizerPhone" name="organizerPhone" required placeholder="+1 (555) 123-4567">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="familyAddress">Family Address *</label>
+                            <textarea id="familyAddress" name="familyAddress" rows="3" required placeholder="Family address where gifts will be delivered"></textarea>
+                            <small class="form-help">All family gifts will be shipped to this address</small>
+                        </div>
+
+                        <div class="budget-section">
+                            <h3>Gift Budget</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="minBudget">Minimum Budget *</label>
+                                    <div class="currency-input">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="minBudget" name="minBudget" min="10" max="300" required placeholder="20" value="20">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="maxBudget">Maximum Budget *</label>
+                                    <div class="currency-input">
+                                        <span class="currency-symbol">$</span>
+                                        <input type="number" id="maxBudget" name="maxBudget" min="10" max="1000" required placeholder="75" value="75">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="budget-preview">
+                                Budget Range: <span id="budgetRange">$20 - $75</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="exchangeDate">Exchange Date *</label>
+                            <input type="date" id="exchangeDate" name="exchangeDate" required>
+                            <small class="form-help">When will the family gather for gift exchange?</small>
+                        </div>
+
+                        <div class="rules-section">
+                            <h3>Family Exchange Settings</h3>
+                            <div class="checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="allowKids" name="allowKids" checked>
+                                    <span class="checkmark"></span>
+                                    Include children (parents pay for kids)
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="allowWishlist" name="allowWishlist" checked>
+                                    <span class="checkmark"></span>
+                                    Allow family members to share wishlists
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="anonymousGifts" name="anonymousGifts">
+                                    <span class="checkmark"></span>
+                                    Keep gift givers secret until reveal
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="chatEnabled" name="chatEnabled" checked>
+                                    <span class="checkmark"></span>
+                                    Enable family chat after exchange
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="button" class="next-btn" onclick="nextStep()">
+                                Next: Add Family <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Step 2: Add Family Members -->
+            <div class="setup-step" id="step2">
+                <div class="step-header">
+                    <h1><i class="fas fa-users"></i> Add Family Members</h1>
+                    <p>Invite your family members to join the gift exchange</p>
+                </div>
+
+                <div class="form-container">
+                    <div class="family-section">
+                        <div class="add-family-form">
+                            <h3>Add Family Members</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="familyName" placeholder="Family Member Name (e.g., Mom, Dad, Sarah)">
+                                </div>
+                                <div class="form-group">
+                                    <input type="tel" id="familyPhone" placeholder="+1 (555) 123-4567">
+                                </div>
+                                <div class="form-group">
+                                    <select id="familyRole">
+                                        <option value="">Select Role</option>
+                                        <option value="adult">Adult</option>
+                                        <option value="child">Child (under 18)</option>
+                                    </select>
+                                </div>
+                                <button type="button" class="add-btn" onclick="addFamilyMember()">
+                                    <i class="fas fa-plus"></i> Add
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="family-notice">
+                            <i class="fas fa-heart"></i>
+                            <p>Family exchanges work great with any size family. Include everyone from grandparents to little ones!</p>
+                        </div>
+
+                        <div class="family-list">
+                            <h4>Family Members (<span id="familyCount">0</span>)</h4>
+                            <div class="family-cards" id="familyCards">
+                                <!-- Dynamic family cards will be added here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="prev-btn" onclick="prevStep()">
+                            <i class="fas fa-arrow-left"></i> Previous
+                        </button>
+                        <button type="button" class="next-btn" onclick="nextStep()" id="launchBtn" disabled>
+                            Launch Exchange <i class="fas fa-rocket"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Launch Confirmation -->
+            <div class="setup-step" id="step3">
+                <div class="step-header">
+                    <h1><i class="fas fa-rocket"></i> Ready to Launch!</h1>
+                    <p>Review your family exchange and send invitations</p>
+                </div>
+
+                <div class="form-container">
+                    <div class="launch-summary">
+                        <div class="summary-card">
+                            <h3>Family Exchange Summary</h3>
+                            <div class="summary-item">
+                                <strong>Exchange:</strong> <span id="summaryName">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Organizer:</strong> <span id="summaryOrganizer">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Budget Range:</strong> <span id="summaryBudget">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Family Members:</strong> <span id="summaryFamily">0</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Exchange Date:</strong> <span id="summaryDate">-</span>
+                            </div>
+                            <div class="summary-item">
+                                <strong>Delivery Address:</strong> <span id="summaryAddress">-</span>
+                            </div>
+                        </div>
+
+                        <div class="launch-info">
+                            <div class="info-card">
+                                <i class="fas fa-home"></i>
+                                <h4>Family Delivery</h4>
+                                <p>All gifts will be delivered to your family address for easy distribution during your gathering.</p>
+                            </div>
+                        </div>
+
+                        <div class="launch-actions">
+                            <button type="button" class="prev-btn" onclick="prevStep()">
+                                <i class="fas fa-arrow-left"></i> Back to Edit
+                            </button>
+                            <button type="button" class="launch-btn" onclick="launchExchange()">
+                                <i class="fas fa-rocket"></i> Launch Family Exchange
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    <script src="family-exchange-setup.js"></script>
+</body>
+</html> 

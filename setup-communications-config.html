@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setup Communications - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="setup-content">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+                <h1>📧📱 Communications Setup</h1>
+                <p>Configure EmailJS and Twilio for real invitations</p>
+            </div>
+
+            <div class="setup-tabs">
+                <button class="tab-btn active" onclick="showTab('emailjs')">
+                    <i class="fas fa-envelope"></i> EmailJS Setup
+                </button>
+                <button class="tab-btn" onclick="showTab('twilio')">
+                    <i class="fas fa-sms"></i> Twilio Setup
+                </button>
+                <button class="tab-btn" onclick="showTab('test')">
+                    <i class="fas fa-flask"></i> Test Configuration
+                </button>
+            </div>
+
+            <!-- EmailJS Setup Tab -->
+            <div class="tab-content active" id="emailjs-tab">
+                <div class="setup-section">
+                    <h2>📧 EmailJS Configuration</h2>
+                    <p>EmailJS lets you send emails directly from JavaScript without a backend server.</p>
+
+                    <div class="step-guide">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Create EmailJS Account</h3>
+                                <p>Sign up at <a href="https://www.emailjs.com/" target="_blank">emailjs.com</a></p>
+                                <button class="guide-btn" onclick="window.open('https://www.emailjs.com/docs/examples/reactjs/', '_blank')">
+                                    <i class="fas fa-external-link-alt"></i> Open EmailJS Docs
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Get Your Credentials</h3>
+                                <p>Find these values in your EmailJS dashboard:</p>
+                                
+                                <div class="config-form">
+                                    <div class="form-group">
+                                        <label for="emailjs-user-id">User ID (Public Key)</label>
+                                        <input type="text" id="emailjs-user-id" placeholder="user_xxxxxxxxxx">
+                                        <small>Found in: Account → API Keys → Public Key</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="emailjs-service-id">Service ID</label>
+                                        <input type="text" id="emailjs-service-id" placeholder="service_xxxxxxx">
+                                        <small>Found in: Email Services → Your Service → Settings</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="emailjs-template-id">Template ID</label>
+                                        <input type="text" id="emailjs-template-id" placeholder="template_xxxxxxx">
+                                        <small>Found in: Email Templates → Your Template → Settings</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>Create Email Template</h3>
+                                <p>Use this template in EmailJS:</p>
+                                <div class="code-block">
+                                    <strong>Subject:</strong> You're invited to {{exchange_name}}!<br><br>
+                                    <strong>Body:</strong><br>
+                                    Hi {{recipient_name}},<br><br>
+                                    {{inviter_name}} has invited you to join "{{exchange_name}}" - a fun gift exchange!<br><br>
+                                    {{personal_message}}<br><br>
+                                    Click here to join: {{invite_link}}<br><br>
+                                    This invitation expires on {{expires_at}}.<br><br>
+                                    Happy gifting! 🎁<br>
+                                    EnkiConnect Team
+                                </div>
+                                <button class="copy-btn" onclick="copyTemplate()">
+                                    <i class="fas fa-copy"></i> Copy Template
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="setup-btn" onclick="saveEmailJSConfig()">
+                        <i class="fas fa-save"></i> Save EmailJS Configuration
+                    </button>
+                </div>
+            </div>
+
+            <!-- Twilio Setup Tab -->
+            <div class="tab-content" id="twilio-tab">
+                <div class="setup-section">
+                    <h2>📱 Twilio Configuration</h2>
+                    <p>Twilio enables SMS messaging for your invitations.</p>
+
+                    <div class="step-guide">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h3>Create Twilio Account</h3>
+                                <p>Sign up at <a href="https://www.twilio.com/" target="_blank">twilio.com</a></p>
+                                <p><strong>Note:</strong> Twilio requires phone verification and has charges for SMS</p>
+                                <button class="guide-btn" onclick="window.open('https://www.twilio.com/docs/sms/quickstart', '_blank')">
+                                    <i class="fas fa-external-link-alt"></i> Open Twilio Docs
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h3>Get Your Credentials</h3>
+                                
+                                <div class="config-form">
+                                    <div class="form-group">
+                                        <label for="twilio-account-sid">Account SID</label>
+                                        <input type="text" id="twilio-account-sid" placeholder="ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+                                        <small>Found in: Console Dashboard → Account Info</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="twilio-auth-token">Auth Token</label>
+                                        <input type="password" id="twilio-auth-token" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx">
+                                        <small>Found in: Console Dashboard → Account Info</small>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="twilio-phone-number">Twilio Phone Number</label>
+                                        <input type="text" id="twilio-phone-number" placeholder="+1234567890">
+                                        <small>Found in: Phone Numbers → Manage → Active numbers</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h3>SMS Template</h3>
+                                <p>This message will be sent via SMS:</p>
+                                <div class="code-block">
+                                    Hi {{recipient_name}}! {{inviter_name}} invited you to join "{{exchange_name}}" gift exchange. Join here: {{invite_link}} (Expires {{expires_at}}) 🎁
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="setup-btn" onclick="saveTwilioConfig()">
+                        <i class="fas fa-save"></i> Save Twilio Configuration
+                    </button>
+                </div>
+            </div>
+
+            <!-- Test Configuration Tab -->
+            <div class="tab-content" id="test-tab">
+                <div class="setup-section">
+                    <h2>🧪 Test Your Configuration</h2>
+                    
+                    <div class="test-section">
+                        <h3>EmailJS Test</h3>
+                        <div class="test-form">
+                            <input type="email" id="test-email" placeholder="Enter your email">
+                            <button class="test-btn" onclick="testEmail()">
+                                <i class="fas fa-paper-plane"></i> Send Test Email
+                            </button>
+                        </div>
+                        <div class="test-result" id="email-test-result"></div>
+                    </div>
+
+                    <div class="test-section">
+                        <h3>Twilio Test</h3>
+                        <div class="test-form">
+                            <input type="tel" id="test-phone" placeholder="Enter your phone (+1234567890)">
+                            <button class="test-btn" onclick="testSMS()">
+                                <i class="fas fa-sms"></i> Send Test SMS
+                            </button>
+                        </div>
+                        <div class="test-result" id="sms-test-result"></div>
+                    </div>
+
+                    <div class="config-status">
+                        <h3>Current Configuration Status</h3>
+                        <div class="status-grid" id="configStatus">
+                            <!-- Status will be populated by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+
+    <script>
+        function showTab(tabName) {
+            // Remove active class from all tabs and contents
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            // Add active class to selected tab
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+
+            // If showing test tab, update status
+            if (tabName === 'test') {
+                updateConfigStatus();
+            }
+        }
+
+        function saveEmailJSConfig() {
+            const userId = document.getElementById('emailjs-user-id').value.trim();
+            const serviceId = document.getElementById('emailjs-service-id').value.trim();
+            const templateId = document.getElementById('emailjs-template-id').value.trim();
+
+            if (!userId || !serviceId || !templateId) {
+                alert('Please fill in all EmailJS fields');
+                return;
+            }
+
+            // Update config.js file
+            const newConfig = `
+// 🏺 EnkiConnect Configuration
+window.EnkiConfig = {
+    // Supabase Configuration  
+    supabase: {
+        url: '${window.EnkiConfig?.supabase?.url || 'YOUR_SUPABASE_URL'}',
+        anonKey: '${window.EnkiConfig?.supabase?.anonKey || 'YOUR_SUPABASE_ANON_KEY'}'
+    },
+
+    // EmailJS Configuration (UPDATED)
+    email: {
+        userId: '${userId}',
+        serviceId: '${serviceId}',
+        templateId: '${templateId}'
+    },
+
+    // Twilio Configuration
+    twilio: {
+        accountSid: '${window.EnkiConfig?.twilio?.accountSid || 'YOUR_TWILIO_ACCOUNT_SID'}',
+        authToken: '${window.EnkiConfig?.twilio?.authToken || 'YOUR_TWILIO_AUTH_TOKEN'}',
+        phoneNumber: '${window.EnkiConfig?.twilio?.phoneNumber || 'YOUR_TWILIO_PHONE'}'
+    },
+
+    // App Configuration
+    app: {
+        name: 'EnkiConnect',
+        version: '2.0.0',
+        environment: 'development'
+    },
+
+    // Check setup status
+    checkSetup() {
+        return {
+            supabase: this.supabase.url !== 'YOUR_SUPABASE_URL',
+            email: this.email.userId !== 'YOUR_EMAILJS_USER_ID',
+            twilio: this.twilio.accountSid !== 'YOUR_TWILIO_ACCOUNT_SID'
+        };
+    }
+};`;
+
+            // Copy to clipboard and provide instructions
+            navigator.clipboard.writeText(newConfig).then(() => {
+                alert('✅ Configuration copied to clipboard!\\n\\nNext steps:\\n1. Open config.js\\n2. Replace the entire content with the copied text\\n3. Save the file');
+            });
+        }
+
+        function saveTwilioConfig() {
+            const accountSid = document.getElementById('twilio-account-sid').value.trim();
+            const authToken = document.getElementById('twilio-auth-token').value.trim();
+            const phoneNumber = document.getElementById('twilio-phone-number').value.trim();
+
+            if (!accountSid || !authToken || !phoneNumber) {
+                alert('Please fill in all Twilio fields');
+                return;
+            }
+
+            // Update config.js file
+            const newConfig = `
+// 🏺 EnkiConnect Configuration
+window.EnkiConfig = {
+    // Supabase Configuration  
+    supabase: {
+        url: '${window.EnkiConfig?.supabase?.url || 'YOUR_SUPABASE_URL'}',
+        anonKey: '${window.EnkiConfig?.supabase?.anonKey || 'YOUR_SUPABASE_ANON_KEY'}'
+    },
+
+    // EmailJS Configuration
+    email: {
+        userId: '${window.EnkiConfig?.email?.userId || 'YOUR_EMAILJS_USER_ID'}',
+        serviceId: '${window.EnkiConfig?.email?.serviceId || 'YOUR_EMAILJS_SERVICE_ID'}',
+        templateId: '${window.EnkiConfig?.email?.templateId || 'YOUR_EMAILJS_TEMPLATE_ID'}'
+    },
+
+    // Twilio Configuration (UPDATED)
+    twilio: {
+        accountSid: '${accountSid}',
+        authToken: '${authToken}',
+        phoneNumber: '${phoneNumber}'
+    },
+
+    // App Configuration
+    app: {
+        name: 'EnkiConnect',
+        version: '2.0.0',
+        environment: 'development'
+    },
+
+    // Check setup status
+    checkSetup() {
+        return {
+            supabase: this.supabase.url !== 'YOUR_SUPABASE_URL',
+            email: this.email.userId !== 'YOUR_EMAILJS_USER_ID',
+            twilio: this.twilio.accountSid !== 'YOUR_TWILIO_ACCOUNT_SID'
+        };
+    }
+};`;
+
+            // Copy to clipboard and provide instructions
+            navigator.clipboard.writeText(newConfig).then(() => {
+                alert('✅ Configuration copied to clipboard!\\n\\nNext steps:\\n1. Open config.js\\n2. Replace the entire content with the copied text\\n3. Save the file');
+            });
+        }
+
+        function copyTemplate() {
+            const template = `Subject: You're invited to {{exchange_name}}!
+
+Hi {{recipient_name}},
+
+{{inviter_name}} has invited you to join "{{exchange_name}}" - a fun gift exchange!
+
+{{personal_message}}
+
+Click here to join: {{invite_link}}
+
+This invitation expires on {{expires_at}}.
+
+Happy gifting! 🎁
+EnkiConnect Team`;
+
+            navigator.clipboard.writeText(template).then(() => {
+                alert('✅ Email template copied to clipboard!');
+            });
+        }
+
+        function updateConfigStatus() {
+            const statusDiv = document.getElementById('configStatus');
+            const setup = window.EnkiConfig?.checkSetup() || {};
+            
+            statusDiv.innerHTML = `
+                <div class="status-item ${setup.supabase ? 'success' : 'error'}">
+                    <i class="fas fa-database"></i>
+                    <span>Supabase</span>
+                    <div class="status-badge">${setup.supabase ? 'Configured' : 'Not Configured'}</div>
+                </div>
+                <div class="status-item ${setup.email ? 'success' : 'warning'}">
+                    <i class="fas fa-envelope"></i>
+                    <span>EmailJS</span>
+                    <div class="status-badge">${setup.email ? 'Configured' : 'Not Configured'}</div>
+                </div>
+                <div class="status-item ${setup.twilio ? 'success' : 'warning'}">
+                    <i class="fas fa-sms"></i>
+                    <span>Twilio</span>
+                    <div class="status-badge">${setup.twilio ? 'Configured' : 'Not Configured'}</div>
+                </div>
+            `;
+        }
+
+        function testEmail() {
+            const email = document.getElementById('test-email').value;
+            const resultDiv = document.getElementById('email-test-result');
+            
+            if (!email) {
+                resultDiv.innerHTML = '<div class="error">Please enter an email address</div>';
+                return;
+            }
+
+            const setup = window.EnkiConfig?.checkSetup() || {};
+            if (!setup.email) {
+                resultDiv.innerHTML = '<div class="error">EmailJS not configured. Please configure it first.</div>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<div class="info">📧 Test email functionality will be available once EmailJS is properly configured and the page is reloaded.</div>';
+        }
+
+        function testSMS() {
+            const phone = document.getElementById('test-phone').value;
+            const resultDiv = document.getElementById('sms-test-result');
+            
+            if (!phone) {
+                resultDiv.innerHTML = '<div class="error">Please enter a phone number</div>';
+                return;
+            }
+
+            const setup = window.EnkiConfig?.checkSetup() || {};
+            if (!setup.twilio) {
+                resultDiv.innerHTML = '<div class="error">Twilio not configured. Please configure it first.</div>';
+                return;
+            }
+
+            resultDiv.innerHTML = '<div class="info">📱 Test SMS functionality will be available once Twilio is properly configured and the page is reloaded.</div>';
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            updateConfigStatus();
+            
+            // Pre-fill existing values if available
+            if (window.EnkiConfig?.email) {
+                document.getElementById('emailjs-user-id').value = window.EnkiConfig.email.userId || '';
+                document.getElementById('emailjs-service-id').value = window.EnkiConfig.email.serviceId || '';
+                document.getElementById('emailjs-template-id').value = window.EnkiConfig.email.templateId || '';
+            }
+            
+            if (window.EnkiConfig?.twilio) {
+                document.getElementById('twilio-account-sid').value = window.EnkiConfig.twilio.accountSid || '';
+                document.getElementById('twilio-auth-token').value = window.EnkiConfig.twilio.authToken || '';
+                document.getElementById('twilio-phone-number').value = window.EnkiConfig.twilio.phoneNumber || '';
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .setup-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .setup-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn.active {
+            background: #dc2626;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .step-guide {
+            margin-bottom: 30px;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .step-number {
+            background: #dc2626;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            margin: 0 0 10px 0;
+            color: #1f2937;
+        }
+
+        .config-form {
+            margin-top: 15px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .code-block {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Monaco', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            margin: 15px 0;
+            white-space: pre-line;
+        }
+
+        .guide-btn, .setup-btn, .copy-btn, .test-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guide-btn {
+            background: #3b82f6;
+            color: white;
+        }
+
+        .setup-btn {
+            background: #dc2626;
+            color: white;
+            width: 100%;
+            justify-content: center;
+            padding: 16px;
+            font-size: 16px;
+        }
+
+        .copy-btn {
+            background: #059669;
+            color: white;
+        }
+
+        .test-btn {
+            background: #7c3aed;
+            color: white;
+        }
+
+        .guide-btn:hover { background: #2563eb; }
+        .setup-btn:hover { background: #b91c1c; }
+        .copy-btn:hover { background: #047857; }
+        .test-btn:hover { background: #6d28d9; }
+
+        .test-section {
+            margin-bottom: 30px;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+        }
+
+        .test-section h3 {
+            margin: 0 0 15px 0;
+            color: #1f2937;
+        }
+
+        .test-form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .test-form input {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+        }
+
+        .test-result {
+            margin-top: 10px;
+        }
+
+        .test-result .error {
+            color: #dc2626;
+            background: #fef2f2;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .test-result .info {
+            color: #2563eb;
+            background: #eff6ff;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid;
+        }
+
+        .status-item.success {
+            background: #f0fdf4;
+            border-color: #10b981;
+        }
+
+        .status-item.warning {
+            background: #fffbeb;
+            border-color: #f59e0b;
+        }
+
+        .status-item.error {
+            background: #fef2f2;
+            border-color: #ef4444;
+        }
+
+        .status-item i {
+            font-size: 18px;
+        }
+
+        .status-item.success i { color: #10b981; }
+        .status-item.warning i { color: #f59e0b; }
+        .status-item.error i { color: #ef4444; }
+
+        .status-item span {
+            flex: 1;
+            font-weight: 500;
+        }
+
+        .status-badge {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+
+        .status-item.success .status-badge {
+            background: #10b981;
+            color: white;
+        }
+
+        .status-item.warning .status-badge {
+            background: #f59e0b;
+            color: white;
+        }
+
+        .status-item.error .status-badge {
+            background: #ef4444;
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .setup-content {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .setup-tabs {
+                flex-direction: column;
+            }
+
+            .step {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .test-form {
+                flex-direction: column;
+            }
+
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html> 

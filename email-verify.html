@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="signin-container">
+        <!-- Background Image Placeholder -->
+        <div class="background-overlay"></div>
+        
+        <div class="signin-content">
+            <div class="signin-left">
+                <!-- Logo/Brand -->
+                <div class="logo-placeholder">
+                    <i class="fas fa-gamepad"></i>
+                    <h1>EnkiConnect</h1>
+                </div>
+                
+                <div class="welcome-text">
+                    <h2>Email Verification</h2>
+                    <p>We're verifying your email address...</p>
+                </div>
+            </div>
+            
+            <div class="signin-right">
+                <div class="signin-form">
+                    <div class="verification-status" id="verificationStatus">
+                        <div class="loading-indicator">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <h3>Verifying your email...</h3>
+                            <p>Please wait while we confirm your email address.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="verification-modal" id="successModal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h3>Email Verified Successfully!</h3>
+            <p>Your account has been verified. You can now sign in to EnkiConnect.</p>
+            <button class="continue-btn primary" onclick="goToSignIn()">
+                Continue to Sign In
+            </button>
+        </div>
+    </div>
+    
+    <!-- Error Modal -->
+    <div class="verification-modal" id="errorModal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="error-icon">
+                <i class="fas fa-exclamation-circle"></i>
+            </div>
+            <h3>Verification Failed</h3>
+            <p id="errorMessage">There was an issue verifying your email address.</p>
+            <div class="modal-actions">
+                <button class="continue-btn secondary" onclick="goToSignIn()">
+                    Back to Sign In
+                </button>
+                <button class="continue-btn primary" onclick="resendVerification()">
+                    Resend Verification
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            handleEmailVerification();
+        });
+        
+        async function handleEmailVerification() {
+            try {
+                console.log('🏺 Starting email verification process...');
+                
+                // Get URL parameters
+                const urlParams = new URLSearchParams(window.location.search);
+                const hashParams = new URLSearchParams(window.location.hash.substring(1));
+                
+                // Check for verification tokens in URL
+                const accessToken = urlParams.get('access_token') || hashParams.get('access_token');
+                const refreshToken = urlParams.get('refresh_token') || hashParams.get('refresh_token');
+                const type = urlParams.get('type') || hashParams.get('type');
+                const error = urlParams.get('error') || hashParams.get('error');
+                const errorDescription = urlParams.get('error_description') || hashParams.get('error_description');
+                
+                console.log('📋 Verification params:', { accessToken: !!accessToken, refreshToken: !!refreshToken, type, error, errorDescription });
+                
+                // Handle errors first
+                if (error) {
+                    console.error('❌ Verification error:', error, errorDescription);
+                    showErrorModal(getErrorMessage(error, errorDescription));
+                    return;
+                }
+                
+                // Handle successful verification
+                if (type === 'signup' && accessToken && refreshToken) {
+                    console.log('✅ Email verification successful!');
+                    
+                    // Set the session with the tokens
+                    if (window.EnkiConnect) {
+                        try {
+                            const { data, error } = await window.EnkiConnect.supabase.auth.setSession({
+                                access_token: accessToken,
+                                refresh_token: refreshToken
+                            });
+                            
+                            if (error) throw error;
+                            console.log('✅ Session set successfully:', data);
+                        } catch (sessionError) {
+                            console.error('❌ Session error:', sessionError);
+                        }
+                    }
+                    
+                    // Show success modal
+                    setTimeout(() => {
+                        showSuccessModal();
+                    }, 1500);
+                    
+                } else if (type === 'recovery' && accessToken) {
+                    // Password reset verification
+                    console.log('🔑 Password reset verification successful!');
+                    window.location.href = `reset-password.html#access_token=${accessToken}&refresh_token=${refreshToken}&type=${type}`;
+                    
+                } else {
+                    // No valid verification parameters
+                    console.log('❌ No valid verification parameters found');
+                    showErrorModal('Invalid verification link. Please check your email and try again.');
+                }
+                
+            } catch (error) {
+                console.error('❌ Verification process error:', error);
+                showErrorModal('An unexpected error occurred during verification.');
+            }
+        }
+        
+        function getErrorMessage(error, description) {
+            const decodedDescription = decodeURIComponent(description || '');
+            
+            switch (error) {
+                case 'access_denied':
+                    if (decodedDescription.includes('expired')) {
+                        return 'Your verification link has expired. Please request a new one.';
+                    }
+                    return 'Verification link is invalid or has been used already.';
+                case 'invalid_request':
+                    return 'Invalid verification request. Please check your email and try again.';
+                default:
+                    return decodedDescription || 'Verification failed. Please try again.';
+            }
+        }
+        
+        function showSuccessModal() {
+            hideLoadingIndicator();
+            const modal = document.getElementById('successModal');
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function showErrorModal(message) {
+            hideLoadingIndicator();
+            const modal = document.getElementById('errorModal');
+            const errorMessage = document.getElementById('errorMessage');
+            
+            errorMessage.textContent = message;
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
+        
+        function hideLoadingIndicator() {
+            const loadingDiv = document.querySelector('.loading-indicator');
+            if (loadingDiv) {
+                loadingDiv.style.display = 'none';
+            }
+        }
+        
+        function goToSignIn() {
+            window.location.href = 'index.html';
+        }
+        
+        async function resendVerification() {
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = 'Sending...';
+            btn.disabled = true;
+            
+            try {
+                // This would need the user's email - for now just redirect to signup
+                setTimeout(() => {
+                    window.location.href = 'signup.html';
+                }, 1000);
+            } catch (error) {
+                console.error('Resend verification error:', error);
+                btn.textContent = 'Failed - Try Again';
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.disabled = false;
+                }, 3000);
+            }
+        }
+    </script>
+    
+    <style>
+        .verification-status {
+            text-align: center;
+            padding: 40px 20px;
+        }
+        
+        .loading-indicator {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .loading-indicator i {
+            font-size: 48px;
+            color: #4c63d2;
+        }
+        
+        .loading-indicator h3 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .loading-indicator p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 16px;
+        }
+        
+        .verification-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        
+        .verification-modal .modal-content {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .success-icon {
+            width: 80px;
+            height: 80px;
+            background: #dcfce7;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            color: #16a34a;
+            font-size: 36px;
+        }
+        
+        .error-icon {
+            width: 80px;
+            height: 80px;
+            background: #fef2f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px auto;
+            color: #dc2626;
+            font-size: 36px;
+        }
+        
+        .verification-modal h3 {
+            margin: 0 0 15px 0;
+            font-size: 24px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+        
+        .verification-modal p {
+            margin: 0 0 25px 0;
+            color: #6b7280;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .continue-btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .continue-btn.primary {
+            background: #4c63d2;
+            color: white;
+        }
+        
+        .continue-btn.primary:hover {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+        
+        .continue-btn.secondary {
+            background: #f3f4f6;
+            color: #6b7280;
+            border: 1px solid #d1d5db;
+        }
+        
+        .continue-btn.secondary:hover {
+            background: #e5e7eb;
+        }
+    </style>
+</body>
+</html> 

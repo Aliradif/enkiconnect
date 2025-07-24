@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Chat - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="realtime-chat-container">
+        <!-- Chat Header -->
+        <header class="chat-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='categories.html'">
+                    <i class="fas fa-arrow-left"></i>
+                </button>
+                <div class="partner-info">
+                    <div class="partner-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="partner-details">
+                        <h3 id="partnerName">Sarah from Germany</h3>
+                        <div class="partner-status">
+                            <div class="status-indicator" id="statusIndicator"></div>
+                            <span id="statusText">Connecting...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="chat-timer">
+                    <i class="fas fa-clock"></i>
+                    <span id="timeRemaining">23:58:42</span>
+                </div>
+                <button class="chat-menu-btn" onclick="toggleChatMenu()">
+                    <i class="fas fa-ellipsis-v"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Chat Menu Dropdown -->
+        <div class="chat-menu" id="chatMenu">
+            <div class="menu-item" onclick="viewProfile()">
+                <i class="fas fa-user"></i> View Profile
+            </div>
+            <div class="menu-item" onclick="reportUser()">
+                <i class="fas fa-flag"></i> Report User
+            </div>
+            <div class="menu-item" onclick="exportChat()">
+                <i class="fas fa-download"></i> Export Chat
+            </div>
+            <div class="menu-item danger" onclick="leaveChat()">
+                <i class="fas fa-sign-out-alt"></i> Leave Chat
+            </div>
+        </div>
+
+        <!-- Main Chat Area -->
+        <main class="chat-main">
+            <!-- Gift Exchange Summary -->
+            <div class="exchange-summary">
+                <div class="summary-header">
+                    <i class="fas fa-gift"></i>
+                    <h4>Gift Exchange Complete!</h4>
+                </div>
+                <div class="summary-content">
+                    <div class="gift-info">
+                        <div class="gift-sent">
+                            <strong>Your Gift:</strong> $75 • Sent to Germany
+                        </div>
+                        <div class="gift-received">
+                            <strong>Your Gift:</strong> $75 • From Germany
+                        </div>
+                    </div>
+                    <p>Enjoy your 24-hour chat window to share photos and connect!</p>
+                </div>
+            </div>
+
+            <!-- Messages Area -->
+            <div class="messages-container" id="messagesContainer">
+                <!-- Welcome Message -->
+                <div class="system-message">
+                    <div class="system-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="system-content">
+                        <p><strong>Welcome to your gift exchange chat!</strong></p>
+                        <p>You have 24 hours to share photos, say thanks, and connect with your gift partner.</p>
+                    </div>
+                </div>
+
+                <!-- Sample Messages -->
+                <div class="message partner-message">
+                    <div class="message-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="sender-name">Sarah</span>
+                            <span class="message-time">2:01 PM</span>
+                        </div>
+                        <div class="message-text">Hi! Thank you so much for the beautiful gift! I absolutely love it! 🎁❤️</div>
+                    </div>
+                </div>
+
+                <div class="message my-message">
+                    <div class="message-content">
+                        <div class="message-header">
+                            <span class="sender-name">You</span>
+                            <span class="message-time">2:03 PM</span>
+                        </div>
+                        <div class="message-text">I'm so glad you like it! Your gift was amazing too - thank you! 😊</div>
+                    </div>
+                    <div class="message-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                </div>
+
+                <!-- Typing Indicator -->
+                <div class="typing-indicator" id="typingIndicator" style="display: none;">
+                    <div class="message partner-message typing">
+                        <div class="message-avatar">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="typing-animation">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Input -->
+            <div class="message-input-container">
+                <div class="input-actions">
+                    <button class="action-btn" onclick="attachPhoto()" title="Attach Photo">
+                        <i class="fas fa-camera"></i>
+                    </button>
+                    <button class="action-btn" onclick="sendGif()" title="Send GIF">
+                        <i class="fas fa-laugh"></i>
+                    </button>
+                </div>
+                <div class="message-input">
+                    <textarea 
+                        id="messageInput" 
+                        placeholder="Type your message..."
+                        rows="1"
+                        onkeydown="handleKeyPress(event)"
+                        oninput="handleInput()"
+                        onblur="stopTyping()"
+                    ></textarea>
+                    <button class="send-btn" id="sendBtn" onclick="sendMessage()" disabled>
+                        <i class="fas fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Connection Status -->
+        <div class="connection-status" id="connectionStatus" style="display: none;">
+            <div class="status-content">
+                <i class="fas fa-wifi"></i>
+                <span>Reconnecting...</span>
+            </div>
+        </div>
+
+        <!-- Photo Preview Modal -->
+        <div class="photo-modal" id="photoModal" style="display: none;">
+            <div class="modal-overlay" onclick="closePhotoModal()"></div>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>Send Photo</h3>
+                    <button class="close-btn" onclick="closePhotoModal()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <input type="file" id="photoInput" accept="image/*" style="display: none;" onchange="previewPhoto()">
+                    <div class="photo-preview" id="photoPreview">
+                        <div class="upload-placeholder" onclick="document.getElementById('photoInput').click()">
+                            <i class="fas fa-camera"></i>
+                            <p>Click to select a photo</p>
+                        </div>
+                    </div>
+                    <textarea id="photoCaption" placeholder="Add a caption (optional)..." rows="2"></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button class="cancel-btn" onclick="closePhotoModal()">Cancel</button>
+                    <button class="send-photo-btn" onclick="sendPhotoMessage()" disabled>Send Photo</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    <script src="realtime-chat.js"></script>
+</body>
+</html> 

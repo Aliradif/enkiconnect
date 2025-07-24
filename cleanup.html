@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnkiConnect - Data Cleanup</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+            padding: 20px;
+        }
+        
+        .cleanup-container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .cleanup-header {
+            margin-bottom: 30px;
+        }
+        
+        .cleanup-header h1 {
+            color: #1a202c;
+            margin: 0 0 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .cleanup-steps {
+            text-align: left;
+            margin: 30px 0;
+            background: #f8fafc;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        
+        .cleanup-steps h3 {
+            color: #4c63d2;
+            margin-top: 0;
+        }
+        
+        .cleanup-steps ol {
+            padding-left: 20px;
+        }
+        
+        .cleanup-steps li {
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+        
+        .cleanup-btn {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px;
+            transition: transform 0.2s;
+        }
+        
+        .cleanup-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .test-btn {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+        
+        .status {
+            margin: 20px 0;
+            padding: 15px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        
+        .status.warning {
+            background: #fef3c7;
+            color: #92400e;
+            border: 1px solid #fde68a;
+        }
+    </style>
+</head>
+<body>
+    <div class="cleanup-container">
+        <div class="cleanup-header">
+            <h1>
+                <i style="font-size: 30px;">🧹</i>
+                Data Cleanup Tool
+            </h1>
+            <p>Reset all browser data to test fresh signup</p>
+        </div>
+
+        <div class="cleanup-steps">
+            <h3>🔄 What This Will Do:</h3>
+            <ol>
+                <li><strong>Clear localStorage:</strong> Remove all saved profile data</li>
+                <li><strong>Clear sessionStorage:</strong> Remove temporary data</li>
+                <li><strong>Sign out from Supabase:</strong> End current session</li>
+                <li><strong>Clear browser cache:</strong> Instructions provided</li>
+            </ol>
+        </div>
+
+        <div id="status" class="status warning">
+            <strong>⚠️ Ready to cleanup:</strong> This will sign you out and clear all saved data.
+        </div>
+
+        <button class="cleanup-btn" onclick="performCleanup()">
+            🧹 Clean All Data
+        </button>
+
+        <button class="cleanup-btn test-btn" onclick="testFreshSignup()">
+            🆕 Test Fresh Signup
+        </button>
+
+        <!-- Supabase CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        <script src="config.js"></script>
+        <script src="supabase-cdn.js"></script>
+
+        <script>
+            async function performCleanup() {
+                const statusDiv = document.getElementById('status');
+                statusDiv.innerHTML = '<strong>🔄 Cleaning up...</strong> Please wait...';
+                
+                try {
+                    // Clear all localStorage
+                    localStorage.clear();
+                    console.log('✅ localStorage cleared');
+                    
+                    // Clear all sessionStorage
+                    sessionStorage.clear();
+                    console.log('✅ sessionStorage cleared');
+                    
+                    // Sign out from Supabase if available
+                    if (window.EnkiConnect && window.EnkiConnect.auth) {
+                        await window.EnkiConnect.auth.signOut();
+                        console.log('✅ Signed out from Supabase');
+                    }
+                    
+                    statusDiv.className = 'status success';
+                    statusDiv.innerHTML = `
+                        <strong>✅ Cleanup Complete!</strong><br/>
+                        All data cleared. Now close this browser window completely and reopen to test fresh signup.
+                    `;
+                    
+                } catch (error) {
+                    console.error('Cleanup error:', error);
+                    statusDiv.innerHTML = `
+                        <strong>❌ Cleanup Error:</strong> ${error.message}<br/>
+                        Try manually clearing browser data.
+                    `;
+                }
+            }
+            
+            function testFreshSignup() {
+                window.open('index.html', '_blank');
+            }
+        </script>
+    </div>
+</body>
+</html> 

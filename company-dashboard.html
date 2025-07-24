@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🏢 Company Dashboard - TechCorp Holiday Exchange</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-building"></i> TechCorp Holiday Exchange</h1>
+                <p>Organizer Dashboard - Jennifer Martinez (HR Manager)</p>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" onclick="window.location.href='profile.html'">
+                    <i class="fas fa-user"></i> Profile
+                </button>
+                <button class="header-btn" onclick="window.location.href='categories.html'">
+                    <i class="fas fa-home"></i> Categories
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- Status Overview -->
+            <section class="status-overview">
+                <div class="status-card active">
+                    <div class="status-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>Exchange Active</h3>
+                        <p>Launched 2 hours ago</p>
+                        <div class="status-timeline">
+                            <span class="timeline-point completed">Setup</span>
+                            <span class="timeline-point completed">Invites</span>
+                            <span class="timeline-point active">Active</span>
+                            <span class="timeline-point">Matching</span>
+                            <span class="timeline-point">Delivery</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Metrics -->
+            <section class="key-metrics">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-number">47</span>
+                            <span class="metric-label">Total Employees</span>
+                            <span class="metric-change positive">+3 today</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-number">34</span>
+                            <span class="metric-label">Confirmed</span>
+                            <span class="metric-change">72% participation</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-number">13</span>
+                            <span class="metric-label">Pending</span>
+                            <span class="metric-change">6 hrs left</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-number">$1,247</span>
+                            <span class="metric-label">Total Pool</span>
+                            <span class="metric-change">$36.7 avg</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h3>⚡ Quick Actions</h3>
+                <div class="actions-grid">
+                    <button class="action-card" onclick="sendReminders()">
+                        <i class="fas fa-paper-plane"></i>
+                        <span>Send Reminders</span>
+                        <small>13 pending employees</small>
+                    </button>
+                    <button class="action-card" onclick="addMoreEmployees()">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Add Employees</span>
+                        <small>Bulk import available</small>
+                    </button>
+                    <button class="action-card" onclick="viewInviteDemo()">
+                        <i class="fas fa-envelope"></i>
+                        <span>View Invites</span>
+                        <small>See employee experience</small>
+                    </button>
+                    <button class="action-card launch-ready" onclick="startMatching()">
+                        <i class="fas fa-magic"></i>
+                        <span>Start AI Matching</span>
+                        <small>Ready when you are!</small>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Participant Management -->
+            <section class="participant-management">
+                <div class="section-header">
+                    <h3>👥 Employee Status</h3>
+                    <div class="section-filters">
+                        <button class="filter-btn active" onclick="filterParticipants('all')">All (47)</button>
+                        <button class="filter-btn" onclick="filterParticipants('confirmed')">Confirmed (34)</button>
+                        <button class="filter-btn" onclick="filterParticipants('pending')">Pending (13)</button>
+                    </div>
+                </div>
+
+                <div class="participants-table">
+                    <div class="table-header">
+                        <div class="col-checkbox">
+                            <input type="checkbox" id="selectAll" onchange="toggleSelectAll()">
+                        </div>
+                        <div class="col-employee">Employee</div>
+                        <div class="col-department">Department</div>
+                        <div class="col-status">Status</div>
+                        <div class="col-budget">Budget</div>
+                        <div class="col-joined">Joined</div>
+                        <div class="col-actions">Actions</div>
+                    </div>
+
+                    <div class="participant-row confirmed" data-status="confirmed">
+                        <div class="col-checkbox">
+                            <input type="checkbox" class="participant-select">
+                        </div>
+                        <div class="col-employee">
+                            <div class="employee-info">
+                                <div class="employee-avatar">SJ</div>
+                                <div class="employee-details">
+                                    <strong>Sarah Johnson</strong>
+                                    <span>sarah.johnson@techcorp.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-department">Engineering</div>
+                        <div class="col-status">
+                            <span class="status-badge confirmed">✅ Confirmed</span>
+                        </div>
+                        <div class="col-budget">$35</div>
+                        <div class="col-joined">2 days ago</div>
+                        <div class="col-actions">
+                            <button class="action-btn small" onclick="viewEmployeeDetails('sarah')">View</button>
+                            <button class="action-btn small" onclick="messageEmployee('sarah')">Message</button>
+                        </div>
+                    </div>
+
+                    <div class="participant-row confirmed" data-status="confirmed">
+                        <div class="col-checkbox">
+                            <input type="checkbox" class="participant-select">
+                        </div>
+                        <div class="col-employee">
+                            <div class="employee-info">
+                                <div class="employee-avatar">MC</div>
+                                <div class="employee-details">
+                                    <strong>Mike Chen</strong>
+                                    <span>mike.chen@techcorp.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-department">Design</div>
+                        <div class="col-status">
+                            <span class="status-badge confirmed">✅ Confirmed</span>
+                        </div>
+                        <div class="col-budget">$42</div>
+                        <div class="col-joined">1 day ago</div>
+                        <div class="col-actions">
+                            <button class="action-btn small" onclick="viewEmployeeDetails('mike')">View</button>
+                            <button class="action-btn small" onclick="messageEmployee('mike')">Message</button>
+                        </div>
+                    </div>
+
+                    <div class="participant-row pending" data-status="pending">
+                        <div class="col-checkbox">
+                            <input type="checkbox" class="participant-select">
+                        </div>
+                        <div class="col-employee">
+                            <div class="employee-info">
+                                <div class="employee-avatar">ER</div>
+                                <div class="employee-details">
+                                    <strong>Emily Rodriguez</strong>
+                                    <span>emily.rodriguez@techcorp.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-department">Marketing</div>
+                        <div class="col-status">
+                            <span class="status-badge pending">⏳ Pending</span>
+                        </div>
+                        <div class="col-budget">-</div>
+                        <div class="col-joined">Invited 3 days ago</div>
+                        <div class="col-actions">
+                            <button class="action-btn small warn" onclick="sendReminder('emily')">Remind</button>
+                            <button class="action-btn small" onclick="resendInvite('emily')">Resend</button>
+                        </div>
+                    </div>
+
+                    <div class="participant-row confirmed" data-status="confirmed">
+                        <div class="col-checkbox">
+                            <input type="checkbox" class="participant-select">
+                        </div>
+                        <div class="col-employee">
+                            <div class="employee-info">
+                                <div class="employee-avatar">DK</div>
+                                <div class="employee-details">
+                                    <strong>David Kim</strong>
+                                    <span>david.kim@techcorp.com</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-department">Sales</div>
+                        <div class="col-status">
+                            <span class="status-badge confirmed">✅ Confirmed</span>
+                        </div>
+                        <div class="col-budget">$28</div>
+                        <div class="col-joined">4 hours ago</div>
+                        <div class="col-actions">
+                            <button class="action-btn small" onclick="viewEmployeeDetails('david')">View</button>
+                            <button class="action-btn small" onclick="messageEmployee('david')">Message</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-footer">
+                    <div class="bulk-actions">
+                        <button class="bulk-btn" onclick="bulkRemind()" disabled>
+                            <i class="fas fa-paper-plane"></i> Send Reminders
+                        </button>
+                        <button class="bulk-btn" onclick="bulkRemove()" disabled>
+                            <i class="fas fa-user-minus"></i> Remove Selected
+                        </button>
+                    </div>
+                    <div class="pagination">
+                        <span>Showing 4 of 47 employees</span>
+                        <button class="page-btn">←</button>
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                        <button class="page-btn">→</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exchange Timeline -->
+            <section class="exchange-timeline">
+                <h3>📅 Exchange Timeline</h3>
+                <div class="timeline-container">
+                    <div class="timeline-item completed">
+                        <div class="timeline-point">✅</div>
+                        <div class="timeline-content">
+                            <h4>Exchange Setup</h4>
+                            <p>Company details configured, budget limits set</p>
+                            <span class="timeline-date">Dec 10, 2:30 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item completed">
+                        <div class="timeline-point">✅</div>
+                        <div class="timeline-content">
+                            <h4>Invitations Sent</h4>
+                            <p>47 employees invited via work email</p>
+                            <span class="timeline-date">Dec 10, 3:00 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item active">
+                        <div class="timeline-point">🔄</div>
+                        <div class="timeline-content">
+                            <h4>Employee Registration</h4>
+                            <p>34 confirmed, 13 pending responses</p>
+                            <span class="timeline-date">Dec 10-15</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item upcoming">
+                        <div class="timeline-point">⏳</div>
+                        <div class="timeline-content">
+                            <h4>AI Matching</h4>
+                            <p>Automatic gift matching based on preferences</p>
+                            <span class="timeline-date">Dec 16, 12:00 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item upcoming">
+                        <div class="timeline-point">🎁</div>
+                        <div class="timeline-content">
+                            <h4>Gift Delivery</h4>
+                            <p>All gifts delivered to TechCorp office</p>
+                            <span class="timeline-date">Dec 20-22</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item upcoming">
+                        <div class="timeline-point">💬</div>
+                        <div class="timeline-content">
+                            <h4>Chat Window Opens</h4>
+                            <p>24-hour chat between gift partners</p>
+                            <span class="timeline-date">Dec 22, 9:00 AM</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="dashboard-actions">
+            <button class="dashboard-btn secondary" onclick="window.location.href='setup-company.html'">
+                <i class="fas fa-arrow-left"></i> Back to Setup
+            </button>
+            <button class="dashboard-btn secondary" onclick="exportData()">
+                <i class="fas fa-download"></i> Export Data
+            </button>
+            <button class="dashboard-btn secondary" onclick="window.location.href='company-invite-demo.html'">
+                <i class="fas fa-envelope"></i> View Invites
+            </button>
+            <button class="dashboard-btn primary" onclick="startMatching()">
+                <i class="fas fa-magic"></i> Start AI Matching
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Dashboard functionality
+        function filterParticipants(status) {
+            // Update filter buttons
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter table rows
+            const rows = document.querySelectorAll('.participant-row');
+            rows.forEach(row => {
+                if (status === 'all' || row.dataset.status === status) {
+                    row.style.display = 'grid';
+                } else {
+                    row.style.display = 'none';
+                }
+            });
+        }
+
+        function toggleSelectAll() {
+            const selectAll = document.getElementById('selectAll');
+            const checkboxes = document.querySelectorAll('.participant-select');
+            const bulkBtns = document.querySelectorAll('.bulk-btn');
+            
+            checkboxes.forEach(cb => cb.checked = selectAll.checked);
+            bulkBtns.forEach(btn => btn.disabled = !selectAll.checked);
+        }
+
+        function sendReminders() {
+            alert('📧 Reminder emails sent to 13 pending employees!');
+        }
+
+        function addMoreEmployees() {
+            window.location.href = 'setup-company.html#step2';
+        }
+
+        function viewInviteDemo() {
+            window.location.href = 'company-invite-demo.html';
+        }
+
+        function startMatching() {
+            if (confirm('🤖 Start AI matching process? This will automatically match all confirmed employees.')) {
+                alert('✨ AI matching started! Employees will be notified when matching is complete.');
+            }
+        }
+
+        function viewEmployeeDetails(employeeId) {
+            alert(`👤 Viewing details for ${employeeId} - Full profile, preferences, and status.`);
+        }
+
+        function messageEmployee(employeeId) {
+            alert(`💬 Sending message to ${employeeId} - Custom reminder or update.`);
+        }
+
+        function sendReminder(employeeId) {
+            alert(`📧 Reminder sent to ${employeeId}!`);
+        }
+
+        function exportData() {
+            alert('📊 Exporting participant data and exchange metrics...');
+        }
+
+        // Enable bulk actions when checkboxes are selected
+        document.addEventListener('change', function(e) {
+            if (e.target.classList.contains('participant-select')) {
+                const anyChecked = document.querySelectorAll('.participant-select:checked').length > 0;
+                document.querySelectorAll('.bulk-btn').forEach(btn => btn.disabled = !anyChecked);
+            }
+        });
+    </script>
+</body>
+</html> 

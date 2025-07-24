@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👥 Friends Dashboard - Alex's Holiday Squad Exchange</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard-page">
+    <div class="dashboard-container">
+        <header class="dashboard-header">
+            <div class="header-left">
+                <h1><i class="fas fa-users"></i> Alex's Holiday Squad Exchange</h1>
+                <p>Friends Group Organizer - Alex Chen</p>
+            </div>
+            <div class="header-right">
+                <button class="header-btn" onclick="window.location.href='profile.html'">
+                    <i class="fas fa-user"></i> Profile
+                </button>
+                <button class="header-btn" onclick="window.location.href='categories.html'">
+                    <i class="fas fa-home"></i> Categories
+                </button>
+            </div>
+        </header>
+
+        <main class="dashboard-main">
+            <!-- Status Overview -->
+            <section class="status-overview">
+                <div class="status-card active">
+                    <div class="status-icon">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <div class="status-info">
+                        <h3>Group Exchange Active</h3>
+                        <p>Launched 1 hour ago • 6 friends joined</p>
+                        <div class="status-timeline">
+                            <span class="timeline-point completed">Setup</span>
+                            <span class="timeline-point completed">Invites</span>
+                            <span class="timeline-point active">Active</span>
+                            <span class="timeline-point">Matching</span>
+                            <span class="timeline-point">Party!</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Key Metrics -->
+            <section class="key-metrics">
+                <div class="metrics-grid">
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-user-friends"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-number">8</span>
+                            <span class="metric-label">Friends Invited</span>
+                            <span class="metric-change positive">Perfect squad!</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-number">6</span>
+                            <span class="metric-label">Confirmed</span>
+                            <span class="metric-change">75% joined</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-number">2</span>
+                            <span class="metric-label">Still Pending</span>
+                            <span class="metric-change">3 days left</span>
+                        </div>
+                    </div>
+
+                    <div class="metric-card">
+                        <div class="metric-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="metric-content">
+                            <span class="metric-number">$158</span>
+                            <span class="metric-label">Gift Pool</span>
+                            <span class="metric-change">$26.3 avg</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Quick Actions -->
+            <section class="quick-actions">
+                <h3>⚡ Group Actions</h3>
+                <div class="actions-grid">
+                    <button class="action-card" onclick="sendGroupMessage()">
+                        <i class="fas fa-comments"></i>
+                        <span>Group Message</span>
+                        <small>Update your squad</small>
+                    </button>
+                    <button class="action-card" onclick="inviteMoreFriends()">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Invite More</span>
+                        <small>Add 2 more friends</small>
+                    </button>
+                    <button class="action-card" onclick="viewGroupChat()">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Share Link</span>
+                        <small>SMS invitation link</small>
+                    </button>
+                    <button class="action-card launch-ready" onclick="startFriendMatching()">
+                        <i class="fas fa-magic"></i>
+                        <span>Start Matching</span>
+                        <small>Let's do this! 🎉</small>
+                    </button>
+                </div>
+            </section>
+
+            <!-- Friend Status -->
+            <section class="participant-management">
+                <div class="section-header">
+                    <h3>👥 Friend Status</h3>
+                    <div class="section-filters">
+                        <button class="filter-btn active" onclick="filterFriends('all')">All (8)</button>
+                        <button class="filter-btn" onclick="filterFriends('confirmed')">Joined (6)</button>
+                        <button class="filter-btn" onclick="filterFriends('pending')">Pending (2)</button>
+                    </div>
+                </div>
+
+                <div class="friends-grid">
+                    <div class="friend-card confirmed" data-status="confirmed">
+                        <div class="friend-avatar">M</div>
+                        <div class="friend-info">
+                            <strong>Maya Rodriguez</strong>
+                            <span class="friend-phone">(555) 234-5678</span>
+                            <div class="friend-status">
+                                <span class="status-badge confirmed">✅ Joined</span>
+                                <span class="join-time">2 days ago</span>
+                            </div>
+                            <div class="friend-details">
+                                <span class="friend-budget">$30 budget</span>
+                                <span class="friend-prefs">🎮 Gaming, ☕ Coffee</span>
+                            </div>
+                        </div>
+                        <div class="friend-actions">
+                            <button class="friend-btn" onclick="messageFriend('maya')">
+                                <i class="fas fa-sms"></i>
+                            </button>
+                            <button class="friend-btn" onclick="viewFriendProfile('maya')">
+                                <i class="fas fa-user"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card confirmed" data-status="confirmed">
+                        <div class="friend-avatar">S</div>
+                        <div class="friend-info">
+                            <strong>Sam Johnson</strong>
+                            <span class="friend-phone">(555) 345-6789</span>
+                            <div class="friend-status">
+                                <span class="status-badge confirmed">✅ Joined</span>
+                                <span class="join-time">1 day ago</span>
+                            </div>
+                            <div class="friend-details">
+                                <span class="friend-budget">$25 budget</span>
+                                <span class="friend-prefs">📚 Books, 🏋️ Fitness</span>
+                            </div>
+                        </div>
+                        <div class="friend-actions">
+                            <button class="friend-btn" onclick="messageFriend('sam')">
+                                <i class="fas fa-sms"></i>
+                            </button>
+                            <button class="friend-btn" onclick="viewFriendProfile('sam')">
+                                <i class="fas fa-user"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card confirmed" data-status="confirmed">
+                        <div class="friend-avatar">J</div>
+                        <div class="friend-info">
+                            <strong>Jordan Williams</strong>
+                            <span class="friend-phone">(555) 456-7890</span>
+                            <div class="friend-status">
+                                <span class="status-badge confirmed">✅ Joined</span>
+                                <span class="join-time">6 hours ago</span>
+                            </div>
+                            <div class="friend-details">
+                                <span class="friend-budget">$35 budget</span>
+                                <span class="friend-prefs">🎵 Music, 🎨 Art</span>
+                            </div>
+                        </div>
+                        <div class="friend-actions">
+                            <button class="friend-btn" onclick="messageFriend('jordan')">
+                                <i class="fas fa-sms"></i>
+                            </button>
+                            <button class="friend-btn" onclick="viewFriendProfile('jordan')">
+                                <i class="fas fa-user"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card pending" data-status="pending">
+                        <div class="friend-avatar">E</div>
+                        <div class="friend-info">
+                            <strong>Emma Wilson</strong>
+                            <span class="friend-phone">(555) 567-8901</span>
+                            <div class="friend-status">
+                                <span class="status-badge pending">⏳ Pending</span>
+                                <span class="join-time">Invited 3 days ago</span>
+                            </div>
+                            <div class="friend-details">
+                                <span class="friend-budget">No response yet</span>
+                                <span class="friend-prefs">Waiting to join...</span>
+                            </div>
+                        </div>
+                        <div class="friend-actions">
+                            <button class="friend-btn remind" onclick="remindFriend('emma')">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <button class="friend-btn" onclick="resendInvite('emma')">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card pending" data-status="pending">
+                        <div class="friend-avatar">D</div>
+                        <div class="friend-info">
+                            <strong>David Park</strong>
+                            <span class="friend-phone">(555) 678-9012</span>
+                            <div class="friend-status">
+                                <span class="status-badge pending">⏳ Pending</span>
+                                <span class="join-time">Invited 1 day ago</span>
+                            </div>
+                            <div class="friend-details">
+                                <span class="friend-budget">No response yet</span>
+                                <span class="friend-prefs">Waiting to join...</span>
+                            </div>
+                        </div>
+                        <div class="friend-actions">
+                            <button class="friend-btn remind" onclick="remindFriend('david')">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                            <button class="friend-btn" onclick="resendInvite('david')">
+                                <i class="fas fa-redo"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="friend-card organizer" data-status="confirmed">
+                        <div class="friend-avatar">A</div>
+                        <div class="friend-info">
+                            <strong>You (Alex)</strong>
+                            <span class="friend-phone">Organizer</span>
+                            <div class="friend-status">
+                                <span class="status-badge organizer">👑 Organizer</span>
+                                <span class="join-time">Created exchange</span>
+                            </div>
+                            <div class="friend-details">
+                                <span class="friend-budget">$40 budget</span>
+                                <span class="friend-prefs">🎮 Gaming, 🍕 Food</span>
+                            </div>
+                        </div>
+                        <div class="friend-actions">
+                            <button class="friend-btn" onclick="window.location.href='profile.html'">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Social Features -->
+            <section class="social-features">
+                <h3>📱 Social Sharing</h3>
+                <div class="sharing-options">
+                    <div class="share-card">
+                        <div class="share-icon">
+                            <i class="fas fa-link"></i>
+                        </div>
+                        <div class="share-content">
+                            <h4>Invitation Link</h4>
+                            <p>Share this link with more friends to join</p>
+                            <div class="share-link">
+                                <input type="text" value="https://playconnect.com/join/alex-holiday-squad" readonly>
+                                <button onclick="copyInviteLink()">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="share-card">
+                        <div class="share-icon">
+                            <i class="fas fa-qrcode"></i>
+                        </div>
+                        <div class="share-content">
+                            <h4>QR Code</h4>
+                            <p>Friends can scan to join instantly</p>
+                            <div class="qr-placeholder">
+                                <i class="fas fa-qrcode"></i>
+                                <span>QR Code Here</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="share-card">
+                        <div class="share-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="share-content">
+                            <h4>SMS Invites</h4>
+                            <p>Send personalized text invitations</p>
+                            <button class="share-btn" onclick="window.location.href='friend-invite-demo.html'">
+                                <i class="fas fa-sms"></i> View SMS Demo
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Exchange Timeline -->
+            <section class="exchange-timeline">
+                <h3>📅 Squad Timeline</h3>
+                <div class="timeline-container">
+                    <div class="timeline-item completed">
+                        <div class="timeline-point">✅</div>
+                        <div class="timeline-content">
+                            <h4>Squad Created</h4>
+                            <p>Holiday exchange setup complete</p>
+                            <span class="timeline-date">Dec 12, 2:00 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item completed">
+                        <div class="timeline-point">✅</div>
+                        <div class="timeline-content">
+                            <h4>Friends Invited</h4>
+                            <p>8 friends sent SMS invitations</p>
+                            <span class="timeline-date">Dec 12, 2:15 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item active">
+                        <div class="timeline-point">🔄</div>
+                        <div class="timeline-content">
+                            <h4>Squad Assembly</h4>
+                            <p>6 joined, 2 still deciding</p>
+                            <span class="timeline-date">Dec 12-17</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item upcoming">
+                        <div class="timeline-point">⏳</div>
+                        <div class="timeline-content">
+                            <h4>Secret Matching</h4>
+                            <p>AI pairs friends for gift exchange</p>
+                            <span class="timeline-date">Dec 18, 8:00 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item upcoming">
+                        <div class="timeline-point">🎁</div>
+                        <div class="timeline-content">
+                            <h4>Gift Delivery</h4>
+                            <p>Surprise packages arrive!</p>
+                            <span class="timeline-date">Dec 20-22</span>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item upcoming">
+                        <div class="timeline-point">🎉</div>
+                        <div class="timeline-content">
+                            <h4>Squad Party</h4>
+                            <p>Chat, reveal gifts, and celebrate</p>
+                            <span class="timeline-date">Dec 22, 7:00 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <div class="dashboard-actions">
+            <button class="dashboard-btn secondary" onclick="window.location.href='setup-friends.html'">
+                <i class="fas fa-arrow-left"></i> Back to Setup
+            </button>
+            <button class="dashboard-btn secondary" onclick="shareSquad()">
+                <i class="fas fa-share"></i> Share Squad
+            </button>
+            <button class="dashboard-btn secondary" onclick="window.location.href='friend-invite-demo.html'">
+                <i class="fas fa-envelope"></i> View Invites
+            </button>
+            <button class="dashboard-btn primary" onclick="startFriendMatching()">
+                <i class="fas fa-magic"></i> Start Secret Matching
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Friends dashboard functionality
+        function filterFriends(status) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            const cards = document.querySelectorAll('.friend-card');
+            cards.forEach(card => {
+                if (status === 'all' || card.dataset.status === status) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        function sendGroupMessage() {
+            alert('📱 Group message sent to all 6 friends in your squad!');
+        }
+
+        function inviteMoreFriends() {
+            window.location.href = 'setup-friends.html#step2';
+        }
+
+        function viewGroupChat() {
+            window.location.href = 'friend-invite-demo.html#sms-demo';
+        }
+
+        function startFriendMatching() {
+            if (confirm('🤖 Start secret matching? Your squad will be paired for the gift exchange!')) {
+                alert('✨ Secret matching started! Friends will get their partner assignments soon! 🎁');
+            }
+        }
+
+        function messageFriend(friendId) {
+            alert(`💬 Sending personal message to ${friendId}...`);
+        }
+
+        function viewFriendProfile(friendId) {
+            alert(`👤 Viewing ${friendId}'s profile and gift preferences...`);
+        }
+
+        function remindFriend(friendId) {
+            alert(`📧 Friendly reminder sent to ${friendId}!`);
+        }
+
+        function resendInvite(friendId) {
+            alert(`📱 Re-sending invitation link to ${friendId}...`);
+        }
+
+        function copyInviteLink() {
+            const linkInput = document.querySelector('.share-link input');
+            linkInput.select();
+            document.execCommand('copy');
+            alert('📋 Invitation link copied! Share it with more friends!');
+        }
+
+        function shareSquad() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Join My Holiday Gift Exchange!',
+                    text: 'Hey! Join my holiday gift exchange squad - it\'ll be fun!',
+                    url: 'https://playconnect.com/join/alex-holiday-squad'
+                });
+            } else {
+                copyInviteLink();
+            }
+        }
+    </script>
+</body>
+</html> 

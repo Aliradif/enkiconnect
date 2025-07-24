@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Main Auth</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .test-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        .test-form {
+            margin: 20px 0;
+        }
+        .test-form input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+        .test-form button {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #4c63d2 0%, #667eea 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .test-form button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 99, 210, 0.3);
+        }
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 8px;
+            font-weight: 500;
+        }
+        .status.info {
+            background: #dbeafe;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+        .test-btn {
+            background: #10b981;
+            margin: 5px;
+            padding: 8px 15px;
+            font-size: 14px;
+            width: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🏺 Main Auth Test</h1>
+        <p>Testing the actual main page authentication logic</p>
+        
+        <div class="status info">
+            <strong>📋 Instructions:</strong><br>
+            1. Clear all data first<br>
+            2. Try signing in with fake credentials (should fail)<br>
+            3. Should automatically prompt for full name (new signup)<br>
+            4. Check for proper error/success notifications
+        </div>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <button class="test-btn" onclick="clearAllData()">🧹 Clear All Data</button>
+            <button class="test-btn" onclick="checkStatus()">🔍 Check Status</button>
+        </div>
+        
+        <form class="email-form test-form">
+            <div id="authMessage" class="auth-message" style="display: none;"></div>
+            <input type="email" id="email" placeholder="Email (try: testnew@example.com)" value="testnew@example.com">
+            <input type="password" id="password" placeholder="Password (try: newpass123)" value="newpass123">
+            <button type="submit" class="signin-btn">Sign In</button>
+        </form>
+        
+        <div style="text-align: center; margin: 20px 0;">
+            <button class="test-btn" onclick="window.open('index.html', '_blank')">🔗 Open Real Index</button>
+            <button class="test-btn" onclick="window.open('profile.html', '_blank')">👤 Open Profile</button>
+        </div>
+        
+        <div id="debugLog" style="background: #1a1a1a; color: #00ff00; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 12px; height: 150px; overflow-y: auto; margin-top: 20px;"></div>
+    </div>
+
+    <!-- Same scripts as main index.html -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    <script src="auth.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        const debugLog = document.getElementById('debugLog');
+        
+        function log(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            debugLog.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+            debugLog.scrollTop = debugLog.scrollHeight;
+            console.log(message);
+        }
+        
+        async function clearAllData() {
+            try {
+                localStorage.clear();
+                sessionStorage.clear();
+                if (window.EnkiConnect && window.EnkiConnect.auth) {
+                    await window.EnkiConnect.auth.signOut();
+                }
+                log('✅ All data cleared');
+            } catch (error) {
+                log('❌ Clear error: ' + error.message);
+            }
+        }
+        
+        async function checkStatus() {
+            try {
+                if (!window.EnkiConnect) {
+                    log('❌ EnkiConnect not initialized');
+                    return;
+                }
+                
+                const { user } = await window.EnkiConnect.auth.getCurrentUser();
+                if (user) {
+                    log('✅ Current user: ' + user.email);
+                } else {
+                    log('❌ No current user');
+                }
+            } catch (error) {
+                log('❌ Status check error: ' + error.message);
+            }
+        }
+        
+        // Enhanced console logging
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        
+        console.log = function(...args) {
+            originalConsoleLog.apply(console, args);
+            if (debugLog) {
+                log('INFO: ' + args.join(' '));
+            }
+        };
+        
+        console.error = function(...args) {
+            originalConsoleError.apply(console, args);
+            if (debugLog) {
+                log('ERROR: ' + args.join(' '));
+            }
+        };
+        
+        window.addEventListener('load', function() {
+            log('🏺 Test page loaded - testing main auth logic');
+        });
+    </script>
+</body>
+</html> 

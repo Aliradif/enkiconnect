@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👥 Friend User Demo - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="user-demo-page">
+    <div class="user-demo-container">
+        <header class="demo-header">
+            <h1><i class="fas fa-user-friends"></i> Friend User Experience</h1>
+            <p>Complete journey from SMS invite to payment - Alex's Holiday Squad</p>
+        </header>
+
+        <main class="demo-main">
+            <div class="demo-tabs">
+                <button class="demo-tab active" onclick="showStep('sms')">📱 SMS Invite</button>
+                <button class="demo-tab" onclick="showStep('landing')">🔗 Landing Page</button>
+                <button class="demo-tab" onclick="showStep('signup')">📝 Join Group</button>
+                <button class="demo-tab" onclick="showStep('payment')">💳 Payment</button>
+                <button class="demo-tab" onclick="showStep('success')">🎉 Success</button>
+            </div>
+
+            <!-- Step 1: SMS Invitation -->
+            <div class="demo-step active" id="sms-step">
+                <div class="phone-mockup">
+                    <div class="phone-header">
+                        <div class="time">2:34 PM</div>
+                        <div class="battery">
+                            <i class="fas fa-battery-three-quarters"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="messages-screen">
+                        <div class="messages-header">
+                            <i class="fas fa-arrow-left"></i>
+                            <span class="contact-name">Alex Chen</span>
+                            <i class="fas fa-phone"></i>
+                        </div>
+
+                        <div class="messages-body">
+                            <div class="message received">
+                                <div class="message-bubble">
+                                    Hey Maya! 👋 Want to join our holiday gift exchange? It's going to be epic!
+                                </div>
+                                <div class="message-time">2:30 PM</div>
+                            </div>
+
+                            <div class="message received special-invite">
+                                <div class="invite-card">
+                                    <div class="invite-header">
+                                        <i class="fas fa-water"></i>
+                                        <span>EnkiConnect Invitation</span>
+                                    </div>
+                                    <div class="invite-content">
+                                        <h4>🎄 Alex's Holiday Squad Exchange</h4>
+                                        <p><strong>You're invited!</strong> Join our mystery gift exchange powered by ancient wisdom.</p>
+                                        
+                                        <div class="invite-details">
+                                            <div class="detail">
+                                                <i class="fas fa-users"></i>
+                                                <span>8 friends invited</span>
+                                            </div>
+                                            <div class="detail">
+                                                <i class="fas fa-dollar-sign"></i>
+                                                <span>$15 - $40 budget</span>
+                                            </div>
+                                            <div class="detail">
+                                                <i class="fas fa-calendar"></i>
+                                                <span>Exchange: Dec 20th</span>
+                                            </div>
+                                        </div>
+
+                                        <a href="#" class="invite-join-btn" onclick="showStep('landing')">
+                                            🏺 Join on EnkiConnect
+                                        </a>
+                                    </div>
+                                </div>
+                                <div class="message-time">2:32 PM</div>
+                            </div>
+                        </div>
+
+                        <div class="message-input">
+                            <i class="fas fa-plus-circle"></i>
+                            <input type="text" placeholder="Message...">
+                            <i class="fas fa-microphone"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Landing Page -->
+            <div class="demo-step" id="landing-step">
+                <div class="landing-page">
+                    <div class="landing-header">
+                        <div class="brand-logo">
+                            <i class="fas fa-water"></i>
+                            <span>EnkiConnect</span>
+                        </div>
+                        <p class="tagline">Ancient wisdom, modern connections</p>
+                    </div>
+
+                    <div class="invitation-welcome">
+                        <h2>🎁 You're Invited!</h2>
+                        <p>Alex Chen invited you to join their holiday gift exchange</p>
+                    </div>
+
+                    <div class="group-preview">
+                        <div class="group-info">
+                            <h3>🎄 Alex's Holiday Squad Exchange</h3>
+                            <div class="group-stats">
+                                <div class="stat">
+                                    <i class="fas fa-users"></i>
+                                    <span>8 friends</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-gift"></i>
+                                    <span>$15-$40 budget</span>
+                                </div>
+                                <div class="stat">
+                                    <i class="fas fa-calendar"></i>
+                                    <span>Dec 20th exchange</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="friends-preview">
+                            <h4>Who's Joining:</h4>
+                            <div class="friend-avatars">
+                                <div class="friend-avatar organizer">A</div>
+                                <div class="friend-avatar">S</div>
+                                <div class="friend-avatar">J</div>
+                                <div class="friend-avatar">T</div>
+                                <div class="friend-avatar plus">+3</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="how-it-works">
+                        <h3>🏺 How EnkiConnect Works:</h3>
+                        <div class="steps-grid">
+                            <div class="step-card">
+                                <div class="step-icon">1</div>
+                                <h4>Join & Pay</h4>
+                                <p>Set your budget and preferences</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-icon">2</div>
+                                <h4>AI Matching</h4>
+                                <p>Enki's wisdom pairs you with a friend</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-icon">3</div>
+                                <h4>Mystery Gift</h4>
+                                <p>Receive a surprise chosen just for you</p>
+                            </div>
+                            <div class="step-card">
+                                <div class="step-icon">4</div>
+                                <h4>Connect & Chat</h4>
+                                <p>24-hour chat window with your partner</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="landing-actions">
+                        <button class="join-btn primary" onclick="showStep('signup')">
+                            <i class="fas fa-user-plus"></i> Join Alex's Group
+                        </button>
+                        <button class="learn-btn secondary">
+                            <i class="fas fa-info-circle"></i> Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Sign Up/Join Group -->
+            <div class="demo-step" id="signup-step">
+                <div class="signup-form">
+                    <div class="form-header">
+                        <h2>🏺 Join Alex's Holiday Squad</h2>
+                        <p>Welcome to EnkiConnect, Maya! Let's get you set up.</p>
+                    </div>
+
+                    <div class="organizer-info">
+                        <div class="organizer-card">
+                            <div class="organizer-avatar">A</div>
+                            <div class="organizer-details">
+                                <strong>Alex Chen</strong>
+                                <span>Friend since 2019 • 12 mutual friends</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>👤 Your Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="firstName">First Name</label>
+                                <input type="text" id="firstName" value="Maya" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name</label>
+                                <input type="text" id="lastName" value="Rodriguez" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" value="maya.rodriguez@gmail.com" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" value="(555) 234-5678" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>💰 Your Budget</h3>
+                        <p>Alex set the range at $15-$40. Choose your amount:</p>
+                        
+                        <div class="budget-slider">
+                            <input type="range" id="friendBudget" min="15" max="40" value="30" oninput="updateFriendBudget()">
+                            <div class="budget-display">
+                                <span id="friendBudgetAmount">$30</span>
+                                <span class="budget-label">Your contribution</span>
+                            </div>
+                            <div class="budget-markers">
+                                <span>$15</span>
+                                <span>$25</span>
+                                <span>$40</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>🎯 Quick Preferences</h3>
+                        <div class="preferences-grid">
+                            <label class="pref-item">
+                                <input type="checkbox" checked>
+                                <span>🎮 Gaming</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox">
+                                <span>📚 Books</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox" checked>
+                                <span>☕ Coffee/Tea</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox">
+                                <span>🎵 Music</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox" checked>
+                                <span>🏋️ Fitness</span>
+                            </label>
+                            <label class="pref-item">
+                                <input type="checkbox">
+                                <span>🎨 Art & Crafts</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h3>📍 Delivery Address</h3>
+                        <div class="address-form">
+                            <input type="text" placeholder="123 Main Street" class="address-input" value="789 Friendship Ave">
+                            <div class="address-row">
+                                <input type="text" placeholder="City" class="address-input small" value="Los Angeles">
+                                <input type="text" placeholder="State" class="address-input small" value="CA">
+                                <input type="text" placeholder="ZIP" class="address-input small" value="90210">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="back-btn" onclick="showStep('landing')">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="next-btn" onclick="showStep('payment')">
+                            <i class="fas fa-credit-card"></i> Continue to Payment
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Payment -->
+            <div class="demo-step" id="payment-step">
+                <div class="payment-form">
+                    <div class="form-header">
+                        <h2>💳 Secure Payment</h2>
+                        <p>Complete your $30 contribution to Alex's Holiday Squad</p>
+                    </div>
+
+                    <div class="payment-summary">
+                        <h3>📋 Order Summary</h3>
+                        <div class="summary-item">
+                            <span>Alex's Holiday Squad Exchange</span>
+                            <span>$30.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span>EnkiConnect Service Fee</span>
+                            <span>$1.50</span>
+                        </div>
+                        <div class="summary-total">
+                            <span>Total</span>
+                            <span>$31.50</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods">
+                        <h3>💳 Payment Method</h3>
+                        <div class="payment-options">
+                            <label class="payment-option selected">
+                                <input type="radio" name="payment" value="card" checked>
+                                <i class="fas fa-credit-card"></i>
+                                <span>Credit/Debit Card</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="paypal">
+                                <i class="fab fa-paypal"></i>
+                                <span>PayPal</span>
+                            </label>
+                            <label class="payment-option">
+                                <input type="radio" name="payment" value="venmo">
+                                <i class="fab fa-cc-visa"></i>
+                                <span>Venmo</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="card-form">
+                        <div class="form-group">
+                            <label for="cardNumber">Card Number</label>
+                            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" value="5555 4444 3333 2222">
+                            <div class="card-icons">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date</label>
+                                <input type="text" id="expiryDate" placeholder="MM/YY" value="08/28">
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV</label>
+                                <input type="text" id="cvv" placeholder="123" value="789">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cardName">Name on Card</label>
+                            <input type="text" id="cardName" placeholder="Maya Rodriguez" value="Maya Rodriguez">
+                        </div>
+                    </div>
+
+                    <div class="billing-address">
+                        <h3>📍 Billing Address</h3>
+                        <div class="form-group">
+                            <input type="text" placeholder="Address" value="789 Friendship Ave">
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <input type="text" placeholder="City" value="Los Angeles">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="State" value="CA">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" placeholder="ZIP" value="90210">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="security-info">
+                        <div class="security-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Protected by Enki's Wisdom</span>
+                        </div>
+                        <p>Your payment is secured with bank-level encryption. EnkiConnect never stores your financial information.</p>
+                    </div>
+
+                    <div class="form-actions">
+                        <button class="back-btn" onclick="showStep('signup')">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button class="pay-btn" onclick="processFriendPayment()">
+                            <i class="fas fa-water"></i> Pay $31.50 with Enki
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Success -->
+            <div class="demo-step" id="success-step">
+                <div class="success-page">
+                    <div class="success-animation">
+                        <div class="success-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <div class="ripple"></div>
+                        <div class="ripple delay-1"></div>
+                        <div class="ripple delay-2"></div>
+                    </div>
+                    
+                    <h2>🎉 Welcome to the Squad!</h2>
+                    <p>Maya, you've successfully joined Alex's Holiday Squad Exchange!</p>
+
+                    <div class="success-details">
+                        <h3>📋 Exchange Details</h3>
+                        <div class="detail-item">
+                            <span>Squad:</span>
+                            <span>Alex's Holiday Squad</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Your Contribution:</span>
+                            <span>$30.00</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Transaction ID:</span>
+                            <span>ENK-FS-2024-000892</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Delivery Address:</span>
+                            <span>789 Friendship Ave, Los Angeles, CA</span>
+                        </div>
+                        <div class="detail-item">
+                            <span>Expected Delivery:</span>
+                            <span>December 20, 2024</span>
+                        </div>
+                    </div>
+
+                    <div class="squad-status">
+                        <h3>👥 Squad Status</h3>
+                        <div class="squad-progress">
+                            <div class="progress-text">
+                                <span>7 of 8 friends joined</span>
+                                <span>$182 total pool</span>
+                            </div>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar" style="width: 87.5%"></div>
+                            </div>
+                        </div>
+                        <p>🎯 Almost ready! Waiting for 1 more friend to join.</p>
+                    </div>
+
+                    <div class="next-steps">
+                        <h3>🔮 What Happens Next?</h3>
+                        <div class="steps-timeline">
+                            <div class="timeline-item active">
+                                <div class="timeline-point">✅</div>
+                                <div class="timeline-content">
+                                    <strong>You're In!</strong>
+                                    <span>Welcome to Alex's squad</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">👥</div>
+                                <div class="timeline-content">
+                                    <strong>Squad Complete (Dec 17)</strong>
+                                    <span>Waiting for last friend to join</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🤖</div>
+                                <div class="timeline-content">
+                                    <strong>Secret Matching (Dec 18)</strong>
+                                    <span>Enki pairs you with a squad member</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">🎁</div>
+                                <div class="timeline-content">
+                                    <strong>Gift Delivery (Dec 20)</strong>
+                                    <span>Your mystery surprise arrives!</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="timeline-point">💬</div>
+                                <div class="timeline-content">
+                                    <strong>Squad Chat (Dec 20)</strong>
+                                    <span>24-hour chat with your gift partner</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-sharing">
+                        <h3>📱 Invite More Friends</h3>
+                        <p>Help Alex complete the squad by inviting one more friend!</p>
+                        <div class="sharing-buttons">
+                            <button class="share-btn sms">
+                                <i class="fas fa-sms"></i> Text a Friend
+                            </button>
+                            <button class="share-btn social">
+                                <i class="fas fa-share"></i> Share Link
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="success-actions">
+                        <button class="primary-btn" onclick="downloadReceipt()">
+                            <i class="fas fa-download"></i> Download Receipt
+                        </button>
+                        <button class="secondary-btn" onclick="viewSquad()">
+                            <i class="fas fa-users"></i> View Squad Status
+                        </button>
+                        <button class="secondary-btn" onclick="window.location.href='categories.html'">
+                            <i class="fas fa-water"></i> Back to EnkiConnect
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <div class="demo-controls">
+            <button class="demo-control-btn" onclick="window.location.href='friend-invite-demo.html'">
+                <i class="fas fa-arrow-left"></i> Back to Invite Demo
+            </button>
+            <button class="demo-control-btn" onclick="window.location.href='investor-demo.html'">
+                <i class="fas fa-presentation"></i> Investor Demo
+            </button>
+        </div>
+    </div>
+
+    <script>
+        function showStep(stepName) {
+            document.querySelectorAll('.demo-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.demo-step').forEach(step => step.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(stepName + '-step').classList.add('active');
+        }
+
+        function updateFriendBudget() {
+            const slider = document.getElementById('friendBudget');
+            const display = document.getElementById('friendBudgetAmount');
+            display.textContent = '$' + slider.value;
+        }
+
+        function processFriendPayment() {
+            const payBtn = document.querySelector('.pay-btn');
+            const originalText = payBtn.innerHTML;
+            
+            payBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing with Enki...';
+            payBtn.disabled = true;
+            
+            setTimeout(() => {
+                showStep('success');
+                payBtn.innerHTML = originalText;
+                payBtn.disabled = false;
+            }, 3000);
+        }
+
+        function downloadReceipt() {
+            alert('📄 Receipt downloaded: enkiconnect-receipt-ENK-FS-2024-000892.pdf');
+        }
+
+        function viewSquad() {
+            alert('👥 Redirecting to Alex\'s Holiday Squad dashboard...');
+        }
+    </script>
+</body>
+</html> 

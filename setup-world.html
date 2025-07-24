@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play with World - PlayConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="setup-page world-page">
+    <div class="setup-container">
+        <header class="setup-header">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <span>PlayConnect</span>
+            </div>
+            <nav class="breadcrumb">
+                <a href="categories.html">Categories</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Play with World</span>
+            </nav>
+        </header>
+        
+        <main class="setup-main">
+            <div class="world-hero">
+                <div class="hero-content">
+                    <h1><i class="fas fa-globe-americas"></i> Play with the World</h1>
+                    <p class="hero-description">Connect with amazing people from around the globe through meaningful gift exchanges. Share cultures, make friends, and spread joy worldwide!</p>
+                    
+                    <div class="world-stats">
+                        <div class="stat-item">
+                            <span class="stat-number">2.5M+</span>
+                            <span class="stat-label">Global Players</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">195</span>
+                            <span class="stat-label">Countries</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number">50+</span>
+                            <span class="stat-label">Languages</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="world-map">
+                    <div class="map-container">
+                        <!-- Animated world connections -->
+                        <div class="connection-line line-1"></div>
+                        <div class="connection-line line-2"></div>
+                        <div class="connection-line line-3"></div>
+                        <div class="map-point point-1">🇨🇦</div>
+                        <div class="map-point point-2">🇩🇪</div>
+                        <div class="map-point point-3">🇯🇵</div>
+                        <div class="map-point point-4">🇧🇷</div>
+                        <div class="map-point point-5">🇦🇺</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="world-setup">
+                <div class="setup-card">
+                    <h2><i class="fas fa-user-circle"></i> Join the Global Community</h2>
+                    <p>Create your profile and get matched with someone from anywhere in the world!</p>
+                    
+                    <form class="world-form" id="worldForm">
+                        <div class="profile-check">
+                            <div class="check-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Profile Complete</span>
+                                <a href="profile.html" class="edit-link">Edit Profile</a>
+                            </div>
+                            <div class="check-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Age Verified (18+)</span>
+                            </div>
+                            <div class="check-item">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Payment Method Added</span>
+                            </div>
+                            <div class="check-item pending">
+                                <i class="fas fa-clock"></i>
+                                <span>Shipping Address</span>
+                                <a href="profile.html" class="edit-link">Add Address</a>
+                            </div>
+                        </div>
+                        
+                        <div class="mystery-contribution-section">
+                            <h3><i class="fas fa-gift"></i> 🎁 Mystery Gift Contribution</h3>
+                            <p>Set your budget and let our AI surprise you with authentic gifts from around the world!</p>
+                            
+                            <div class="mystery-slider">
+                                <div class="slider-container">
+                                    <input type="range" id="contributionRange" min="10" max="200" value="25" oninput="updateMysteryContribution()">
+                                    <div class="slider-labels">
+                                        <span>$10</span>
+                                        <span>$35</span>
+                                        <span>$75</span>
+                                        <span>$150</span>
+                                        <span>$200</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="mystery-display">
+                                    <div class="contribution-amount">
+                                        <span class="currency-symbol">$</span>
+                                        <span class="amount" id="contributionAmount">25</span>
+                                        <span class="currency-code">CAD</span>
+                                    </div>
+                                    <div class="mystery-label">🎲 Mystery Box Budget</div>
+                                </div>
+                            </div>
+                            
+                            <div class="mystery-info">
+                                <div class="mystery-explanation">
+                                    <h4>🤖 How Your Mystery Gift Works:</h4>
+                                    <div class="mystery-steps">
+                                        <div class="mystery-step">
+                                            <span class="step-icon">💰</span>
+                                            <span class="step-text">You contribute $<span id="dynamicAmount">25</span> CAD</span>
+                                        </div>
+                                        <div class="mystery-step">
+                                            <span class="step-icon">🌍</span>
+                                            <span class="step-text">AI finds someone worldwide paying equivalent amount</span>
+                                        </div>
+                                        <div class="mystery-step">
+                                            <span class="step-icon">🛒</span>
+                                            <span class="step-text">System auto-buys local gift from Amazon in their country</span>
+                                        </div>
+                                        <div class="mystery-step">
+                                            <span class="step-icon">📦</span>
+                                            <span class="step-text">You receive authentic surprise worth exactly $<span id="dynamicAmount2">25</span> CAD</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="local-sourcing-examples">
+                                    <h5>📍 Local Sourcing Examples:</h5>
+                                    <div class="sourcing-examples">
+                                                                                 <div class="sourcing-example">
+                                             <span class="example-flag">🇩🇪</span>
+                                             <span class="example-text">German-themed gift from your local Amazon</span>
+                                         </div>
+                                         <div class="sourcing-example">
+                                             <span class="example-flag">🇯🇵</span>
+                                             <span class="example-text">Japanese-themed item from your local store</span>
+                                         </div>
+                                         <div class="sourcing-example">
+                                             <span class="example-flag">🇦🇺</span>
+                                             <span class="example-text">Aussie-themed item from your local Amazon</span>
+                                         </div>
+                                         <div class="sourcing-example">
+                                             <span class="example-flag">🇬🇧</span>
+                                             <span class="example-text">British-themed gift from your local store</span>
+                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="matching-preferences">
+                            <h3><i class="fas fa-globe-americas"></i> Global Matching Preferences</h3>
+                            
+                            <div class="preference-section">
+                                <h4>Regional Preferences</h4>
+                                <div class="region-options">
+                                    <label class="region-option">
+                                        <input type="checkbox" name="regions" value="north-america" checked>
+                                        <span class="region-flag">🌎</span>
+                                        <span>North America</span>
+                                    </label>
+                                    <label class="region-option">
+                                        <input type="checkbox" name="regions" value="europe" checked>
+                                        <span class="region-flag">🇪🇺</span>
+                                        <span>Europe</span>
+                                    </label>
+                                    <label class="region-option">
+                                        <input type="checkbox" name="regions" value="asia" checked>
+                                        <span class="region-flag">🌏</span>
+                                        <span>Asia</span>
+                                    </label>
+                                    <label class="region-option">
+                                        <input type="checkbox" name="regions" value="oceania" checked>
+                                        <span class="region-flag">🇦🇺</span>
+                                        <span>Oceania</span>
+                                    </label>
+                                    <label class="region-option">
+                                        <input type="checkbox" name="regions" value="south-america" checked>
+                                        <span class="region-flag">🌎</span>
+                                        <span>South America</span>
+                                    </label>
+                                    <label class="region-option">
+                                        <input type="checkbox" name="regions" value="africa" checked>
+                                        <span class="region-flag">🌍</span>
+                                        <span>Africa</span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="preference-section">
+                                <h4>🎁 Mystery Gift Preferences (Hints for AI)</h4>
+                                <p class="pref-note">These are just hints - the magic is in the surprise!</p>
+                                <div class="mystery-prefs">
+                                    <div class="pref-group">
+                                        <h5>✨ Love to Discover:</h5>
+                                        <label class="culture-option">
+                                            <input type="checkbox" name="interests" value="local-specialties" checked>
+                                            <i class="fas fa-map-marker-alt"></i>
+                                            <span>Local Specialties & Crafts</span>
+                                        </label>
+                                        <label class="culture-option">
+                                            <input type="checkbox" name="interests" value="food">
+                                            <i class="fas fa-utensils"></i>
+                                            <span>Traditional Foods & Snacks</span>
+                                        </label>
+                                        <label class="culture-option">
+                                            <input type="checkbox" name="interests" value="art">
+                                            <i class="fas fa-palette"></i>
+                                            <span>Art & Cultural Items</span>
+                                        </label>
+                                        <label class="culture-option">
+                                            <input type="checkbox" name="interests" value="books">
+                                            <i class="fas fa-book"></i>
+                                            <span>Books & Learning Materials</span>
+                                        </label>
+                                        <label class="culture-option">
+                                            <input type="checkbox" name="interests" value="tech">
+                                            <i class="fas fa-microchip"></i>
+                                            <span>Unique Gadgets & Tech</span>
+                                        </label>
+                                        <label class="culture-option">
+                                            <input type="checkbox" name="interests" value="lifestyle">
+                                            <i class="fas fa-home"></i>
+                                            <span>Home & Lifestyle Items</span>
+                                        </label>
+                                    </div>
+                                    
+                                    <div class="pref-group exclusions">
+                                        <h5>⚠️ Please Avoid:</h5>
+                                        <label class="culture-option exclusion">
+                                            <input type="checkbox" name="exclusions" value="no-food">
+                                            <i class="fas fa-ban"></i>
+                                            <span>No Food Items</span>
+                                        </label>
+                                        <label class="culture-option exclusion">
+                                            <input type="checkbox" name="exclusions" value="no-clothing">
+                                            <i class="fas fa-tshirt"></i>
+                                            <span>No Clothing/Fashion</span>
+                                        </label>
+                                        <label class="culture-option exclusion">
+                                            <input type="checkbox" name="exclusions" value="no-fragile">
+                                            <i class="fas fa-fragile"></i>
+                                            <span>No Fragile Items</span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div class="mystery-disclaimer">
+                                    <i class="fas fa-info-circle"></i>
+                                    <span>Our AI uses these as guidelines, but every gift will be a delightful surprise! 🎲</span>
+                                </div>
+                            </div>
+                            
+                            <div class="preference-section">
+                                <h4>Language Learning</h4>
+                                <div class="language-options">
+                                    <select id="learningLanguage" name="learningLanguage">
+                                        <option value="">I'd like to practice... (Optional)</option>
+                                        <option value="spanish">Spanish</option>
+                                        <option value="french">French</option>
+                                        <option value="german">German</option>
+                                        <option value="italian">Italian</option>
+                                        <option value="portuguese">Portuguese</option>
+                                        <option value="japanese">Japanese</option>
+                                        <option value="korean">Korean</option>
+                                        <option value="chinese">Chinese (Mandarin)</option>
+                                        <option value="arabic">Arabic</option>
+                                        <option value="hindi">Hindi</option>
+                                        <option value="russian">Russian</option>
+                                    </select>
+                                    <small>We'll try to match you with a native speaker!</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="safety-features">
+                            <h3><i class="fas fa-shield-alt"></i> Safety & Trust</h3>
+                            <div class="safety-grid">
+                                <div class="safety-item">
+                                    <i class="fas fa-user-check"></i>
+                                    <h4>Verified Users Only</h4>
+                                    <p>All participants are age and payment verified</p>
+                                </div>
+                                <div class="safety-item">
+                                    <i class="fas fa-comments"></i>
+                                    <h4>24-Hour Chat Window</h4>
+                                    <p>Limited, monitored communication period</p>
+                                </div>
+                                <div class="safety-item">
+                                    <i class="fas fa-gift"></i>
+                                    <h4>Curated Gifts</h4>
+                                    <p>All gifts are reviewed for appropriateness</p>
+                                </div>
+                                <div class="safety-item">
+                                    <i class="fas fa-flag"></i>
+                                    <h4>Report System</h4>
+                                    <p>Easy reporting of inappropriate behavior</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="join-queue">
+                            <div class="queue-info">
+                                <h3><i class="fas fa-users"></i> Current Queue</h3>
+                                <div class="queue-stats">
+                                    <div class="queue-stat">
+                                        <span class="stat-number">1,247</span>
+                                        <span class="stat-label">Players Waiting</span>
+                                    </div>
+                                    <div class="queue-stat">
+                                        <span class="stat-number">~3 days</span>
+                                        <span class="stat-label">Avg. Match Time</span>
+                                    </div>
+                                </div>
+                                
+                                                        <div class="recent-matches">
+                            <h4>Recent Global Matches</h4>
+                            <div class="match-examples">
+                                <div class="match-example">
+                                    <span class="flag">🇨🇦</span>
+                                    <span class="amount">$28 CAD</span>
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span class="flag">🇯🇵</span>
+                                    <span class="amount">¥3,800 JPY</span>
+                                    <span class="match-time">2 hours ago</span>
+                                </div>
+                                <div class="match-example">
+                                    <span class="flag">🇩🇪</span>
+                                    <span class="amount">€42 EUR</span>
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span class="flag">🇧🇷</span>
+                                    <span class="amount">R$230 BRL</span>
+                                    <span class="match-time">5 hours ago</span>
+                                </div>
+                                <div class="match-example">
+                                    <span class="flag">🇦🇺</span>
+                                    <span class="amount">$32 AUD</span>
+                                    <i class="fas fa-exchange-alt"></i>
+                                    <span class="flag">🇮🇹</span>
+                                    <span class="amount">€22 EUR</span>
+                                    <span class="match-time">1 day ago</span>
+                                </div>
+                            </div>
+                        </div>
+                            </div>
+                            
+                            <button type="button" class="join-world-btn" onclick="joinWorldQueue()" id="joinBtn">
+                                <i class="fas fa-globe"></i>
+                                <span>Join Global Queue</span>
+                                <div class="btn-subtitle">Find your worldwide match!</div>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                
+                <div class="testimonials">
+                    <h3><i class="fas fa-heart"></i> Global Connections</h3>
+                    <div class="testimonial-grid">
+                        <div class="testimonial">
+                            <div class="testimonial-content">
+                                "I got matched with someone from Japan and received the most beautiful handmade pottery. We're still friends!"
+                            </div>
+                            <div class="testimonial-author">
+                                <span class="flag">🇨🇦</span>
+                                <strong>Sarah M.</strong> - Canada
+                            </div>
+                        </div>
+                        <div class="testimonial">
+                            <div class="testimonial-content">
+                                "Amazing cultural exchange! My German match sent me authentic beer glasses and we learned so much about each other."
+                            </div>
+                            <div class="testimonial-author">
+                                <span class="flag">🇺🇸</span>
+                                <strong>Mike R.</strong> - USA
+                            </div>
+                        </div>
+                        <div class="testimonial">
+                            <div class="testimonial-content">
+                                "The 24-hour chat was perfect - not too long, not too short. Made a real connection with someone from Australia!"
+                            </div>
+                            <div class="testimonial-author">
+                                <span class="flag">🇧🇷</span>
+                                <strong>Ana L.</strong> - Brazil
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+            <!-- Supabase CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        
+        <script src="config.js"></script>
+        <script src="supabase-cdn.js"></script>
+        <script src="auth.js"></script>
+        <script src="script.js"></script>
+        <script src="setup.js"></script>
+</body>
+</html> 

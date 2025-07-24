@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>24-Hour Chat - PlayConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="chat-page">
+    <div class="chat-container">
+        <header class="chat-header">
+            <div class="chat-partner-info">
+                <div class="partner-avatar">
+                    <img src="https://via.placeholder.com/40x40?text=MK" alt="Partner Avatar">
+                    <div class="online-indicator"></div>
+                </div>
+                <div class="partner-details">
+                    <h3>Matched with Maria K.</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> Berlin, Germany • <i class="fas fa-clock"></i> 18:24 remaining</p>
+                </div>
+            </div>
+            
+            <div class="chat-actions">
+                <button class="action-btn" onclick="showGiftReveal()" title="Show Gift Exchange">
+                    <i class="fas fa-gift"></i>
+                </button>
+                <button class="action-btn" onclick="reportUser()" title="Report User">
+                    <i class="fas fa-flag"></i>
+                </button>
+                <button class="action-btn" onclick="addToFriends()" title="Add to Friends">
+                    <i class="fas fa-user-plus"></i>
+                </button>
+                <button class="action-btn close-btn" onclick="closeChat()" title="Close Chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+        </header>
+        
+        <div class="chat-body">
+            <div class="match-announcement">
+                <div class="gift-exchange-summary">
+                    <h4><i class="fas fa-handshake"></i> Gift Exchange Matched!</h4>
+                    <div class="exchange-details">
+                        <div class="exchange-pair">
+                            <div class="user-exchange">
+                                <span class="flag">🇨🇦</span>
+                                <div class="exchange-info">
+                                    <span class="name">You</span>
+                                    <span class="contribution">Paid: $25 CAD</span>
+                                    <span class="gift-value">Gift: $25 CAD</span>
+                                </div>
+                            </div>
+                            <div class="exchange-arrow">
+                                <i class="fas fa-exchange-alt"></i>
+                            </div>
+                            <div class="partner-exchange">
+                                <span class="flag">🇩🇪</span>
+                                <div class="exchange-info">
+                                    <span class="name">Maria</span>
+                                    <span class="contribution">Paid: €15 EUR</span>
+                                    <span class="gift-value">Gift: €15 EUR</span>
+                                </div>
+                            </div>
+                        </div>
+                                                        <div class="exchange-note">
+                                    <i class="fas fa-robot"></i>
+                                    <span>Sarah gets German-themed gift from Amazon.ca. Maria gets Canadian-themed gift from Amazon.de</span>
+                                </div>
+                    </div>
+                    <p class="shipping-note">Your gifts are being prepared and will ship within 48 hours!</p>
+                </div>
+                
+                <div class="timer-section">
+                    <div class="timer-display">
+                        <i class="fas fa-clock"></i>
+                        <span>Chat ends in: <strong id="countdown">18:24:15</strong></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="messages-container" id="messagesContainer">
+                <div class="message system-message">
+                    <div class="message-content">
+                        <i class="fas fa-shield-check"></i>
+                        <span>This is a monitored chat. Be respectful and enjoy cultural exchange!</span>
+                    </div>
+                    <div class="message-time">2 minutes ago</div>
+                </div>
+                
+                <div class="message partner-message">
+                    <div class="message-avatar">
+                        <img src="https://via.placeholder.com/32x32?text=MK" alt="Maria">
+                    </div>
+                    <div class="message-bubble">
+                        <div class="message-content">
+                            Hallo! I'm so excited about our gift exchange! 🎁 I'm Maria from Berlin. This is my first time doing this - how about you?
+                        </div>
+                        <div class="message-time">2 minutes ago</div>
+                    </div>
+                </div>
+                
+                <div class="message my-message">
+                    <div class="message-bubble">
+                        <div class="message-content">
+                            Hi Maria! I'm from Toronto, Canada! 🇨🇦 This is also my first time. I'm really curious about German culture. What's your favorite thing about Berlin?
+                        </div>
+                        <div class="message-time">1 minute ago</div>
+                    </div>
+                </div>
+                
+                <div class="message partner-message">
+                    <div class="message-avatar">
+                        <img src="https://via.placeholder.com/32x32?text=MK" alt="Maria">
+                    </div>
+                    <div class="message-bubble">
+                        <div class="message-content">
+                            Oh Toronto! I've always wanted to visit! 🍁 Berlin is amazing - so much history and great food. Do you like currywurst? I'm thinking of sending you some German snacks! What do you enjoy from Canada?
+                        </div>
+                        <div class="message-time">30 seconds ago</div>
+                    </div>
+                </div>
+                
+                <div class="message system-message">
+                    <div class="message-content">
+                        <i class="fas fa-info-circle"></i>
+                        <span>Maria is typing...</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-footer">
+            <div class="suggested-questions">
+                <button class="suggestion-btn" onclick="sendSuggestion('What\'s your favorite local food?')">
+                    What's your favorite local food? 🍴
+                </button>
+                <button class="suggestion-btn" onclick="sendSuggestion('Tell me about your city!')">
+                    Tell me about your city! 🏙️
+                </button>
+                <button class="suggestion-btn" onclick="sendSuggestion('What languages do you speak?')">
+                    What languages do you speak? 🗣️
+                </button>
+            </div>
+            
+            <div class="message-input-container">
+                <button class="attachment-btn" onclick="attachPhoto()" title="Attach Photo">
+                    <i class="fas fa-camera"></i>
+                </button>
+                <button class="emoji-btn" onclick="showEmojiPicker()" title="Add Emoji">
+                    <i class="fas fa-smile"></i>
+                </button>
+                <input type="text" id="messageInput" placeholder="Type your message... (Be respectful and enjoy cultural exchange!)" onkeypress="handleKeyPress(event)">
+                <button class="send-btn" onclick="sendMessage()" title="Send Message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+            
+            <div class="translation-notice">
+                <i class="fas fa-language"></i>
+                <span>Auto-translate enabled (English ↔ German)</span>
+                <button class="toggle-translate" onclick="toggleTranslation()">Disable</button>
+            </div>
+        </div>
+        
+        <!-- Gift Reveal Modal -->
+        <div class="gift-modal" id="giftModal">
+            <div class="gift-modal-content">
+                <button class="modal-close" onclick="closeGiftModal()">
+                    <i class="fas fa-times"></i>
+                </button>
+                
+                <h3><i class="fas fa-gift"></i> Gift Exchange Status</h3>
+                
+                <div class="gift-tracking">
+                    <div class="gift-card">
+                        <h4>Your Gift to Maria 🇩🇪</h4>
+                        <div class="gift-preview">
+                            <i class="fas fa-box"></i>
+                            <span>Gift being prepared...</span>
+                        </div>
+                        <div class="tracking-status">
+                            <div class="status-step completed">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Gift Selected</span>
+                            </div>
+                            <div class="status-step active">
+                                <i class="fas fa-box-open"></i>
+                                <span>Being Packaged</span>
+                            </div>
+                            <div class="status-step">
+                                <i class="fas fa-shipping-fast"></i>
+                                <span>Shipped</span>
+                            </div>
+                            <div class="status-step">
+                                <i class="fas fa-home"></i>
+                                <span>Delivered</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gift-card">
+                        <h4>Maria's Gift to You 🇨🇦</h4>
+                        <div class="gift-preview">
+                            <i class="fas fa-gift"></i>
+                            <span>Surprise gift coming your way!</span>
+                        </div>
+                        <div class="tracking-status">
+                            <div class="status-step completed">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Gift Selected</span>
+                            </div>
+                            <div class="status-step active">
+                                <i class="fas fa-box-open"></i>
+                                <span>Being Packaged</span>
+                            </div>
+                            <div class="status-step">
+                                <i class="fas fa-shipping-fast"></i>
+                                <span>Shipped</span>
+                            </div>
+                            <div class="status-step">
+                                <i class="fas fa-home"></i>
+                                <span>Delivered</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="gift-reveal-instructions">
+                    <h4><i class="fas fa-camera-retro"></i> Share Your Gift Reveal!</h4>
+                    <p>When you receive your gift, take a photo/video of your reaction and share it here. This helps build trust and creates amazing memories!</p>
+                    <button class="upload-btn">
+                        <i class="fas fa-upload"></i> Upload Gift Reveal
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+            <!-- Supabase CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        
+        <script src="config.js"></script>
+        <script src="supabase-cdn.js"></script>
+        <script src="auth.js"></script>
+        <script src="script.js"></script>
+        <script src="chat.js"></script>
+</body>
+</html> 

@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🤖 Automated Mystery Box Demo - PlayConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="demo-page">
+    <div class="demo-container">
+        <header class="demo-header">
+            <div class="header-content">
+                <h1><i class="fas fa-robot"></i> Automated Mystery Box Purchase Demo</h1>
+                <p>Watch our AI system in action: matching, purchasing, and shipping gifts automatically!</p>
+            </div>
+        </header>
+
+        <main class="demo-main">
+            <div class="demo-timeline">
+                <div class="timeline-step" id="step1">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Match Found</h3>
+                        <div class="match-visual">
+                            <div class="user">
+                                <span class="flag">🇨🇦</span>
+                                <span class="name">Sarah (Toronto)</span>
+                                <span class="amount">$30 CAD</span>
+                            </div>
+                            <div class="connection">
+                                <i class="fas fa-exchange-alt"></i>
+                                <span class="match-text">MATCHED</span>
+                            </div>
+                            <div class="user">
+                                <span class="flag">🇩🇪</span>
+                                <span class="name">Klaus (Berlin)</span>
+                                <span class="amount">€22 EUR</span>
+                            </div>
+                        </div>
+                        <div class="step-status" id="status1">🔍 Finding perfect match...</div>
+                    </div>
+                </div>
+
+                <div class="timeline-step" id="step2">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>AI Gift Selection</h3>
+                        <div class="ai-selection">
+                            <div class="ai-process">
+                                <div class="ai-thinking">
+                                    <i class="fas fa-brain"></i>
+                                    <span>AI analyzing preferences & local inventory...</span>
+                                </div>
+                                <div class="gift-options">
+                                                                         <div class="gift-option">
+                                         <span class="gift-flag">🇩🇪</span>
+                                         <span class="gift-name">German Beer Garden Mug Set</span>
+                                         <span class="gift-price">$28 CAD</span>
+                                         <span class="gift-source">from Amazon.ca (German-themed)</span>
+                                     </div>
+                                     <div class="gift-option">
+                                         <span class="gift-flag">🇨🇦</span>
+                                         <span class="gift-name">Maple Syrup Cooking Kit</span>
+                                         <span class="gift-price">€21 EUR</span>
+                                         <span class="gift-source">from Amazon.de (Canadian-themed)</span>
+                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-status" id="status2">🧠 AI selecting perfect gifts...</div>
+                    </div>
+                </div>
+
+                <div class="timeline-step" id="step3">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Automated Purchase</h3>
+                        <div class="purchase-process">
+                            <div class="api-calls">
+                                <div class="api-call">
+                                    <i class="fas fa-code"></i>
+                                                                     <span class="api-text">POST /amazon.ca/purchase</span>
+                                 <span class="api-status success">✓ 200 OK</span>
+                             </div>
+                             <div class="api-call">
+                                 <i class="fas fa-code"></i>
+                                 <span class="api-text">POST /amazon.de/purchase</span>
+                                    <span class="api-status success">✓ 200 OK</span>
+                                </div>
+                            </div>
+                            <div class="order-confirmations">
+                                                                 <div class="order">
+                                     <span class="order-id">Order: CA-AMZ-456789</span>
+                                     <span class="order-total">$28.00 CAD (German Beer Mug)</span>
+                                 </div>
+                                 <div class="order">
+                                     <span class="order-id">Order: DE-AMZ-789123</span>
+                                     <span class="order-total">€21.00 EUR (Maple Syrup Kit)</span>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="step-status" id="status3">💳 Processing payments & placing orders...</div>
+                    </div>
+                </div>
+
+                <div class="timeline-step" id="step4">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3>Local Fulfillment</h3>
+                        <div class="fulfillment-map">
+                                                         <div class="fulfillment-center">
+                                 <span class="center-flag">🇨🇦</span>
+                                 <span class="center-name">Amazon.ca Warehouse</span>
+                                 <span class="shipping-to">📦 → Toronto, Canada (German-themed gift)</span>
+                                 <span class="tracking">Track: 1Z999CA1234567890</span>
+                             </div>
+                             <div class="fulfillment-center">
+                                 <span class="center-flag">🇩🇪</span>
+                                 <span class="center-name">Amazon.de Warehouse</span>
+                                 <span class="shipping-to">📦 → Berlin, Germany (Canadian-themed gift)</span>
+                                 <span class="tracking">Track: 1Z999DE0987654321</span>
+                             </div>
+                        </div>
+                        <div class="step-status" id="status4">📦 Orders shipped from local warehouses...</div>
+                    </div>
+                </div>
+
+                <div class="timeline-step" id="step5">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h3>Delivery & Chat</h3>
+                        <div class="delivery-status">
+                            <div class="delivery">
+                                <span class="delivery-user">Sarah 🇨🇦</span>
+                                <span class="delivery-gift">Received: German Beer Garden Mug Set</span>
+                                <span class="delivery-rating">⭐⭐⭐⭐⭐ "Amazing surprise!"</span>
+                            </div>
+                            <div class="delivery">
+                                <span class="delivery-user">Klaus 🇩🇪</span>
+                                <span class="delivery-gift">Received: Maple Syrup Cooking Kit</span>
+                                <span class="delivery-rating">⭐⭐⭐⭐⭐ "Love Canadian culture!"</span>
+                            </div>
+                        </div>
+                        <div class="chat-window-demo">
+                            <div class="chat-preview">
+                                <div class="chat-header-mini">
+                                    <span>24-Hour Cultural Exchange</span>
+                                    <span class="timer-mini">18:42:15</span>
+                                </div>
+                                <div class="chat-messages-mini">
+                                    <div class="message from-sarah">Sarah: "Thank you! This mug is perfect for Oktoberfest season! 🍺"</div>
+                                    <div class="message from-klaus">Klaus: "I can't wait to make pancakes with real maple syrup! 🥞"</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-status" id="status5">✅ Exchange complete! Cultural connection established!</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="demo-controls">
+                <button class="demo-btn primary" onclick="startDemo()">
+                    <i class="fas fa-play"></i> Start Demo
+                </button>
+                <button class="demo-btn secondary" onclick="resetDemo()">
+                    <i class="fas fa-redo"></i> Reset
+                </button>
+                <button class="demo-btn secondary" onclick="window.location.href='direct-access.html'">
+                    <i class="fas fa-arrow-left"></i> Back to Menu
+                </button>
+            </div>
+
+            <div class="demo-stats">
+                <h3>System Performance</h3>
+                <div class="stats-grid">
+                    <div class="stat">
+                        <span class="stat-number">2.3s</span>
+                        <span class="stat-label">Average Match Time</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">4.1s</span>
+                        <span class="stat-label">AI Gift Selection</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">1.2s</span>
+                        <span class="stat-label">Purchase Processing</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.7%</span>
+                        <span class="stat-label">Success Rate</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let demoRunning = false;
+        let currentStep = 0;
+
+        function startDemo() {
+            if (demoRunning) return;
+            
+            demoRunning = true;
+            currentStep = 0;
+            resetDemo();
+            
+            const steps = document.querySelectorAll('.timeline-step');
+            const statuses = [
+                "🔍 Finding perfect match...",
+                "✅ Match found! Sarah 🇨🇦 ↔ Klaus 🇩🇪",
+                "🧠 AI analyzing preferences & local inventory...",
+                "✅ Perfect gifts selected! Processing...",
+                "💳 Processing payments & placing orders...",
+                "✅ Orders confirmed! Local fulfillment started...",
+                "📦 Orders shipped from local warehouses...",
+                "✅ Packages in transit! Estimated delivery: 2-3 days...",
+                "🎁 Gifts delivered! Opening 24-hour chat window...",
+                "✅ Exchange complete! Cultural connection established!"
+            ];
+            
+            let statusIndex = 0;
+            
+            function updateStatus() {
+                if (statusIndex < statuses.length) {
+                    if (currentStep > 0) {
+                        document.getElementById(`status${currentStep}`).textContent = statuses[statusIndex];
+                    }
+                    statusIndex++;
+                    setTimeout(updateStatus, 800);
+                }
+            }
+            
+            function activateStep(stepNum) {
+                if (stepNum <= steps.length) {
+                    steps[stepNum - 1].classList.add('active');
+                    currentStep = stepNum;
+                    
+                    setTimeout(() => {
+                        if (stepNum < steps.length) {
+                            activateStep(stepNum + 1);
+                        } else {
+                            demoRunning = false;
+                        }
+                    }, 2000);
+                }
+            }
+            
+            updateStatus();
+            activateStep(1);
+        }
+        
+        function resetDemo() {
+            demoRunning = false;
+            currentStep = 0;
+            
+            document.querySelectorAll('.timeline-step').forEach(step => {
+                step.classList.remove('active');
+            });
+            
+            document.getElementById('status1').textContent = '🔍 Finding perfect match...';
+            document.getElementById('status2').textContent = '🧠 AI selecting perfect gifts...';
+            document.getElementById('status3').textContent = '💳 Processing payments & placing orders...';
+            document.getElementById('status4').textContent = '📦 Orders shipped from local warehouses...';
+            document.getElementById('status5').textContent = '✅ Exchange complete! Cultural connection established!';
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome - Sign In</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="signin-container">
+        <!-- Background Image Placeholder - REPLACE WITH YOUR IMAGE -->
+        <div class="background-overlay"></div>
+        
+        <div class="signin-content">
+            <div class="signin-left">
+                <!-- Logo/Brand Image Placeholder - REPLACE WITH YOUR LOGO -->
+                <div class="logo-placeholder">
+                    <i class="fas fa-gamepad"></i>
+                    <h1>EnkiConnect</h1>
+                </div>
+                
+                <div class="welcome-text">
+                    <h2>Connect and Play Together</h2>
+                    <p>Join millions of players worldwide in the ultimate gaming experience</p>
+                </div>
+            </div>
+            
+            <div class="signin-right">
+                <div class="signin-form">
+                    <h3>Sign in to EnkiConnect</h3>
+                    
+                    <div class="social-buttons">
+                        <div class="social-notice">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Social login requires a web server. Use email/password below or <a href="#" onclick="showServerInstructions()">set up local server</a>.</span>
+                        </div>
+                        
+                        <button class="social-btn google-btn" data-provider="google" disabled>
+                            <i class="fab fa-google"></i>
+                            <span>Continue with Google</span>
+                        </button>
+                        
+                        <button class="social-btn apple-btn" data-provider="apple" disabled>
+                            <i class="fab fa-apple"></i>
+                            <span>Continue with Apple</span>
+                        </button>
+                        
+                        <button class="social-btn microsoft-btn" data-provider="azure" disabled>
+                            <i class="fab fa-microsoft"></i>
+                            <span>Continue with Microsoft</span>
+                        </button>
+                        
+                        <button class="social-btn facebook-btn" data-provider="facebook" disabled>
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Continue with Facebook</span>
+                        </button>
+                        
+                        <button class="social-btn x-btn" data-provider="twitter" disabled>
+                            <i class="fab fa-x-twitter"></i>
+                            <span>Continue with X</span>
+                        </button>
+                    </div>
+                    
+                    <div class="divider">
+                        <span>or</span>
+                    </div>
+                    
+                    <form class="email-form">
+                        <input type="email" id="email" placeholder="Email or username" required>
+                        <input type="password" id="password" placeholder="Password" required>
+                        <button type="submit" class="signin-btn">Sign In</button>
+                    </form>
+                    
+                    <div class="form-footer">
+                        <a href="forgot-password.html" class="forgot-link">Forgot password?</a>
+                        <p>Don't have an account? <a href="signup.html" class="signup-link">Sign up</a></p>
+                        
+                        <!-- Demo/Skip Button -->
+                        <button type="button" class="demo-btn" onclick="skipToCategories()">
+                            <i class="fas fa-play"></i> Skip to Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+            <!-- Supabase CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        
+        <script src="config.js"></script>
+        <script src="supabase-cdn.js"></script>
+        <script src="auth.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html> 

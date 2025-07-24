@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnkiConnect - Auth Test</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+        }
+        
+        .test-section h3 {
+            color: #4c63d2;
+            margin-top: 0;
+        }
+        
+        .test-input {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .test-btn {
+            background: linear-gradient(135deg, #4c63d2 0%, #667eea 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .log-output {
+            background: #1a202c;
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            height: 200px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+        }
+        
+        .clear-btn {
+            background: #ef4444;
+        }
+        
+        .status {
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            font-weight: 500;
+        }
+        
+        .status.success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        
+        .status.error {
+            background: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+        
+        .status.info {
+            background: #dbeafe;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🏺 EnkiConnect Authentication Test</h1>
+        
+        <div class="test-section">
+            <h3>🧹 Step 1: Clear All Data</h3>
+            <button class="test-btn clear-btn" onclick="clearAllData()">Clear All Data</button>
+            <div id="clearStatus"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔐 Step 2: Test Authentication</h3>
+            <input type="email" id="testEmail" class="test-input" placeholder="Enter test email (e.g., newuser@test.com)" value="newuser2024@test.com">
+            <input type="password" id="testPassword" class="test-input" placeholder="Enter password" value="testpass123">
+            <br>
+            <button class="test-btn" onclick="testSignIn()">Test Sign In</button>
+            <button class="test-btn" onclick="testSignUp()">Test Sign Up</button>
+            <button class="test-btn" onclick="testCurrentUser()">Check Current User</button>
+            <div id="authStatus"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>📋 Debug Log</h3>
+            <button class="test-btn clear-btn" onclick="clearLog()">Clear Log</button>
+            <div id="logOutput" class="log-output"></div>
+        </div>
+        
+        <div class="test-section">
+            <h3>🔗 Quick Links</h3>
+            <button class="test-btn" onclick="goToIndex()">Go to Index</button>
+            <button class="test-btn" onclick="goToProfile()">Go to Profile</button>
+            <button class="test-btn" onclick="goToCategories()">Go to Categories</button>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+
+    <script>
+        let logDiv = document.getElementById('logOutput');
+        
+        // Enhanced logging
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        
+        console.log = function(...args) {
+            originalConsoleLog.apply(console, args);
+            addToLog('INFO', args.join(' '));
+        };
+        
+        console.error = function(...args) {
+            originalConsoleError.apply(console, args);
+            addToLog('ERROR', args.join(' '));
+        };
+        
+        function addToLog(type, message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = `[${timestamp}] ${type}: ${message}\n`;
+            logDiv.textContent += logEntry;
+            logDiv.scrollTop = logDiv.scrollHeight;
+        }
+        
+        function clearLog() {
+            logDiv.textContent = '';
+        }
+        
+        function setStatus(elementId, message, type = 'info') {
+            const statusDiv = document.getElementById(elementId);
+            statusDiv.innerHTML = message;
+            statusDiv.className = `status ${type}`;
+        }
+        
+        async function clearAllData() {
+            try {
+                console.log('🧹 Starting complete data cleanup...');
+                
+                // Clear localStorage
+                localStorage.clear();
+                console.log('✅ localStorage cleared');
+                
+                // Clear sessionStorage
+                sessionStorage.clear();
+                console.log('✅ sessionStorage cleared');
+                
+                // Sign out from Supabase
+                if (window.EnkiConnect && window.EnkiConnect.auth) {
+                    await window.EnkiConnect.auth.signOut();
+                    console.log('✅ Signed out from Supabase');
+                }
+                
+                setStatus('clearStatus', '✅ All data cleared successfully!', 'success');
+                
+            } catch (error) {
+                console.error('❌ Clear data error:', error);
+                setStatus('clearStatus', `❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testSignIn() {
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+            
+            if (!email || !password) {
+                setStatus('authStatus', '❌ Please enter email and password', 'error');
+                return;
+            }
+            
+            try {
+                console.log('🔄 Testing sign in with:', email);
+                
+                if (!window.EnkiConnect) {
+                    throw new Error('EnkiConnect not initialized');
+                }
+                
+                const result = await window.EnkiConnect.auth.signIn(email, password);
+                console.log('📋 Sign in result:', result);
+                
+                if (result.success) {
+                    setStatus('authStatus', '✅ Sign in successful!', 'success');
+                } else {
+                    setStatus('authStatus', `❌ Sign in failed: ${result.error}`, 'error');
+                }
+                
+            } catch (error) {
+                console.error('❌ Sign in test error:', error);
+                setStatus('authStatus', `❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testSignUp() {
+            const email = document.getElementById('testEmail').value;
+            const password = document.getElementById('testPassword').value;
+            
+            if (!email || !password) {
+                setStatus('authStatus', '❌ Please enter email and password', 'error');
+                return;
+            }
+            
+            try {
+                const fullName = prompt('Enter full name for signup:');
+                if (!fullName) {
+                    setStatus('authStatus', '❌ Full name required for signup', 'error');
+                    return;
+                }
+                
+                console.log('🔄 Testing sign up with:', email, fullName);
+                
+                if (!window.EnkiConnect) {
+                    throw new Error('EnkiConnect not initialized');
+                }
+                
+                const result = await window.EnkiConnect.auth.signUp(email, password, fullName);
+                console.log('📋 Sign up result:', result);
+                
+                if (result.success) {
+                    setStatus('authStatus', '✅ Sign up successful! Check email for verification.', 'success');
+                } else {
+                    setStatus('authStatus', `❌ Sign up failed: ${result.error}`, 'error');
+                }
+                
+            } catch (error) {
+                console.error('❌ Sign up test error:', error);
+                setStatus('authStatus', `❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        async function testCurrentUser() {
+            try {
+                console.log('🔄 Checking current user...');
+                
+                if (!window.EnkiConnect) {
+                    throw new Error('EnkiConnect not initialized');
+                }
+                
+                const result = await window.EnkiConnect.auth.getCurrentUser();
+                console.log('📋 Current user result:', result);
+                
+                if (result.user) {
+                    setStatus('authStatus', `✅ Current user: ${result.user.email}`, 'success');
+                } else {
+                    setStatus('authStatus', '❌ No current user', 'info');
+                }
+                
+            } catch (error) {
+                console.error('❌ Current user test error:', error);
+                setStatus('authStatus', `❌ Error: ${error.message}`, 'error');
+            }
+        }
+        
+        function goToIndex() {
+            window.open('index.html', '_blank');
+        }
+        
+        function goToProfile() {
+            window.open('profile.html', '_blank');
+        }
+        
+        function goToCategories() {
+            window.open('categories.html', '_blank');
+        }
+        
+        // Initialize when page loads
+        window.addEventListener('load', function() {
+            console.log('🏺 Auth test page loaded');
+            addToLog('INFO', 'Auth test page initialized');
+        });
+    </script>
+</body>
+</html> 

@@ -1,0 +1,36 @@
+{
+  "name": "enkiconnect",
+  "version": "1.0.0",
+  "description": "Ancient wisdom meets modern connections - Global gift exchange platform",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "vercel --prod"
+  },
+  "keywords": [
+    "gift-exchange",
+    "cultural-exchange", 
+    "enki",
+    "sumerian",
+    "iraqi-canadian"
+  ],
+  "author": "EnkiConnect Team",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.38.0",
+    "stripe": "^14.9.0"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0",
+    "@vercel/node": "^3.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/enkiconnect.git"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+} 

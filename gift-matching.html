@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gift Matching Algorithm - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="matching-container">
+        <!-- Header -->
+        <header class="matching-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.location.href='categories.html'">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
+            <div class="header-center">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="algorithm-badge">
+                    <i class="fas fa-brain"></i>
+                    <span>AI Matching</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="matching-main">
+            <div class="matching-hero">
+                <div class="hero-content">
+                    <h1><i class="fas fa-magic"></i> Smart Gift Matching</h1>
+                    <p>Watch our AI algorithm find the perfect gift matches based on budgets, preferences, and compatibility</p>
+                    <button class="demo-btn" onclick="startMatchingDemo()">
+                        <i class="fas fa-play"></i> Start Matching Demo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Matching Process -->
+            <div class="matching-process" id="matchingProcess" style="display: none;">
+                <div class="process-header">
+                    <h2>🔄 Matching Algorithm in Action</h2>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-text" id="progressText">Initializing...</div>
+                </div>
+
+                <!-- Algorithm Steps -->
+                <div class="algorithm-steps">
+                    <div class="step-item" id="step1">
+                        <div class="step-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>1. Data Analysis</h3>
+                            <p>Analyzing user preferences, budgets, and compatibility factors</p>
+                            <div class="step-details" style="display: none;">
+                                <ul>
+                                    <li>✓ Budget range compatibility: $50-$100</li>
+                                    <li>✓ Cultural preferences: Art, Books, Food</li>
+                                    <li>✓ Geographic considerations: Global matching</li>
+                                    <li>✓ Age group compatibility: 25-35</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step-status">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <div class="step-item" id="step2">
+                        <div class="step-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>2. Participant Matching</h3>
+                            <p>Finding compatible gift exchange partners</p>
+                            <div class="step-details" style="display: none;">
+                                <ul>
+                                    <li>✓ Sarah (Germany) ↔ Mike (Canada)</li>
+                                    <li>✓ Lisa (Japan) ↔ Emma (Australia)</li>
+                                    <li>✓ Alex (USA) ↔ Sophie (France)</li>
+                                    <li>✓ 98% compatibility score average</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step-status">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <div class="step-item" id="step3">
+                        <div class="step-icon">
+                            <i class="fas fa-gift"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>3. Gift Selection</h3>
+                            <p>AI-powered gift recommendations based on preferences</p>
+                            <div class="step-details" style="display: none;">
+                                <ul>
+                                    <li>✓ German chocolate collection → Canada</li>
+                                    <li>✓ Canadian maple syrup set → Germany</li>
+                                    <li>✓ Japanese tea ceremony kit → Australia</li>
+                                    <li>✓ French wine accessories → USA</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step-status">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+
+                    <div class="step-item" id="step4">
+                        <div class="step-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>4. Local Sourcing</h3>
+                            <p>Finding gifts locally in recipient's country for faster delivery</p>
+                            <div class="step-details" style="display: none;">
+                                <ul>
+                                    <li>✓ Amazon Canada: German-themed gift</li>
+                                    <li>✓ Amazon Germany: Canadian-themed gift</li>
+                                    <li>✓ Amazon Australia: Japanese-themed gift</li>
+                                    <li>✓ 2-day delivery guaranteed</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="step-status">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Matching Results -->
+            <div class="matching-results" id="matchingResults" style="display: none;">
+                <div class="results-header">
+                    <h2>🎉 Perfect Matches Found!</h2>
+                    <p>Our AI algorithm has successfully matched participants and selected ideal gifts</p>
+                </div>
+
+                <div class="matches-grid">
+                    <div class="match-card">
+                        <div class="match-header">
+                            <div class="participants">
+                                <div class="participant">
+                                    <div class="avatar">🇩🇪</div>
+                                    <div class="info">
+                                        <h4>Sarah</h4>
+                                        <p>Germany</p>
+                                    </div>
+                                </div>
+                                <div class="match-arrow">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div class="participant">
+                                    <div class="avatar">🇨🇦</div>
+                                    <div class="info">
+                                        <h4>Mike</h4>
+                                        <p>Canada</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="compatibility">
+                                <div class="score">98%</div>
+                                <div class="label">Match</div>
+                            </div>
+                        </div>
+                        <div class="gifts-exchange">
+                            <div class="gift-item">
+                                <div class="gift-icon">🍫</div>
+                                <div class="gift-details">
+                                    <h5>German Chocolate Collection</h5>
+                                    <p>$75 • Ships to Canada</p>
+                                    <small>Sourced from Amazon Canada</small>
+                                </div>
+                            </div>
+                            <div class="gift-item">
+                                <div class="gift-icon">🍁</div>
+                                <div class="gift-details">
+                                    <h5>Canadian Maple Syrup Set</h5>
+                                    <p>$75 • Ships to Germany</p>
+                                    <small>Sourced from Amazon Germany</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="match-card">
+                        <div class="match-header">
+                            <div class="participants">
+                                <div class="participant">
+                                    <div class="avatar">🇯🇵</div>
+                                    <div class="info">
+                                        <h4>Lisa</h4>
+                                        <p>Japan</p>
+                                    </div>
+                                </div>
+                                <div class="match-arrow">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div class="participant">
+                                    <div class="avatar">🇦🇺</div>
+                                    <div class="info">
+                                        <h4>Emma</h4>
+                                        <p>Australia</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="compatibility">
+                                <div class="score">95%</div>
+                                <div class="label">Match</div>
+                            </div>
+                        </div>
+                        <div class="gifts-exchange">
+                            <div class="gift-item">
+                                <div class="gift-icon">🍵</div>
+                                <div class="gift-details">
+                                    <h5>Japanese Tea Ceremony Kit</h5>
+                                    <p>$80 • Ships to Australia</p>
+                                    <small>Sourced from Amazon Australia</small>
+                                </div>
+                            </div>
+                            <div class="gift-item">
+                                <div class="gift-icon">🦘</div>
+                                <div class="gift-details">
+                                    <h5>Australian Gourmet Collection</h5>
+                                    <p>$80 • Ships to Japan</p>
+                                    <small>Sourced from Amazon Japan</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="match-card">
+                        <div class="match-header">
+                            <div class="participants">
+                                <div class="participant">
+                                    <div class="avatar">🇺🇸</div>
+                                    <div class="info">
+                                        <h4>Alex</h4>
+                                        <p>USA</p>
+                                    </div>
+                                </div>
+                                <div class="match-arrow">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div class="participant">
+                                    <div class="avatar">🇫🇷</div>
+                                    <div class="info">
+                                        <h4>Sophie</h4>
+                                        <p>France</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="compatibility">
+                                <div class="score">92%</div>
+                                <div class="label">Match</div>
+                            </div>
+                        </div>
+                        <div class="gifts-exchange">
+                            <div class="gift-item">
+                                <div class="gift-icon">🗽</div>
+                                <div class="gift-details">
+                                    <h5>American Craft Collection</h5>
+                                    <p>$70 • Ships to France</p>
+                                    <small>Sourced from Amazon France</small>
+                                </div>
+                            </div>
+                            <div class="gift-item">
+                                <div class="gift-icon">🍷</div>
+                                <div class="gift-details">
+                                    <h5>French Wine Accessories</h5>
+                                    <p>$70 • Ships to USA</p>
+                                    <small>Sourced from Amazon USA</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="algorithm-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Average Compatibility</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">2.3s</div>
+                        <div class="stat-label">Processing Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Success Rate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">6</div>
+                        <div class="stat-label">Perfect Matches</div>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="primary-btn" onclick="startChatSession()">
+                        <i class="fas fa-comments"></i> Start Chat Sessions
+                    </button>
+                    <button class="secondary-btn" onclick="viewAnalytics()">
+                        <i class="fas fa-chart-bar"></i> View Analytics
+                    </button>
+                    <button class="secondary-btn" onclick="exportResults()">
+                        <i class="fas fa-download"></i> Export Results
+                    </button>
+                </div>
+            </div>
+
+            <!-- Algorithm Explanation -->
+            <div class="algorithm-explanation">
+                <div class="explanation-header">
+                    <h2>🧠 How Our AI Algorithm Works</h2>
+                    <p>Understanding the technology behind perfect gift matches</p>
+                </div>
+
+                <div class="explanation-grid">
+                    <div class="explanation-card">
+                        <div class="card-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Machine Learning</h3>
+                        <p>Our AI learns from thousands of successful gift exchanges to predict what makes people happy.</p>
+                        <ul>
+                            <li>Preference pattern recognition</li>
+                            <li>Cultural gift compatibility</li>
+                            <li>Success rate optimization</li>
+                        </ul>
+                    </div>
+
+                    <div class="explanation-card">
+                        <div class="card-icon">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <h3>Cultural Intelligence</h3>
+                        <p>Understanding cultural preferences and gift-giving traditions from around the world.</p>
+                        <ul>
+                            <li>Regional gift preferences</li>
+                            <li>Cultural significance analysis</li>
+                            <li>Local availability matching</li>
+                        </ul>
+                    </div>
+
+                    <div class="explanation-card">
+                        <div class="card-icon">
+                            <i class="fas fa-balance-scale"></i>
+                        </div>
+                        <h3>Budget Optimization</h3>
+                        <p>Smart budget matching ensures fair exchanges while maximizing gift value.</p>
+                        <ul>
+                            <li>Currency conversion handling</li>
+                            <li>Price parity optimization</li>
+                            <li>Local market adaptation</li>
+                        </ul>
+                    </div>
+
+                    <div class="explanation-card">
+                        <div class="card-icon">
+                            <i class="fas fa-shipping-fast"></i>
+                        </div>
+                        <h3>Logistics Optimization</h3>
+                        <p>Ensuring gifts arrive quickly and safely through intelligent sourcing.</p>
+                        <ul>
+                            <li>Local Amazon integration</li>
+                            <li>Shipping time optimization</li>
+                            <li>Quality assurance checks</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    <script src="gift-matching.js"></script>
+</body>
+</html> 

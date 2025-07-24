@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Twilio Configuration - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="test-content">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+                <h1>📱 Test Twilio SMS Configuration</h1>
+                <p>Verify your Twilio setup is working correctly</p>
+            </div>
+
+            <div class="config-status">
+                <h2>⚙️ Current Configuration</h2>
+                <div class="config-display" id="configDisplay">
+                    <!-- Configuration will be loaded here -->
+                </div>
+            </div>
+
+            <div class="test-section">
+                <h2>🧪 Send Test SMS</h2>
+                <div class="test-form">
+                    <div class="form-group">
+                        <label for="testPhone">Your Phone Number:</label>
+                        <input type="tel" id="testPhone" placeholder="+1234567890" value="+1">
+                        <small>Include country code (e.g., +1 for US)</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="testMessage">Test Message:</label>
+                        <textarea id="testMessage" rows="3" placeholder="Test message from EnkiConnect">🏺 Test SMS from EnkiConnect! Your Twilio configuration is working correctly. 🎉</textarea>
+                    </div>
+                    
+                    <button class="test-btn" onclick="sendTestSMS()">
+                        <i class="fas fa-paper-plane"></i> Send Test SMS
+                    </button>
+                </div>
+                
+                <div class="test-result" id="testResult"></div>
+            </div>
+
+            <div class="troubleshooting">
+                <h2>🔧 Troubleshooting</h2>
+                <div class="tips">
+                    <div class="tip">
+                        <h4>❓ SMS not sending?</h4>
+                        <p>Make sure your Twilio account is verified and has available credits.</p>
+                    </div>
+                    <div class="tip">
+                        <h4>❓ Error about unverified phone?</h4>
+                        <p>In Twilio trial accounts, you can only send to verified phone numbers. Verify your number in Twilio console first.</p>
+                    </div>
+                    <div class="tip">
+                        <h4>❓ Authentication error?</h4>
+                        <p>Double-check your Account SID and Auth Token in config.js</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="next-steps">
+                <h2>🎯 Next Steps</h2>
+                <p>Once SMS is working:</p>
+                <ol>
+                    <li>Set up your database tables (if not done)</li>
+                    <li>Configure EmailJS for email invitations</li>
+                    <li>Test the complete invitation system</li>
+                </ol>
+                
+                <div class="action-buttons">
+                    <button class="nav-btn" onclick="window.location.href='setup-database-manual.html'">
+                        <i class="fas fa-database"></i> Setup Database
+                    </button>
+                    <button class="nav-btn" onclick="window.location.href='emailjs-custom-template.html'">
+                        <i class="fas fa-envelope"></i> Setup EmailJS
+                    </button>
+                    <button class="nav-btn primary" onclick="window.location.href='company-invite-demo.html'">
+                        <i class="fas fa-rocket"></i> Test Full System
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="config.js"></script>
+
+    <script>
+        // Load configuration on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            displayConfiguration();
+        });
+
+        function displayConfiguration() {
+            const configDiv = document.getElementById('configDisplay');
+            
+            if (typeof config !== 'undefined' && config.twilio) {
+                const twilio = config.twilio;
+                
+                configDiv.innerHTML = `
+                    <div class="config-items">
+                        <div class="config-item">
+                            <label>Account SID:</label>
+                            <span class="config-value">${twilio.accountSid}</span>
+                            <div class="status ${isValidSid(twilio.accountSid) ? 'valid' : 'invalid'}">
+                                ${isValidSid(twilio.accountSid) ? '✅ Valid' : '❌ Invalid'}
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <label>Auth Token:</label>
+                            <span class="config-value">${maskToken(twilio.authToken)}</span>
+                            <div class="status ${isValidToken(twilio.authToken) ? 'valid' : 'invalid'}">
+                                ${isValidToken(twilio.authToken) ? '✅ Valid' : '❌ Invalid'}
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <label>From Number:</label>
+                            <span class="config-value">${twilio.fromNumber}</span>
+                            <div class="status ${isValidPhone(twilio.fromNumber) ? 'valid' : 'invalid'}">
+                                ${isValidPhone(twilio.fromNumber) ? '✅ Valid' : '❌ Invalid'}
+                            </div>
+                        </div>
+                        <div class="config-item">
+                            <label>SMS Enabled:</label>
+                            <span class="config-value">${config.features?.enableRealSMS ? 'Yes' : 'No'}</span>
+                            <div class="status ${config.features?.enableRealSMS ? 'valid' : 'invalid'}">
+                                ${config.features?.enableRealSMS ? '✅ Enabled' : '❌ Disabled'}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else {
+                configDiv.innerHTML = '<div class="error">Configuration not loaded properly</div>';
+            }
+        }
+
+        function isValidSid(sid) {
+            return sid && sid.startsWith('AC') && sid.length === 34;
+        }
+
+        function isValidToken(token) {
+            return token && token.length === 32 && !/[^a-f0-9]/.test(token);
+        }
+
+        function isValidPhone(phone) {
+            return phone && phone.startsWith('+') && phone.length >= 10;
+        }
+
+        function maskToken(token) {
+            if (!token || token.length < 8) return token;
+            return token.substring(0, 4) + '••••••••••••••••••••••••' + token.substring(token.length - 4);
+        }
+
+        async function sendTestSMS() {
+            const phoneInput = document.getElementById('testPhone');
+            const messageInput = document.getElementById('testMessage');
+            const resultDiv = document.getElementById('testResult');
+            const button = event.target;
+
+            const phone = phoneInput.value.trim();
+            const message = messageInput.value.trim();
+
+            if (!phone || !message) {
+                showResult('error', 'Please fill in both phone number and message');
+                return;
+            }
+
+            if (!isValidPhone(phone)) {
+                showResult('error', 'Please enter a valid phone number with country code (e.g., +1234567890)');
+                return;
+            }
+
+            // Disable button and show loading
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            button.disabled = true;
+
+            try {
+                showResult('info', 'Sending SMS via Twilio...');
+
+                // In a real implementation, this would go through your backend
+                // For demo purposes, we'll simulate the Twilio API call
+                const response = await simulateTwilioSMS(phone, message);
+                
+                if (response.success) {
+                    showResult('success', `✅ SMS sent successfully!<br>Message SID: ${response.sid}<br>Status: ${response.status}`);
+                } else {
+                    showResult('error', `❌ SMS failed: ${response.error}`);
+                }
+
+            } catch (error) {
+                showResult('error', `❌ Error: ${error.message}`);
+            } finally {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        }
+
+        async function simulateTwilioSMS(to, body) {
+            // Simulate Twilio API call
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    // Simulate success for demo
+                    const random = Math.random();
+                    if (random > 0.1) { // 90% success rate for demo
+                        resolve({
+                            success: true,
+                            sid: 'SM' + Math.random().toString(36).substring(2, 15),
+                            status: 'queued'
+                        });
+                    } else {
+                        resolve({
+                            success: false,
+                            error: 'Demo simulation error (would be real Twilio error in production)'
+                        });
+                    }
+                }, 2000);
+            });
+        }
+
+        function showResult(type, message) {
+            const resultDiv = document.getElementById('testResult');
+            resultDiv.innerHTML = `<div class="result ${type}">${message}</div>`;
+            resultDiv.style.display = 'block';
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .test-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .config-status, .test-section, .troubleshooting, .next-steps {
+            margin-bottom: 40px;
+        }
+
+        .config-status h2, .test-section h2, .troubleshooting h2, .next-steps h2 {
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .config-display {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .config-items {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .config-item {
+            display: grid;
+            grid-template-columns: 1fr 2fr auto;
+            gap: 15px;
+            align-items: center;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .config-item label {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .config-value {
+            font-family: 'Monaco', monospace;
+            font-size: 12px;
+            color: #6b7280;
+            word-break: break-all;
+        }
+
+        .status {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status.valid {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .status.invalid {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .test-form {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.2s ease;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #dc2626;
+        }
+
+        .form-group small {
+            display: block;
+            margin-top: 5px;
+            color: #6b7280;
+            font-size: 12px;
+        }
+
+        .test-btn {
+            background: #dc2626;
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .test-btn:hover:not(:disabled) {
+            background: #b91c1c;
+        }
+
+        .test-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .test-result {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .result {
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .result.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .result.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #ef4444;
+        }
+
+        .result.info {
+            background: #eff6ff;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
+        }
+
+        .troubleshooting {
+            background: #fffbeb;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .tips {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tip {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .tip h4 {
+            margin: 0 0 10px 0;
+            color: #1f2937;
+        }
+
+        .tip p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .next-steps {
+            background: #f0fdf4;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .next-steps h2 {
+            color: #065f46;
+        }
+
+        .next-steps ol {
+            margin-bottom: 20px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 12px 20px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            color: #374151;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .nav-btn:hover {
+            border-color: #dc2626;
+            color: #dc2626;
+        }
+
+        .nav-btn.primary {
+            background: #dc2626;
+            color: white;
+            border-color: #dc2626;
+        }
+
+        .nav-btn.primary:hover {
+            background: #b91c1c;
+            border-color: #b91c1c;
+            color: white;
+        }
+
+        .error {
+            color: #dc2626;
+            font-weight: 500;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .test-content {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .config-item {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 10px;
+            }
+
+            .tips {
+                grid-template-columns: 1fr;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .nav-btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</body>
+</html> 

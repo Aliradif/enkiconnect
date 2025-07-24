@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Custom EmailJS Template - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <div class="guide-content">
+            <div class="header">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+                <h1>📧 Create Custom EmailJS Template</h1>
+                <p>Skip the presets - create your own custom template</p>
+            </div>
+
+            <!-- Step 1: Skip Presets -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">1</div>
+                    <h2>Skip the Template Presets</h2>
+                </div>
+                
+                <div class="step-content">
+                    <div class="warning-box">
+                        <h3>🚨 Important: Don't Choose a Preset!</h3>
+                        <p>When you see options like "Contact Us" or "Auto Reply", look for:</p>
+                        <ul>
+                            <li>✅ <strong>"Create Template"</strong> (without preset)</li>
+                            <li>✅ <strong>"Blank Template"</strong></li>
+                            <li>✅ <strong>"Custom Template"</strong></li>
+                            <li>✅ <strong>"Start from scratch"</strong></li>
+                        </ul>
+                        <p><strong>OR</strong> skip the preset selection entirely!</p>
+                    </div>
+
+                    <div class="action-steps">
+                        <h3>📍 Exact Steps:</h3>
+                        <ol>
+                            <li>Go to EmailJS Dashboard</li>
+                            <li>Click <strong>"Email Templates"</strong> in sidebar</li>
+                            <li>Click <strong>"Create New Template"</strong></li>
+                            <li><strong>Skip/Ignore preset options</strong> - look for "blank" or "custom"</li>
+                            <li>If you can't find blank option, choose any preset and we'll replace it</li>
+                        </ol>
+                        
+                        <button class="action-btn" onclick="window.open('https://dashboard.emailjs.com/admin/templates', '_blank')">
+                            <i class="fas fa-external-link-alt"></i> Open EmailJS Templates
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Template Details -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">2</div>
+                    <h2>Fill in Template Details</h2>
+                </div>
+                
+                <div class="step-content">
+                    <div class="form-preview">
+                        <h3>📝 Template Information</h3>
+                        <div class="form-fields">
+                            <div class="field">
+                                <label>Template Name:</label>
+                                <div class="field-value">EnkiConnect Invitation</div>
+                            </div>
+                            <div class="field">
+                                <label>Template ID:</label>
+                                <div class="field-value">enkiconnect_invite</div>
+                                <small>👆 Important: You'll need this ID later!</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Template Content -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">3</div>
+                    <h2>Replace Template Content</h2>
+                </div>
+                
+                <div class="step-content">
+                    <div class="content-tabs">
+                        <button class="tab-btn active" onclick="showTab('subject')">
+                            📬 Subject Line
+                        </button>
+                        <button class="tab-btn" onclick="showTab('content')">
+                            📄 Email Content
+                        </button>
+                    </div>
+
+                    <!-- Subject Tab -->
+                    <div class="tab-content active" id="subject-tab">
+                        <h3>Email Subject Line</h3>
+                        <div class="copy-section">
+                            <div class="copy-header">
+                                <span>Copy this subject line:</span>
+                                <button class="copy-btn" onclick="copyText('You\\'re invited to join {{exchange_name}}! 🎁')">
+                                    <i class="fas fa-copy"></i> Copy Subject
+                                </button>
+                            </div>
+                            <div class="copy-content">You're invited to join {{exchange_name}}! 🎁</div>
+                        </div>
+                    </div>
+
+                    <!-- Content Tab -->
+                    <div class="tab-content" id="content-tab">
+                        <h3>Email Body Content</h3>
+                        <div class="format-options">
+                            <button class="format-btn active" onclick="showFormat('html')">HTML (Recommended)</button>
+                            <button class="format-btn" onclick="showFormat('text')">Plain Text</button>
+                        </div>
+
+                        <!-- HTML Content -->
+                        <div class="format-content active" id="html-content">
+                            <div class="copy-section">
+                                <div class="copy-header">
+                                    <span>Copy this HTML content:</span>
+                                    <button class="copy-btn" onclick="copyText(document.getElementById('html-template').textContent)">
+                                        <i class="fas fa-copy"></i> Copy HTML
+                                    </button>
+                                </div>
+                                <div class="copy-content" id="html-template"><!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>EnkiConnect Invitation</title>
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 20px; background: #f5f5f5; }
+        .container { max-width: 600px; margin: 0 auto; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .header { background: linear-gradient(135deg, #dc2626, #b91c1c); color: white; padding: 30px; text-align: center; }
+        .logo { font-size: 24px; font-weight: bold; margin-bottom: 10px; }
+        .content { padding: 30px; }
+        .invitation-box { background: #f8fafc; border-left: 4px solid #dc2626; padding: 20px; margin: 20px 0; border-radius: 8px; }
+        .cta-button { display: inline-block; background: #dc2626; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; margin: 20px 0; }
+        .footer { background: #f8fafc; padding: 20px; text-align: center; font-size: 14px; color: #666; }
+        .highlight { color: #dc2626; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">🏺 EnkiConnect</div>
+            <h1>You're Invited!</h1>
+        </div>
+        
+        <div class="content">
+            <p>Hi <strong>{{recipient_name}}</strong>,</p>
+            
+            <p><span class="highlight">{{inviter_name}}</span> has invited you to join an exciting gift exchange:</p>
+            
+            <div class="invitation-box">
+                <h2 style="margin-top: 0; color: #dc2626;">🎁 {{exchange_name}}</h2>
+                <p><strong>Exchange Type:</strong> {{exchange_type}}</p>
+                <p><strong>Personal Message:</strong></p>
+                <p style="font-style: italic; background: white; padding: 15px; border-radius: 6px;">{{personal_message}}</p>
+            </div>
+            
+            <p>Ready to join the fun? Click the button below:</p>
+            
+            <div style="text-align: center;">
+                <a href="{{invite_link}}" class="cta-button">🎯 Join Gift Exchange</a>
+            </div>
+            
+            <p><strong>⏰ Important:</strong> This invitation expires on <span class="highlight">{{expires_at}}</span></p>
+            
+            <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+            
+            <p>What to expect:</p>
+            <ul>
+                <li>🎯 Smart gift matching with AI recommendations</li>
+                <li>💬 Real-time chat with exchange participants</li>
+                <li>🛍️ Secure payment processing</li>
+                <li>🎁 Surprise and delight your match!</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>Happy Gifting! 🎉</p>
+            <p>The EnkiConnect Team</p>
+            <p style="font-size: 12px; margin-top: 15px;">
+                If you can't click the button, copy this link: {{invite_link}}
+            </p>
+        </div>
+    </div>
+</body>
+</html></div>
+                            </div>
+                        </div>
+
+                        <!-- Plain Text Content -->
+                        <div class="format-content" id="text-content">
+                            <div class="copy-section">
+                                <div class="copy-header">
+                                    <span>Copy this plain text content:</span>
+                                    <button class="copy-btn" onclick="copyText(document.getElementById('text-template').textContent)">
+                                        <i class="fas fa-copy"></i> Copy Text
+                                    </button>
+                                </div>
+                                <div class="copy-content" id="text-template">🏺 EnkiConnect - You're Invited!
+
+Hi {{recipient_name}},
+
+{{inviter_name}} has invited you to join an exciting gift exchange:
+
+🎁 {{exchange_name}}
+Exchange Type: {{exchange_type}}
+
+Personal Message:
+{{personal_message}}
+
+Ready to join the fun? Click here: {{invite_link}}
+
+⏰ Important: This invitation expires on {{expires_at}}
+
+What to expect:
+- 🎯 Smart gift matching with AI recommendations
+- 💬 Real-time chat with exchange participants  
+- 🛍️ Secure payment processing
+- 🎁 Surprise and delight your match!
+
+Happy Gifting! 🎉
+The EnkiConnect Team
+
+If the link doesn't work, copy and paste: {{invite_link}}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Variables Reference -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">4</div>
+                    <h2>Template Variables Reference</h2>
+                </div>
+                
+                <div class="step-content">
+                    <div class="variables-info">
+                        <h3>🏷️ These Variables Will Be Replaced Automatically:</h3>
+                        <div class="variables-list">
+                            <div class="variable">
+                                <code>{{recipient_name}}</code>
+                                <span>→ Person receiving the invitation</span>
+                            </div>
+                            <div class="variable">
+                                <code>{{inviter_name}}</code>
+                                <span>→ Person sending the invitation</span>
+                            </div>
+                            <div class="variable">
+                                <code>{{exchange_name}}</code>
+                                <span>→ Name of the gift exchange</span>
+                            </div>
+                            <div class="variable">
+                                <code>{{exchange_type}}</code>
+                                <span>→ Company, Friend, Family, or World</span>
+                            </div>
+                            <div class="variable">
+                                <code>{{personal_message}}</code>
+                                <span>→ Custom message from inviter</span>
+                            </div>
+                            <div class="variable">
+                                <code>{{invite_link}}</code>
+                                <span>→ Link to join the exchange</span>
+                            </div>
+                            <div class="variable">
+                                <code>{{expires_at}}</code>
+                                <span>→ When invitation expires</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 5: Save & Get ID -->
+            <div class="step-section">
+                <div class="step-header">
+                    <div class="step-number">5</div>
+                    <h2>Save Template & Get ID</h2>
+                </div>
+                
+                <div class="step-content">
+                    <div class="save-steps">
+                        <h3>💾 Final Steps:</h3>
+                        <ol>
+                            <li>Click <strong>"Save Template"</strong> in EmailJS</li>
+                            <li>Look for the <strong>Template ID</strong> (like "enkiconnect_invite")</li>
+                            <li>Copy the Template ID - you'll need it for configuration</li>
+                        </ol>
+                    </div>
+
+                    <div class="id-form">
+                        <h3>📋 Enter Your EmailJS Information:</h3>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Template ID:</label>
+                                <input type="text" id="templateId" placeholder="enkiconnect_invite">
+                            </div>
+                            <div class="form-group">
+                                <label>Service ID:</label>
+                                <input type="text" id="serviceId" placeholder="service_xxxxxxx">
+                            </div>
+                            <div class="form-group">
+                                <label>Public Key (User ID):</label>
+                                <input type="text" id="publicKey" placeholder="user_xxxxxxxxxx">
+                            </div>
+                        </div>
+                        
+                        <button class="generate-btn" onclick="generateConfiguration()">
+                            <i class="fas fa-cog"></i> Generate Configuration Code
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Configuration Output -->
+            <div class="config-section" id="configSection" style="display: none;">
+                <h3>⚙️ Your Configuration Code</h3>
+                <p>Copy this and update your <strong>config.js</strong> file:</p>
+                
+                <div class="config-output">
+                    <div class="config-header">
+                        <span>config.js - Email Section</span>
+                        <button class="copy-btn" onclick="copyConfiguration()">
+                            <i class="fas fa-copy"></i> Copy Code
+                        </button>
+                    </div>
+                    <div class="config-content" id="configContent"></div>
+                </div>
+
+                <div class="next-actions">
+                    <h4>🎯 Next Steps:</h4>
+                    <ol>
+                        <li>Copy the configuration above</li>
+                        <li>Open your <code>config.js</code> file</li>
+                        <li>Replace the email section</li>
+                        <li>Save the file</li>
+                        <li>Test your invitations!</li>
+                    </ol>
+                    
+                    <button class="test-system-btn" onclick="window.location.href='company-invite-demo.html'">
+                        <i class="fas fa-rocket"></i> Test Invitation System
+                    </button>
+                </div>
+            </div>
+
+            <!-- Troubleshooting -->
+            <div class="troubleshooting">
+                <h3>🔧 Common Issues & Solutions</h3>
+                <div class="issues-grid">
+                    <div class="issue">
+                        <h4>❓ Only see preset templates?</h4>
+                        <p>Look for "Blank", "Custom", or "Create from scratch" option. If not available, choose any preset and replace the content with our template.</p>
+                    </div>
+                    <div class="issue">
+                        <h4>❓ Can't find Template ID?</h4>
+                        <p>After saving, go back to Templates list. Your template should show the ID next to the name.</p>
+                    </div>
+                    <div class="issue">
+                        <h4>❓ Variables not working?</h4>
+                        <p>Make sure to use double curly braces: <code>{{variable_name}}</code></p>
+                    </div>
+                    <div class="issue">
+                        <h4>❓ Need to connect email service?</h4>
+                        <p>Go to "Email Services" → "Add New Service" → Connect Gmail/Outlook first</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        function showFormat(formatName) {
+            document.querySelectorAll('.format-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.format-content').forEach(content => content.classList.remove('active'));
+            
+            event.target.classList.add('active');
+            document.getElementById(formatName + '-content').classList.add('active');
+        }
+
+        function copyText(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                const button = event.target.closest('.copy-btn');
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                }, 2000);
+            }).catch(() => {
+                alert('Copy failed. Please select and copy manually.');
+            });
+        }
+
+        function generateConfiguration() {
+            const templateId = document.getElementById('templateId').value.trim();
+            const serviceId = document.getElementById('serviceId').value.trim();
+            const publicKey = document.getElementById('publicKey').value.trim();
+
+            if (!templateId || !serviceId || !publicKey) {
+                alert('Please fill in all fields');
+                return;
+            }
+
+            const config = `    // EmailJS Configuration (UPDATED)
+    email: {
+        userId: '${publicKey}',
+        serviceId: '${serviceId}',
+        templateId: '${templateId}'
+    },`;
+
+            document.getElementById('configContent').textContent = config;
+            document.getElementById('configSection').style.display = 'block';
+            
+            document.getElementById('configSection').scrollIntoView({ 
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+
+        function copyConfiguration() {
+            const config = document.getElementById('configContent').textContent;
+            navigator.clipboard.writeText(config).then(() => {
+                const button = event.target;
+                const originalText = button.innerHTML;
+                button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                button.style.background = '#10b981';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                }, 2000);
+            });
+        }
+    </script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .guide-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #dc2626;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .step-section {
+            margin-bottom: 50px;
+        }
+
+        .step-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .step-number {
+            background: #dc2626;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            margin-left: 70px;
+        }
+
+        .warning-box {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .warning-box h3 {
+            margin: 0 0 15px 0;
+            color: #92400e;
+        }
+
+        .warning-box ul {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .warning-box li {
+            margin-bottom: 5px;
+        }
+
+        .action-steps {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .action-steps h3 {
+            margin: 0 0 15px 0;
+            color: #1f2937;
+        }
+
+        .action-steps ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .action-steps li {
+            margin-bottom: 8px;
+        }
+
+        .action-btn {
+            background: #3b82f6;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            margin-top: 15px;
+        }
+
+        .action-btn:hover {
+            background: #2563eb;
+        }
+
+        .form-preview {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .form-preview h3 {
+            margin: 0 0 20px 0;
+            color: #065f46;
+        }
+
+        .form-fields {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .field {
+            margin-bottom: 15px;
+        }
+
+        .field label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .field-value {
+            background: #f9fafb;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-family: 'Monaco', monospace;
+            color: #dc2626;
+            font-weight: 600;
+        }
+
+        .field small {
+            display: block;
+            margin-top: 8px;
+            color: #dc2626;
+            font-weight: 500;
+        }
+
+        .content-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+
+        .tab-btn {
+            padding: 12px 20px;
+            border: none;
+            background: transparent;
+            color: #64748b;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 8px 8px 0 0;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: #dc2626;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .format-options {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .format-btn {
+            padding: 8px 16px;
+            border: 2px solid #e5e7eb;
+            background: white;
+            color: #64748b;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .format-btn.active {
+            border-color: #dc2626;
+            background: #dc2626;
+            color: white;
+        }
+
+        .format-content {
+            display: none;
+        }
+
+        .format-content.active {
+            display: block;
+        }
+
+        .copy-section {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .copy-header {
+            background: #f8fafc;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .copy-header span {
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .copy-btn {
+            background: #10b981;
+            color: white;
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .copy-btn:hover {
+            background: #059669;
+        }
+
+        .copy-content {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .variables-info {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+        }
+
+        .variables-info h3 {
+            margin: 0 0 20px 0;
+            color: #1f2937;
+        }
+
+        .variables-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .variable {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .variable code {
+            background: #f3f4f6;
+            color: #dc2626;
+            padding: 4px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .variable span {
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .save-steps {
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .save-steps h3 {
+            margin: 0 0 15px 0;
+            color: #1f2937;
+        }
+
+        .save-steps ol {
+            margin: 15px 0;
+            padding-left: 20px;
+        }
+
+        .save-steps li {
+            margin-bottom: 8px;
+        }
+
+        .id-form {
+            background: #f0fdf4;
+            border: 2px solid #10b981;
+            border-radius: 12px;
+            padding: 25px;
+        }
+
+        .id-form h3 {
+            margin: 0 0 20px 0;
+            color: #065f46;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #10b981;
+        }
+
+        .generate-btn {
+            background: #dc2626;
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .generate-btn:hover {
+            background: #b91c1c;
+        }
+
+        .config-section {
+            background: #f0f9ff;
+            border: 2px solid #3b82f6;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .config-section h3 {
+            margin: 0 0 15px 0;
+            color: #1e40af;
+        }
+
+        .config-output {
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        .config-header {
+            background: #f8fafc;
+            padding: 12px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .config-content {
+            background: #1f2937;
+            color: #d1d5db;
+            padding: 20px;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+            line-height: 1.5;
+            white-space: pre;
+        }
+
+        .next-actions {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .next-actions h4 {
+            margin: 0 0 15px 0;
+            color: #1f2937;
+        }
+
+        .next-actions ol {
+            margin-bottom: 20px;
+        }
+
+        .test-system-btn {
+            background: #7c3aed;
+            color: white;
+            padding: 14px 24px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .test-system-btn:hover {
+            background: #6d28d9;
+        }
+
+        .troubleshooting {
+            background: #fffbeb;
+            border-radius: 12px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .troubleshooting h3 {
+            margin: 0 0 20px 0;
+            color: #92400e;
+        }
+
+        .issues-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .issue {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .issue h4 {
+            margin: 0 0 10px 0;
+            color: #1f2937;
+        }
+
+        .issue p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .issue code {
+            background: #f3f4f6;
+            color: #dc2626;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .guide-content {
+                padding: 20px;
+                margin: 10px;
+            }
+
+            .step-content {
+                margin-left: 0;
+            }
+
+            .step-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .content-tabs {
+                flex-direction: column;
+            }
+
+            .format-options {
+                flex-direction: column;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .variables-list {
+                grid-template-columns: 1fr;
+            }
+
+            .issues-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .copy-content {
+                font-size: 10px;
+            }
+        }
+    </style>
+</body>
+</html> 

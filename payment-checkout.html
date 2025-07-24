@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Payment - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Stripe JS -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <div class="payment-container">
+        <!-- Header -->
+        <header class="payment-header">
+            <div class="header-left">
+                <button class="back-btn" onclick="window.history.back()">
+                    <i class="fas fa-arrow-left"></i> Back
+                </button>
+            </div>
+            <div class="header-center">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+            </div>
+            <div class="header-right">
+                <div class="security-badge">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Secure</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="payment-main">
+            <div class="payment-content">
+                <!-- Order Summary -->
+                <div class="order-summary">
+                    <div class="summary-header">
+                        <h2><i class="fas fa-gift"></i> Gift Exchange Payment</h2>
+                        <p>Secure payment processed by Stripe</p>
+                    </div>
+
+                    <div class="exchange-details">
+                        <div class="detail-item">
+                            <span class="label">Exchange Type:</span>
+                            <span class="value" id="exchangeType">Friend Exchange</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Organizer:</span>
+                            <span class="value" id="organizerName">Sarah Johnson</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Participants:</span>
+                            <span class="value" id="participantCount">5 friends</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="label">Budget Range:</span>
+                            <span class="value" id="budgetRange">$50 - $100</span>
+                        </div>
+                    </div>
+
+                    <div class="pricing-breakdown">
+                        <div class="price-item">
+                            <span>Gift Budget</span>
+                            <span id="giftAmount">$75.00</span>
+                        </div>
+                        <div class="price-item">
+                            <span>Service Fee (5%)</span>
+                            <span id="serviceFee">$3.75</span>
+                        </div>
+                        <div class="price-item">
+                            <span>Processing Fee</span>
+                            <span id="processingFee">$1.99</span>
+                        </div>
+                        <div class="price-item total">
+                            <span>Total Amount</span>
+                            <span id="totalAmount">$80.74</span>
+                        </div>
+                    </div>
+
+                    <div class="guarantee-notice">
+                        <i class="fas fa-heart-circle"></i>
+                        <div>
+                            <strong>100% Satisfaction Guarantee</strong>
+                            <p>If your gift doesn't arrive or you're not satisfied, we'll make it right with a full refund.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payment Form -->
+                <div class="payment-form-container">
+                    <form id="payment-form" class="payment-form">
+                        <div class="form-header">
+                            <h3>Payment Information</h3>
+                            <div class="accepted-cards">
+                                <i class="fab fa-cc-visa"></i>
+                                <i class="fab fa-cc-mastercard"></i>
+                                <i class="fab fa-cc-amex"></i>
+                                <i class="fab fa-cc-discover"></i>
+                            </div>
+                        </div>
+
+                        <!-- Stripe Elements -->
+                        <div class="form-group">
+                            <label for="card-element">Card Information</label>
+                            <div id="card-element" class="stripe-element">
+                                <!-- Stripe Elements will create form elements here -->
+                            </div>
+                            <div id="card-errors" class="error-message" role="alert"></div>
+                        </div>
+
+                        <!-- Billing Information -->
+                        <div class="billing-section">
+                            <h4>Billing Information</h4>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name *</label>
+                                    <input type="text" id="firstName" name="firstName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name *</label>
+                                    <input type="text" id="lastName" name="lastName" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                                <small class="form-help">Receipt will be sent to this email</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="billingAddress">Billing Address *</label>
+                                <textarea id="billingAddress" name="billingAddress" rows="3" required placeholder="Street address, city, state, zip code"></textarea>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="country">Country *</label>
+                                    <select id="country" name="country" required>
+                                        <option value="">Select country</option>
+                                        <option value="US">🇺🇸 United States</option>
+                                        <option value="CA">🇨🇦 Canada</option>
+                                        <option value="UK">🇬🇧 United Kingdom</option>
+                                        <option value="AU">🇦🇺 Australia</option>
+                                        <option value="DE">🇩🇪 Germany</option>
+                                        <option value="FR">🇫🇷 France</option>
+                                        <option value="other">🌍 Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="currency">Currency</label>
+                                    <select id="currency" name="currency">
+                                        <option value="USD">USD ($)</option>
+                                        <option value="CAD">CAD ($)</option>
+                                        <option value="EUR">EUR (€)</option>
+                                        <option value="GBP">GBP (£)</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Agreement -->
+                        <div class="agreement-section">
+                            <div class="checkbox-group">
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="termsAgreement" name="termsAgreement" required>
+                                    <span class="checkmark"></span>
+                                    I agree to the <a href="#" class="link">Terms of Service</a> and <a href="#" class="link">Privacy Policy</a>
+                                </label>
+                                <label class="checkbox-container">
+                                    <input type="checkbox" id="marketingEmails" name="marketingEmails">
+                                    <span class="checkmark"></span>
+                                    Send me updates about my gift exchange and special offers
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <button type="submit" id="submit-button" class="pay-button">
+                            <div class="button-content">
+                                <i class="fas fa-lock"></i>
+                                <span class="button-text">Pay $80.74 Securely</span>
+                                <div class="loading-spinner" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                </div>
+                            </div>
+                        </button>
+
+                        <div class="security-notice">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Your payment information is encrypted and secure. We never store your card details.</span>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <!-- Processing Modal -->
+        <div class="processing-modal" id="processingModal" style="display: none;">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="processing-animation">
+                    <div class="spinner">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Processing Payment...</h3>
+                    <p>Please don't close this window. This may take a few moments.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success Modal -->
+        <div class="success-modal" id="successModal" style="display: none;">
+            <div class="modal-overlay"></div>
+            <div class="modal-content">
+                <div class="success-content">
+                    <div class="success-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Payment Successful!</h3>
+                    <p>Your gift exchange payment has been processed successfully.</p>
+                    <div class="success-details">
+                        <div class="detail">
+                            <strong>Transaction ID:</strong> <span id="transactionId">txn_1234567890</span>
+                        </div>
+                        <div class="detail">
+                            <strong>Amount:</strong> <span id="paidAmount">$80.74</span>
+                        </div>
+                    </div>
+                    <button class="continue-btn" onclick="handlePaymentSuccess()">
+                        Continue to Exchange
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+    <script src="payment-checkout.js"></script>
+</body>
+</html> 

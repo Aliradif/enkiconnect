@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Flow Test - EnkiConnect</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        .test-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+        
+        .test-section {
+            margin: 25px 0;
+            padding: 20px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+        }
+        
+        .test-section h3 {
+            color: #4c63d2;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .test-step {
+            background: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #4c63d2;
+        }
+        
+        .test-step strong {
+            color: #1a202c;
+        }
+        
+        .test-btn {
+            background: linear-gradient(135deg, #4c63d2 0%, #667eea 100%);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 5px;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .test-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 99, 210, 0.3);
+        }
+        
+        .test-btn.secondary {
+            background: #10b981;
+        }
+        
+        .test-btn.danger {
+            background: #ef4444;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .status-indicator.ready {
+            background: #dcfce7;
+            color: #166534;
+        }
+        
+        .status-indicator.testing {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        .expected-result {
+            background: #eff6ff;
+            border: 1px solid #bfdbfe;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        
+        .expected-result h4 {
+            color: #1d4ed8;
+            margin: 0 0 10px 0;
+            font-size: 16px;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        
+        .checklist li:before {
+            content: "☐ ";
+            color: #6b7280;
+            font-weight: bold;
+            font-size: 16px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🏺 Complete Registration Flow Test</h1>
+        <p>Test all the fixes: button design, registration page redirect, and profile rating display</p>
+        
+        <!-- Test Section 1: Sign In Button Design -->
+        <div class="test-section">
+            <h3>
+                <i class="fas fa-paint-brush"></i>
+                Test 1: Sign-In Button Design
+                <span class="status-indicator ready">READY</span>
+            </h3>
+            
+            <div class="test-step">
+                <strong>Goal:</strong> Verify the sign-in button uses the old beautiful design (not the generic submit button style)
+            </div>
+            
+            <div class="expected-result">
+                <h4>✅ Expected Result:</h4>
+                <ul>
+                    <li>Button should have gradient background (blue to purple)</li>
+                    <li>Should have hover effect (lifts up and glows)</li>
+                    <li>Should have rounded corners and padding</li>
+                    <li>Should say "Sign In" with proper styling</li>
+                </ul>
+            </div>
+            
+            <a href="index.html" target="_blank" class="test-btn">🔗 Test Main Sign-In Page</a>
+        </div>
+        
+        <!-- Test Section 2: Registration Flow -->
+        <div class="test-section">
+            <h3>
+                <i class="fas fa-user-plus"></i>
+                Test 2: Registration Page Redirect
+                <span class="status-indicator ready">READY</span>
+            </h3>
+            
+            <div class="test-step">
+                <strong>Goal:</strong> Verify that new email/password redirects to proper registration page instead of just prompting
+            </div>
+            
+            <div class="test-step">
+                <strong>Test Steps:</strong>
+                <ol>
+                    <li>Enter fake email: <code>newuser2024@test.com</code></li>
+                    <li>Enter fake password: <code>testpass123</code></li>
+                    <li>Click "Sign In"</li>
+                    <li>Should show "New user detected! Redirecting..."</li>
+                    <li>Should redirect to beautiful registration page</li>
+                </ol>
+            </div>
+            
+            <div class="expected-result">
+                <h4>✅ Expected Result:</h4>
+                <ul>
+                    <li>No popup prompt for full name</li>
+                    <li>Green notification: "New user detected! Redirecting to registration..."</li>
+                    <li>Redirects to register.html with progress steps</li>
+                    <li>Email and password pre-filled (readonly)</li>
+                    <li>Beautiful 3-step registration process</li>
+                </ul>
+            </div>
+            
+            <a href="index.html" target="_blank" class="test-btn">🧪 Test Registration Flow</a>
+            <a href="register.html" target="_blank" class="test-btn secondary">👀 Preview Register Page</a>
+        </div>
+        
+        <!-- Test Section 3: Positive Profile Stats -->
+        <div class="test-section">
+            <h3>
+                <i class="fas fa-chart-line"></i>
+                Test 3: Positive Profile Stats
+                <span class="status-indicator ready">READY</span>
+            </h3>
+            
+            <div class="test-step">
+                <strong>Goal:</strong> Verify that profile shows positive engagement stats without judgmental ratings
+            </div>
+            
+            <div class="test-step">
+                <strong>Test Steps:</strong>
+                <ol>
+                    <li>Complete registration process</li>
+                    <li>Click "Continue to App"</li>
+                    <li>Go to profile page</li>
+                    <li>Check that stats show positive metrics only</li>
+                </ol>
+            </div>
+            
+            <div class="expected-result">
+                <h4>✅ Expected Result:</h4>
+                <ul>
+                    <li>Shows "EXCHANGES: 0" with perfect alignment</li>
+                    <li>Gifts sent: 0</li>
+                    <li>Gifts received: 0</li>
+                    <li>No old profile data from previous tests</li>
+                    <li>No judgmental rating system - positive vibes only!</li>
+                    <li>All three stats perfectly aligned with uppercase labels</li>
+                </ul>
+            </div>
+            
+            <a href="profile.html" target="_blank" class="test-btn">👤 Test Profile Page</a>
+                            <a href="quick-test.html" target="_blank" class="test-btn secondary">🔧 Stats Debug Tool</a>
+        </div>
+        
+        <!-- Test Section 4: Complete Integration -->
+        <div class="test-section">
+            <h3>
+                <i class="fas fa-check-double"></i>
+                Test 4: Full Integration Test
+                <span class="status-indicator testing">TESTING</span>
+            </h3>
+            
+            <div class="test-step">
+                <strong>Complete User Journey:</strong> Test the entire flow from sign-in to profile
+            </div>
+            
+            <ul class="checklist">
+                <li>Clear all browser data first</li>
+                <li>Go to main sign-in page</li>
+                <li>Enter new email and password</li>
+                <li>Verify beautiful sign-in button design</li>
+                <li>Click sign-in and see redirect notification</li>
+                <li>Complete registration with personal info</li>
+                <li>See success animation and continue to app</li>
+                <li>Visit profile and verify positive stats (no rating)</li>
+                <li>Test categories page functionality</li>
+                <li>Sign out and sign back in</li>
+            </ul>
+            
+            <div style="text-align: center; margin-top: 20px;">
+                <a href="cleanup.html" target="_blank" class="test-btn danger">🧹 Clear All Data First</a>
+                <a href="index.html" target="_blank" class="test-btn">🚀 Start Complete Test</a>
+            </div>
+        </div>
+        
+        <!-- Quick Links -->
+        <div class="test-section">
+            <h3>
+                <i class="fas fa-link"></i>
+                Quick Access Links
+            </h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px;">
+                <a href="index.html" target="_blank" class="test-btn">🏠 Main Sign-In</a>
+                <a href="register.html" target="_blank" class="test-btn">📝 Registration</a>
+                <a href="categories.html" target="_blank" class="test-btn">🎯 Categories</a>
+                <a href="profile.html" target="_blank" class="test-btn">👤 Profile</a>
+                <a href="test-auth.html" target="_blank" class="test-btn secondary">🔧 Auth Debug</a>
+                <a href="cleanup.html" target="_blank" class="test-btn danger">🧹 Data Cleanup</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

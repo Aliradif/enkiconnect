@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EnkiConnect - Choose Your Game Mode</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="categories-page">
+    <div class="categories-container">
+        <header class="categories-header">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <span>EnkiConnect</span>
+            </div>
+            <div class="user-info">
+                <span>Welcome back!</span>
+                <a href="profile.html" class="profile-btn" title="View Profile">
+                    <i class="fas fa-user-circle"></i>
+                </a>
+            </div>
+        </header>
+        
+        <main class="categories-main">
+            <div class="categories-intro">
+                <h1 class="animated-title">Choose Your Gaming Experience</h1>
+                <p class="animated-subtitle">Select how you want to play and connect with others</p>
+            </div>
+            
+            <div class="categories-grid">
+                <div class="category-card" data-category="world" onclick="window.location.href='world-exchange-setup.html'">
+                    <!-- Category Image Placeholder 1 - REPLACE WITH YOUR IMAGE -->
+                    <div class="category-image-placeholder">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>Play with World</h3>
+                        <p>Exchange mystery gifts with people worldwide</p>
+                        <div class="category-stats">
+                            <span><i class="fas fa-gift"></i> Global Exchange</span>
+                        </div>
+                    </div>
+                    <div class="category-overlay">
+                        <button class="play-btn">Start Global Exchange</button>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="company" onclick="window.location.href='company-exchange-setup.html'">
+                    <!-- Category Image Placeholder 2 - REPLACE WITH YOUR IMAGE -->
+                    <div class="category-image-placeholder">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>Play with Your Company</h3>
+                        <p>Team building mystery gift exchanges</p>
+                        <div class="category-stats">
+                            <span><i class="fas fa-briefcase"></i> Work Email Invites</span>
+                        </div>
+                    </div>
+                    <div class="category-overlay">
+                        <button class="play-btn">Setup Company Exchange</button>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="friends" onclick="window.location.href='friend-exchange-setup.html'">
+                    <!-- Category Image Placeholder 3 - REPLACE WITH YOUR IMAGE -->
+                    <div class="category-image-placeholder">
+                        <i class="fas fa-user-friends"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>Play with Friends</h3>
+                        <p>Mystery gift exchange with your friend group</p>
+                        <div class="category-stats">
+                            <span><i class="fas fa-comment"></i> 24h Chat Window</span>
+                        </div>
+                    </div>
+                    <div class="category-overlay">
+                        <button class="play-btn">Create Friend Exchange</button>
+                    </div>
+                </div>
+                
+                <div class="category-card" data-category="family" onclick="window.location.href='family-exchange-setup.html'">
+                    <!-- Category Image Placeholder 4 - REPLACE WITH YOUR IMAGE -->
+                    <div class="category-image-placeholder">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <div class="category-content">
+                        <h3>Play with Family</h3>
+                        <p>Multi-generational mystery gift exchanges</p>
+                        <div class="category-stats">
+                            <span><i class="fas fa-heart"></i> Parental Oversight</span>
+                        </div>
+                    </div>
+                    <div class="category-overlay">
+                        <button class="play-btn">Setup Family Exchange</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="floating-particles"></div>
+        </main>
+    </div>
+    
+            <!-- Supabase CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        
+        <script src="config.js"></script>
+        <script src="supabase-cdn.js"></script>
+        <script src="auth.js"></script>
+        <script src="script.js"></script>
+    </body>
+</html> 

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Database Setup - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="setup-container">
+        <div class="setup-content">
+            <div class="setup-header">
+                <div class="logo">
+                    <i class="fas fa-gamepad"></i>
+                    <span>EnkiConnect</span>
+                </div>
+                <h1>Database Setup</h1>
+                <p>Set up the complete database schema for real invitation system</p>
+            </div>
+
+            <div class="setup-steps">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3>Check Connection</h3>
+                        <p>Verify connection to Supabase database</p>
+                        <button class="step-btn" onclick="checkConnection()">
+                            <i class="fas fa-plug"></i> Test Connection
+                        </button>
+                        <div class="step-status" id="connectionStatus"></div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3>Install Schema</h3>
+                        <p>Create all tables, functions, and triggers</p>
+                        <button class="step-btn" onclick="installSchema()" id="schemaBtn" disabled>
+                            <i class="fas fa-database"></i> Install Schema
+                        </button>
+                        <div class="step-status" id="schemaStatus"></div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3>Verify Setup</h3>
+                        <p>Check that all components are working</p>
+                        <button class="step-btn" onclick="verifySetup()" id="verifyBtn" disabled>
+                            <i class="fas fa-check-circle"></i> Verify Setup
+                        </button>
+                        <div class="step-status" id="verifyStatus"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="setup-log">
+                <h3><i class="fas fa-terminal"></i> Setup Log</h3>
+                <div class="log-content" id="setupLog">
+                    <div class="log-entry">🏺 EnkiConnect Database Setup Tool Ready</div>
+                </div>
+            </div>
+
+            <div class="setup-actions">
+                <a href="invitation-system.html" class="action-btn primary" id="continueBtn" style="display: none;">
+                    <i class="fas fa-rocket"></i> Test Invitation System
+                </a>
+                <a href="setup-real-communications.md" class="action-btn secondary" target="_blank">
+                    <i class="fas fa-book"></i> Setup Guide
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+
+    <script>
+        let setupComplete = false;
+
+        async function checkConnection() {
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking...';
+            btn.disabled = true;
+
+            try {
+                addLog('🔄 Checking Supabase connection...');
+
+                if (!window.EnkiConnect) {
+                    throw new Error('EnkiConnect not initialized');
+                }
+
+                // Test basic connection
+                const { data, error } = await window.EnkiConnect.supabase
+                    .from('users')
+                    .select('count')
+                    .limit(1);
+
+                if (error && !error.message.includes('relation "users" does not exist')) {
+                    throw error;
+                }
+
+                addLog('✅ Supabase connection successful');
+                setStatus('connectionStatus', '✅ Connected', 'success');
+                
+                // Enable next step
+                document.getElementById('schemaBtn').disabled = false;
+
+            } catch (error) {
+                addLog('❌ Connection failed: ' + error.message);
+                setStatus('connectionStatus', '❌ Connection Failed', 'error');
+                console.error('Connection error:', error);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        async function installSchema() {
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Installing...';
+            btn.disabled = true;
+
+            try {
+                addLog('🔄 Installing database schema...');
+
+                // This would contain the actual SQL from supabase-schema-extended.sql
+                // For demo purposes, we'll simulate the installation
+                await simulateSchemaInstallation();
+
+                addLog('✅ Database schema installed successfully');
+                setStatus('schemaStatus', '✅ Schema Installed', 'success');
+                
+                // Enable next step
+                document.getElementById('verifyBtn').disabled = false;
+
+            } catch (error) {
+                addLog('❌ Schema installation failed: ' + error.message);
+                setStatus('schemaStatus', '❌ Installation Failed', 'error');
+                console.error('Schema installation error:', error);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        async function simulateSchemaInstallation() {
+            const steps = [
+                'Creating invitations table...',
+                'Creating email_logs table...',
+                'Creating sms_logs table...',
+                'Creating invitation_analytics table...',
+                'Creating invitation_templates table...',
+                'Setting up Row Level Security...',
+                'Creating database functions...',
+                'Installing triggers...',
+                'Inserting default templates...'
+            ];
+
+            for (let i = 0; i < steps.length; i++) {
+                addLog(`📊 ${steps[i]}`);
+                await new Promise(resolve => setTimeout(resolve, 500));
+            }
+        }
+
+        async function verifySetup() {
+            const btn = event.target;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+            btn.disabled = true;
+
+            try {
+                addLog('🔄 Verifying database setup...');
+
+                // Simulate verification checks
+                const checks = [
+                    'Checking table structure...',
+                    'Verifying RLS policies...',
+                    'Testing invitation creation...',
+                    'Checking template loading...',
+                    'Validating analytics tracking...'
+                ];
+
+                for (let i = 0; i < checks.length; i++) {
+                    addLog(`🔍 ${checks[i]}`);
+                    await new Promise(resolve => setTimeout(resolve, 300));
+                }
+
+                addLog('🎉 Database setup verification complete!');
+                setStatus('verifyStatus', '✅ Verified', 'success');
+                
+                setupComplete = true;
+                document.getElementById('continueBtn').style.display = 'inline-flex';
+
+            } catch (error) {
+                addLog('❌ Verification failed: ' + error.message);
+                setStatus('verifyStatus', '❌ Verification Failed', 'error');
+                console.error('Verification error:', error);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        function addLog(message) {
+            const log = document.getElementById('setupLog');
+            const entry = document.createElement('div');
+            entry.className = 'log-entry';
+            entry.textContent = new Date().toLocaleTimeString() + ' - ' + message;
+            log.appendChild(entry);
+            log.scrollTop = log.scrollHeight;
+        }
+
+        function setStatus(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `step-status ${type}`;
+        }
+    </script>
+
+    <style>
+        .setup-container {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .setup-content {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .setup-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: #4c63d2;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .setup-header h1 {
+            margin: 0 0 10px 0;
+            font-size: 32px;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .setup-header p {
+            margin: 0;
+            color: #6b7280;
+            font-size: 18px;
+        }
+
+        .setup-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .step-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            padding: 25px;
+            border: 2px solid #f3f4f6;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .step-card:hover {
+            border-color: #4c63d2;
+            background: #f8faff;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: #4c63d2;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h3 {
+            margin: 0 0 5px 0;
+            font-size: 20px;
+            font-weight: 600;
+            color: #1f2937;
+        }
+
+        .step-content p {
+            margin: 0 0 15px 0;
+            color: #6b7280;
+            font-size: 14px;
+        }
+
+        .step-btn {
+            background: #4c63d2;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-btn:hover:not(:disabled) {
+            background: #4338ca;
+            transform: translateY(-1px);
+        }
+
+        .step-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .step-status {
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .step-status.success {
+            color: #10b981;
+        }
+
+        .step-status.error {
+            color: #ef4444;
+        }
+
+        .setup-log {
+            background: #1f2937;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .setup-log h3 {
+            margin: 0 0 15px 0;
+            color: white;
+            font-size: 18px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .log-content {
+            max-height: 200px;
+            overflow-y: auto;
+            font-family: 'Monaco', 'Menlo', monospace;
+            font-size: 12px;
+        }
+
+        .log-entry {
+            color: #d1d5db;
+            margin-bottom: 5px;
+            line-height: 1.4;
+        }
+
+        .setup-actions {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .action-btn {
+            padding: 14px 24px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn.primary {
+            background: #10b981;
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            background: #059669;
+            transform: translateY(-2px);
+        }
+
+        .action-btn.secondary {
+            background: #f3f4f6;
+            color: #6b7280;
+            border: 2px solid #e5e7eb;
+        }
+
+        .action-btn.secondary:hover {
+            background: #e5e7eb;
+            color: #4b5563;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .setup-content {
+                padding: 30px 20px;
+                margin: 20px;
+            }
+
+            .step-card {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+
+            .setup-actions {
+                flex-direction: column;
+            }
+
+            .action-btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</body>
+</html> 

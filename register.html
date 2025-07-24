@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="register-container">
+        <div class="background-overlay"></div>
+        
+        <div class="register-content">
+            <!-- Progress Steps -->
+            <div class="progress-steps">
+                <div class="step active" data-step="1">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Account Info</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="2">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Personal Info</div>
+                </div>
+                <div class="step-line"></div>
+                <div class="step" data-step="3">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Complete</div>
+                </div>
+            </div>
+
+            <div class="register-form-container">
+                <!-- Header -->
+                <div class="register-header">
+                    <div class="logo-placeholder">
+                        <i class="fas fa-gamepad"></i>
+                        <h1>EnkiConnect</h1>
+                    </div>
+                    <h2 id="stepTitle">Create Your Account</h2>
+                    <p id="stepDescription">Join the ultimate global gift exchange experience</p>
+                </div>
+
+                <!-- Step 1: Account Information -->
+                <form id="step1Form" class="register-step active">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regEmail">Email Address *</label>
+                        <input type="email" id="regEmail" name="email" required readonly>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="regPassword">Password *</label>
+                        <input type="password" id="regPassword" name="password" required readonly>
+                        <small class="form-help">Password must be at least 6 characters long</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number (Optional)</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+1 (555) 123-4567">
+                    </div>
+                    
+                    <button type="button" class="register-btn" onclick="nextStep()">
+                        Continue <i class="fas fa-arrow-right"></i>
+                    </button>
+                </form>
+
+                <!-- Step 2: Personal Information -->
+                <form id="step2Form" class="register-step">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="birthDate">Date of Birth *</label>
+                            <input type="date" id="birthDate" name="birthDate" required onchange="calculateAge()">
+                            <small class="age-display" id="ageDisplay"></small>
+                        </div>
+                        <div class="form-group">
+                            <label for="country">Country *</label>
+                            <select id="country" name="country" required onchange="updateCurrency()">
+                                <option value="">Select Country</option>
+                                <option value="CA">Canada (CAD)</option>
+                                <option value="US">United States (USD)</option>
+                                <option value="UK">United Kingdom (GBP)</option>
+                                <option value="DE">Germany (EUR)</option>
+                                <option value="FR">France (EUR)</option>
+                                <option value="JP">Japan (JPY)</option>
+                                <option value="AU">Australia (AUD)</option>
+                                <option value="BR">Brazil (BRL)</option>
+                                <option value="IN">India (INR)</option>
+                                <option value="MX">Mexico (MXN)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="bio">About Me (Optional)</label>
+                        <textarea id="bio" name="bio" rows="4" placeholder="Tell others about your hobbies, interests, or what makes you unique..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="checkbox-container">
+                            <input type="checkbox" id="terms" required>
+                            <span class="checkmark"></span>
+                            I agree to the <a href="#" onclick="showTerms()">Terms of Service</a> and <a href="#" onclick="showPrivacy()">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="register-btn secondary" onclick="prevStep()">
+                            <i class="fas fa-arrow-left"></i> Back
+                        </button>
+                        <button type="button" class="register-btn" onclick="createAccount()">
+                            Create Account <i class="fas fa-check"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Step 3: Success -->
+                <div id="step3Form" class="register-step success-step">
+                    <div class="success-animation">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h3>Account Created Successfully!</h3>
+                    <p>Welcome to EnkiConnect! Please check your email to verify your account.</p>
+                    
+                    <div class="success-actions">
+                        <button class="register-btn" onclick="continueToApp()">
+                            Continue to App <i class="fas fa-arrow-right"></i>
+                        </button>
+                        <button class="register-btn secondary" onclick="resendEmail()">
+                            <i class="fas fa-envelope"></i> Resend Email
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Footer -->
+                <div class="register-footer">
+                    <p>Already have an account? <a href="index.html">Sign In</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Supabase CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="supabase-cdn.js"></script>
+
+    <script>
+        // Global variables
+        let currentStep = 1;
+        let registrationData = {};
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeRegistration();
+        });
+
+        function initializeRegistration() {
+            // Get email and password from URL parameters or localStorage
+            const urlParams = new URLSearchParams(window.location.search);
+            const email = urlParams.get('email') || localStorage.getItem('pendingEmail');
+            const password = urlParams.get('password') || localStorage.getItem('pendingPassword');
+            
+            if (email && password) {
+                document.getElementById('regEmail').value = email;
+                document.getElementById('regPassword').value = password;
+                registrationData.email = email;
+                registrationData.password = password;
+                
+                // Clear from localStorage for security
+                localStorage.removeItem('pendingEmail');
+                localStorage.removeItem('pendingPassword');
+            } else {
+                // Redirect back to sign in if no credentials
+                alert('No registration data found. Please try signing up again.');
+                window.location.href = 'index.html';
+            }
+        }
+
+        function nextStep() {
+            if (validateCurrentStep()) {
+                saveCurrentStepData();
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            currentStep--;
+            showStep(currentStep);
+        }
+
+        function showStep(step) {
+            // Hide all steps
+            document.querySelectorAll('.register-step').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+            
+            // Show current step
+            document.getElementById(`step${step}Form`).classList.add('active');
+            document.querySelector(`[data-step="${step}"]`).classList.add('active');
+            
+            // Update titles
+            const titles = {
+                1: { title: 'Create Your Account', desc: 'Let\'s get you set up with your basic information' },
+                2: { title: 'Personal Information', desc: 'Tell us a bit more about yourself' },
+                3: { title: 'Welcome to EnkiConnect!', desc: 'Your account has been created successfully' }
+            };
+            
+            document.getElementById('stepTitle').textContent = titles[step].title;
+            document.getElementById('stepDescription').textContent = titles[step].desc;
+        }
+
+        function validateCurrentStep() {
+            const currentForm = document.getElementById(`step${currentStep}Form`);
+            const requiredFields = currentForm.querySelectorAll('[required]');
+            
+            for (let field of requiredFields) {
+                if (!field.value.trim()) {
+                    field.focus();
+                    showNotification(`Please fill in the ${field.previousElementSibling.textContent.replace(' *', '')} field`, 'error');
+                    return false;
+                }
+            }
+            
+            // Age validation
+            if (currentStep === 2) {
+                const birthDate = new Date(document.getElementById('birthDate').value);
+                const age = calculateAge();
+                if (age < 13) {
+                    showNotification('You must be at least 13 years old to create an account', 'error');
+                    return false;
+                }
+            }
+            
+            return true;
+        }
+
+        function saveCurrentStepData() {
+            const currentForm = document.getElementById(`step${currentStep}Form`);
+            const formData = new FormData(currentForm);
+            
+            for (let [key, value] of formData.entries()) {
+                registrationData[key] = value;
+            }
+        }
+
+        async function createAccount() {
+            if (!validateCurrentStep()) return;
+            
+            saveCurrentStepData();
+            
+            // Show loading
+            const button = event.target;
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Creating Account...';
+            button.disabled = true;
+            
+            try {
+                console.log('🏺 Creating account with data:', registrationData);
+                
+                // Wait for EnkiConnect to be available
+                if (!window.EnkiConnect) {
+                    throw new Error('EnkiConnect not initialized');
+                }
+                
+                // Create the account
+                const fullName = `${registrationData.firstName} ${registrationData.lastName}`;
+                const result = await window.EnkiConnect.auth.signUp(
+                    registrationData.email,
+                    registrationData.password,
+                    fullName
+                );
+                
+                if (!result.success) {
+                    throw new Error(result.error || 'Account creation failed');
+                }
+                
+                console.log('✅ Account created successfully!');
+                
+                // Save additional profile data
+                if (result.data?.user) {
+                    await saveProfileData(result.data.user.id);
+                }
+                
+                // Show success step
+                showStep(3);
+                
+            } catch (error) {
+                console.error('❌ Registration error:', error);
+                showNotification(error.message || 'Failed to create account', 'error');
+                
+                // Reset button
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }
+        }
+
+        async function saveProfileData(userId) {
+            try {
+                const profileData = {
+                    phone: registrationData.phone || null,
+                    date_of_birth: registrationData.birthDate || null,
+                    country: registrationData.country || null,
+                    bio: registrationData.bio || null
+                };
+                
+                // Save to database via Supabase
+                const result = await window.EnkiConnect.userProfile.updateProfile(userId, profileData);
+                if (result.success) {
+                    console.log('✅ Profile data saved successfully');
+                } else {
+                    console.warn('⚠️ Profile data save failed:', result.error);
+                }
+            } catch (error) {
+                console.warn('⚠️ Error saving profile data:', error);
+            }
+        }
+
+        function calculateAge() {
+            const birthDate = document.getElementById('birthDate').value;
+            if (!birthDate) return 0;
+            
+            const today = new Date();
+            const birth = new Date(birthDate);
+            let age = today.getFullYear() - birth.getFullYear();
+            const monthDiff = today.getMonth() - birth.getMonth();
+            
+            if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birth.getDate())) {
+                age--;
+            }
+            
+            const ageDisplay = document.getElementById('ageDisplay');
+            if (ageDisplay) {
+                ageDisplay.textContent = age > 0 ? `${age} years old` : '';
+            }
+            
+            return age;
+        }
+
+        function updateCurrency() {
+            const country = document.getElementById('country').value;
+            const currencyMap = {
+                'CA': 'CAD', 'US': 'USD', 'UK': 'GBP', 'DE': 'EUR',
+                'FR': 'EUR', 'JP': 'JPY', 'AU': 'AUD', 'BR': 'BRL',
+                'IN': 'INR', 'MX': 'MXN'
+            };
+            
+            const currency = currencyMap[country] || 'USD';
+            console.log(`Selected country: ${country}, Currency: ${currency}`);
+        }
+
+        function continueToApp() {
+            // Clear any stored registration data
+            Object.keys(registrationData).forEach(key => {
+                localStorage.removeItem(key);
+            });
+            
+            // Redirect to categories
+            window.location.href = 'categories.html';
+        }
+
+        async function resendEmail() {
+            try {
+                showNotification('Verification email sent! Please check your inbox.', 'success');
+            } catch (error) {
+                showNotification('Failed to resend email. Please try again.', 'error');
+            }
+        }
+
+        function showTerms() {
+            alert('Terms of Service\n\n• Be respectful to all users\n• No inappropriate content\n• Follow local laws regarding gift exchange\n• We reserve the right to suspend accounts for violations');
+        }
+
+        function showPrivacy() {
+            alert('Privacy Policy\n\n• We protect your personal information\n• Data is used only for gift exchange functionality\n• We do not share your data with third parties\n• You can delete your account at any time');
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            // Remove existing notifications
+            document.querySelectorAll('.auth-notification').forEach(n => n.remove());
+            
+            const notification = document.createElement('div');
+            notification.className = `auth-notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'error' ? 'exclamation-circle' : 'check-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, type === 'error' ? 5000 : 3000);
+        }
+    </script>
+</body>
+</html> 

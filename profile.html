@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - EnkiConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="profile-page">
+    <div class="profile-container">
+        <header class="profile-header">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <span>PlayConnect</span>
+            </div>
+            <nav class="profile-nav">
+                <a href="categories.html" class="nav-link">
+                    <i class="fas fa-home"></i> Home
+                </a>
+                <a href="profile.html" class="nav-link active">
+                    <i class="fas fa-user"></i> Profile
+                </a>
+                <a href="#" class="nav-link" onclick="signOut()">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </a>
+            </nav>
+        </header>
+        
+        <main class="profile-main">
+            <div class="profile-sidebar">
+                <div class="profile-picture">
+                    <!-- Profile Picture Placeholder - REPLACE WITH USER IMAGE -->
+                    <div class="profile-image-placeholder">
+                        <i class="fas fa-user-circle"></i>
+                        <button class="change-photo-btn" onclick="changeProfilePhoto()">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="profile-status">
+                    <h2 id="userName">John Doe</h2>
+                    <div class="verification-badges">
+                        <span class="badge verified" id="ageVerified">
+                            <i class="fas fa-check-circle"></i> Age Verified
+                        </span>
+                        <span class="badge verified" id="paymentVerified">
+                            <i class="fas fa-credit-card"></i> Payment Verified
+                        </span>
+                        <span class="badge pending" id="addressVerified">
+                            <i class="fas fa-map-marker-alt"></i> Address Pending
+                        </span>
+                    </div>
+                    
+                    <div class="profile-stats">
+                        <div class="stat">
+                            <span class="stat-number" id="giftsSent">0</span>
+                            <span class="stat-label">Gifts Sent</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-number" id="giftsReceived">0</span>
+                            <span class="stat-label">Gifts Received</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-content">
+                <div class="profile-tabs">
+                    <button class="tab-btn active" onclick="showTab('personal')">
+                        <i class="fas fa-user"></i> Personal Info
+                    </button>
+                    <button class="tab-btn" onclick="showTab('payment')">
+                        <i class="fas fa-credit-card"></i> Payment & Age Verification
+                    </button>
+                    <button class="tab-btn" onclick="showTab('shipping')">
+                        <i class="fas fa-shipping-fast"></i> Shipping Address
+                    </button>
+                    <button class="tab-btn" onclick="showTab('preferences')">
+                        <i class="fas fa-heart"></i> Gift Preferences
+                    </button>
+                    <button class="tab-btn" onclick="showTab('privacy')">
+                        <i class="fas fa-shield-alt"></i> Privacy & Safety
+                    </button>
+                </div>
+                
+                <!-- Personal Information Tab -->
+                <div class="tab-content active" id="personal">
+                    <h3><i class="fas fa-user"></i> Personal Information</h3>
+                    <form class="profile-form" id="personalForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number</label>
+                                <input type="tel" id="phone" name="phone">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="birthDate">Date of Birth *</label>
+                                <input type="date" id="birthDate" name="birthDate" required onchange="calculateAge()">
+                                <small class="age-display" id="ageDisplay"></small>
+                            </div>
+                            <div class="form-group">
+                                <label for="country">Country *</label>
+                                <select id="country" name="country" required onchange="updateCurrency()">
+                                    <option value="">Select Country</option>
+                                    <option value="CA">Canada (CAD)</option>
+                                    <option value="US">United States (USD)</option>
+                                    <option value="UK">United Kingdom (GBP)</option>
+                                    <option value="DE">Germany (EUR)</option>
+                                    <option value="FR">France (EUR)</option>
+                                    <option value="JP">Japan (JPY)</option>
+                                    <option value="AU">Australia (AUD)</option>
+                                    <!-- Add more countries -->
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="bio">About Me (Optional)</label>
+                            <textarea id="bio" name="bio" rows="4" placeholder="Tell others about your hobbies, interests, or what makes you unique..."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="save-btn">
+                            <i class="fas fa-save"></i> Save Personal Info
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Payment & Age Verification Tab -->
+                <div class="tab-content" id="payment">
+                    <h3><i class="fas fa-credit-card"></i> Payment & Age Verification</h3>
+                    <div class="verification-notice">
+                        <i class="fas fa-shield-alt"></i>
+                        <div>
+                            <h4>Why We Need This Information:</h4>
+                            <ul>
+                                <li><strong>Age Verification:</strong> Ensure all users are 18+ for legal gift exchanges</li>
+                                <li><strong>Payment Security:</strong> Process international gift purchases securely</li>
+                                <li><strong>Fraud Prevention:</strong> Protect our community from fake accounts</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <form class="profile-form" id="paymentForm">
+                        <div class="form-group">
+                            <label for="cardNumber">Credit Card Number *</label>
+                            <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" required>
+                            <small>Used for age verification and gift purchases</small>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="expiryDate">Expiry Date *</label>
+                                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="cvv">CVV *</label>
+                                <input type="text" id="cvv" name="cvv" placeholder="123" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="cardName">Name on Card *</label>
+                            <input type="text" id="cardName" name="cardName" placeholder="Exactly as shown on card" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="billingAddress">Billing Address *</label>
+                            <textarea id="billingAddress" name="billingAddress" rows="3" placeholder="Street address, City, State/Province, Postal Code" required></textarea>
+                        </div>
+                        
+                        <div class="verification-options">
+                            <h4>Alternative Verification Methods:</h4>
+                            <button type="button" class="alt-verify-btn">
+                                <i class="fas fa-id-card"></i> Upload Government ID
+                            </button>
+                            <button type="button" class="alt-verify-btn">
+                                <i class="fas fa-university"></i> Bank Account Verification
+                            </button>
+                        </div>
+                        
+                        <button type="submit" class="save-btn verify-btn">
+                            <i class="fas fa-shield-check"></i> Verify & Save Payment Info
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Shipping Address Tab -->
+                <div class="tab-content" id="shipping">
+                    <h3><i class="fas fa-shipping-fast"></i> Shipping Address</h3>
+                    <form class="profile-form" id="shippingForm">
+                        <div class="form-group">
+                            <label>
+                                <input type="checkbox" id="sameAsBilling" onchange="copyBillingAddress()">
+                                Same as billing address
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" name="fullName" placeholder="Recipient name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address1">Address Line 1 *</label>
+                            <input type="text" id="address1" name="address1" placeholder="Street address" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address2">Address Line 2</label>
+                            <input type="text" id="address2" name="address2" placeholder="Apartment, suite, etc.">
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="city">City *</label>
+                                <input type="text" id="city" name="city" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="state">State/Province *</label>
+                                <input type="text" id="state" name="state" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="postalCode">Postal Code *</label>
+                                <input type="text" id="postalCode" name="postalCode" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="shippingCountry">Country *</label>
+                                <select id="shippingCountry" name="shippingCountry" required>
+                                    <option value="">Select Country</option>
+                                    <option value="CA">Canada</option>
+                                    <option value="US">United States</option>
+                                    <option value="UK">United Kingdom</option>
+                                    <option value="DE">Germany</option>
+                                    <option value="FR">France</option>
+                                    <option value="JP">Japan</option>
+                                    <option value="AU">Australia</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="deliveryInstructions">Delivery Instructions (Optional)</label>
+                            <textarea id="deliveryInstructions" name="deliveryInstructions" rows="3" placeholder="Special delivery instructions, gate codes, etc."></textarea>
+                        </div>
+                        
+                        <button type="submit" class="save-btn">
+                            <i class="fas fa-save"></i> Save Shipping Address
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Gift Preferences Tab -->
+                <div class="tab-content" id="preferences">
+                    <h3><i class="fas fa-heart"></i> Gift Preferences</h3>
+                    <form class="profile-form" id="preferencesForm">
+                        <div class="form-group">
+                            <label>Preferred Gift Categories (Select all that apply):</label>
+                            <div class="checkbox-grid">
+                                <label><input type="checkbox" name="categories" value="electronics"> <i class="fas fa-laptop"></i> Electronics</label>
+                                <label><input type="checkbox" name="categories" value="books"> <i class="fas fa-book"></i> Books</label>
+                                <label><input type="checkbox" name="categories" value="food"> <i class="fas fa-utensils"></i> Food & Treats</label>
+                                <label><input type="checkbox" name="categories" value="clothing"> <i class="fas fa-tshirt"></i> Clothing</label>
+                                <label><input type="checkbox" name="categories" value="games"> <i class="fas fa-gamepad"></i> Games</label>
+                                <label><input type="checkbox" name="categories" value="art"> <i class="fas fa-palette"></i> Art & Crafts</label>
+                                <label><input type="checkbox" name="categories" value="home"> <i class="fas fa-home"></i> Home Decor</label>
+                                <label><input type="checkbox" name="categories" value="sports"> <i class="fas fa-football-ball"></i> Sports</label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="allergies">Allergies & Restrictions *</label>
+                            <textarea id="allergies" name="allergies" rows="3" placeholder="Food allergies, religious restrictions, items to avoid..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="wishlist">Wishlist Hints (Optional)</label>
+                            <textarea id="wishlist" name="wishlist" rows="4" placeholder="Subtle hints about things you'd enjoy (without spoiling the surprise)..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="languages">Languages I Speak:</label>
+                            <input type="text" id="languages" name="languages" placeholder="e.g., English, French, Spanish">
+                            <small>Help us match you with compatible gift exchange partners</small>
+                        </div>
+                        
+                        <button type="submit" class="save-btn">
+                            <i class="fas fa-save"></i> Save Preferences
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Privacy & Safety Tab -->
+                <div class="tab-content" id="privacy">
+                    <h3><i class="fas fa-shield-alt"></i> Privacy & Safety</h3>
+                    <form class="profile-form" id="privacyForm">
+                        <div class="privacy-section">
+                            <h4>Profile Visibility</h4>
+                            <div class="privacy-options">
+                                <label>
+                                    <input type="radio" name="profileVisibility" value="public" checked>
+                                    <span>Public - Visible to all matched users</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="profileVisibility" value="limited">
+                                    <span>Limited - Only basic info visible</span>
+                                </label>
+                                <label>
+                                    <input type="radio" name="profileVisibility" value="private">
+                                    <span>Private - Minimal information shared</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="privacy-section">
+                            <h4>Communication Preferences</h4>
+                            <div class="checkbox-list">
+                                <label>
+                                    <input type="checkbox" name="allowChat" checked>
+                                    Allow 24-hour chat window with matched users
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="allowFriendRequests" checked>
+                                    Allow friend requests after successful exchanges
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="allowEmailNotifications" checked>
+                                    Receive email notifications about matches and gifts
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="allowSMSNotifications">
+                                    Receive SMS notifications for urgent updates
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="privacy-section">
+                            <h4>Safety Features</h4>
+                            <div class="checkbox-list">
+                                <label>
+                                    <input type="checkbox" name="reportInappropriate" checked>
+                                    Auto-report inappropriate messages
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="blockKeywords" checked>
+                                    Block messages with inappropriate keywords
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="verifiedUsersOnly">
+                                    Only match with fully verified users
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="save-btn">
+                            <i class="fas fa-save"></i> Save Privacy Settings
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+                <!-- Supabase CDN -->
+            <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+            
+            <script src="config.js"></script>
+            <script src="supabase-cdn.js"></script>
+            <script src="auth.js"></script>
+            <script src="script.js"></script>
+            <script src="profile.js"></script>
+        </body>
+    </html> 

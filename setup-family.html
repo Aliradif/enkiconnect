@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Gift Exchange Setup - PlayConnect</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="setup-page family-page">
+    <div class="setup-container">
+        <header class="setup-header">
+            <div class="logo">
+                <i class="fas fa-gamepad"></i>
+                <span>PlayConnect</span>
+            </div>
+            <nav class="breadcrumb">
+                <a href="categories.html">Categories</a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Family Setup</span>
+            </nav>
+        </header>
+        
+        <main class="setup-main">
+            <div class="setup-progress">
+                <div class="progress-step active">
+                    <div class="step-number">1</div>
+                    <span>Family Details</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">2</div>
+                    <span>Add Family</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">3</div>
+                    <span>Set Limits</span>
+                </div>
+                <div class="progress-step">
+                    <div class="step-number">4</div>
+                    <span>Launch</span>
+                </div>
+            </div>
+            
+            <div class="setup-content">
+                <!-- Step 1: Family Details -->
+                <div class="setup-step active" id="step1">
+                    <div class="step-header">
+                        <h2><i class="fas fa-home"></i> Family Gift Exchange Setup</h2>
+                        <p>Create a magical gift exchange experience for your family</p>
+                    </div>
+                    
+                    <form class="setup-form" id="familyDetailsForm">
+                        <div class="family-safety-notice">
+                            <div class="safety-badge">
+                                <i class="fas fa-shield-alt"></i>
+                                <h4>Family-Safe Environment</h4>
+                            </div>
+                            <ul>
+                                <li>All gifts are curated for family-friendly content</li>
+                                <li>Enhanced safety measures for participants under 18</li>
+                                <li>Parents maintain control over their children's participation</li>
+                                <li>Secure, monitored platform with no inappropriate content</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="familyName">Family Name *</label>
+                                <input type="text" id="familyName" name="familyName" placeholder="e.g., The Johnson Family" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="eventName">Event Name *</label>
+                                <input type="text" id="eventName" name="eventName" placeholder="e.g., Family Christmas Exchange, Holiday Fun" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="organizerName">Organizer Name *</label>
+                                <input type="text" id="organizerName" name="organizerName" placeholder="Your full name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="organizerPhone">Organizer Phone *</label>
+                                <input type="tel" id="organizerPhone" name="organizerPhone" placeholder="+1 (555) 123-4567" required>
+                                <small>Primary contact for family coordination</small>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="familyAddress">Family Address *</label>
+                            <textarea id="familyAddress" name="familyAddress" rows="3" placeholder="Primary family address where gifts will be delivered" required></textarea>
+                            <small><i class="fas fa-info-circle"></i> All family gifts will be delivered to this address for distribution</small>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="eventDescription">Event Description</label>
+                            <textarea id="eventDescription" name="eventDescription" rows="3" placeholder="Describe your family gift exchange and any special traditions..."></textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="exchangeDate">Gift Exchange Date</label>
+                                <input type="date" id="exchangeDate" name="exchangeDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="gatheringLocation">Gathering Location</label>
+                                <input type="text" id="gatheringLocation" name="gatheringLocation" placeholder="Where will the family gather?">
+                            </div>
+                        </div>
+                        
+                        <div class="age-settings">
+                            <h3>Age Groups & Settings</h3>
+                            <div class="age-preferences">
+                                <label class="age-option">
+                                    <input type="checkbox" name="includeChildren" checked onchange="toggleChildrenSettings()">
+                                    <div class="option-content">
+                                        <h4><i class="fas fa-child"></i> Include Children (Under 18)</h4>
+                                        <p>Children participate through parent/guardian accounts</p>
+                                    </div>
+                                </label>
+                                <label class="age-option">
+                                    <input type="checkbox" name="separateKidsExchange">
+                                    <div class="option-content">
+                                        <h4><i class="fas fa-baby"></i> Separate Kids Exchange</h4>
+                                        <p>Create a separate exchange just for children</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <button type="button" class="next-btn" onclick="nextStep(2)">
+                            <span>Next: Add Family Members</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Step 2: Add Family Members -->
+                <div class="setup-step" id="step2">
+                    <div class="step-header">
+                        <h2><i class="fas fa-users"></i> Add Family Members</h2>
+                        <p>Add family members using phone numbers. Parents can add children to their account.</p>
+                    </div>
+                    
+                    <div class="family-management">
+                        <div class="add-member-section">
+                            <h3>Add Family Member</h3>
+                            <div class="add-member-form">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="memberName">Full Name *</label>
+                                        <input type="text" id="memberName" placeholder="Full name" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="memberPhone">Phone Number</label>
+                                        <input type="tel" id="memberPhone" placeholder="+1 (555) 123-4567">
+                                        <small>Leave empty for children under 18</small>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="memberAge">Age *</label>
+                                        <input type="number" id="memberAge" min="1" max="120" placeholder="Age" required onchange="updateMemberType()">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="relationship">Relationship *</label>
+                                        <select id="relationship" required>
+                                            <option value="">Select relationship</option>
+                                            <option value="parent">Parent</option>
+                                            <option value="child">Child</option>
+                                            <option value="sibling">Sibling</option>
+                                            <option value="grandparent">Grandparent</option>
+                                            <option value="grandchild">Grandchild</option>
+                                            <option value="aunt_uncle">Aunt/Uncle</option>
+                                            <option value="cousin">Cousin</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="minor-settings" id="minorSettings" style="display: none;">
+                                    <h4><i class="fas fa-child"></i> Minor Settings (Under 18)</h4>
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label for="guardianPhone">Parent/Guardian Phone *</label>
+                                            <input type="tel" id="guardianPhone" placeholder="+1 (555) 123-4567">
+                                            <small>Parent/guardian who will manage this child's account</small>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="guardianName">Parent/Guardian Name *</label>
+                                            <input type="text" id="guardianName" placeholder="Full name of parent/guardian">
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group add-btn-group">
+                                    <button type="button" class="add-member-btn" onclick="addFamilyMember()">
+                                        <i class="fas fa-plus"></i> Add Family Member
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="family-list">
+                            <div class="list-header">
+                                <h3>Family Members (<span id="memberCount">0</span>)</h3>
+                                <div class="member-stats">
+                                    <span class="stat">Adults: <strong id="adultCount">0</strong></span>
+                                    <span class="stat">Children: <strong id="childCount">0</strong></span>
+                                </div>
+                            </div>
+                            
+                            <div class="members-container" id="membersContainer">
+                                <div class="empty-state">
+                                    <i class="fas fa-home"></i>
+                                    <h4>No family members added yet</h4>
+                                    <p>Add family members to start your gift exchange</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="step-navigation">
+                        <button type="button" class="prev-btn" onclick="prevStep(1)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button type="button" class="next-btn" onclick="nextStep(3)" id="step2NextBtn" disabled>
+                            <span>Next: Set Limits</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 3: Set Limits -->
+                <div class="setup-step" id="step3">
+                    <div class="step-header">
+                        <h2><i class="fas fa-dollar-sign"></i> Set Spending Limits</h2>
+                        <p>Configure age-appropriate spending ranges for your family exchange</p>
+                    </div>
+                    
+                    <form class="setup-form" id="limitsForm">
+                        <div class="age-based-limits">
+                            <h3>Age-Based Spending Limits</h3>
+                            
+                            <div class="age-group-limits">
+                                <div class="age-group">
+                                    <h4><i class="fas fa-user"></i> Adults (18+)</h4>
+                                    <div class="range-inputs">
+                                        <div class="form-group">
+                                            <label>Minimum Amount</label>
+                                            <div class="amount-input">
+                                                <select id="adultCurrency" name="adultCurrency">
+                                                    <option value="CAD">CAD</option>
+                                                    <option value="USD">USD</option>
+                                                    <option value="EUR">EUR</option>
+                                                    <option value="GBP">GBP</option>
+                                                </select>
+                                                <input type="number" id="adultMinAmount" min="10" max="500" value="30">
+                                            </div>
+                                        </div>
+                                        <div class="range-separator">to</div>
+                                        <div class="form-group">
+                                            <label>Maximum Amount</label>
+                                            <div class="amount-input">
+                                                <input type="number" id="adultMaxAmount" min="10" max="500" value="60">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="age-group" id="childrenLimits">
+                                    <h4><i class="fas fa-child"></i> Children (Under 18)</h4>
+                                    <div class="range-inputs">
+                                        <div class="form-group">
+                                            <label>Minimum Amount</label>
+                                            <div class="amount-input">
+                                                <input type="number" id="childMinAmount" min="5" max="100" value="15">
+                                            </div>
+                                        </div>
+                                        <div class="range-separator">to</div>
+                                        <div class="form-group">
+                                            <label>Maximum Amount</label>
+                                            <div class="amount-input">
+                                                <input type="number" id="childMaxAmount" min="5" max="100" value="30">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <small><i class="fas fa-info-circle"></i> Children's gifts are paid for by their parents/guardians</small>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="family-preferences">
+                            <h3>Family Matching Preferences</h3>
+                            <div class="checkbox-list">
+                                <label>
+                                    <input type="checkbox" name="allowFamilyMatching" checked>
+                                    <span>Allow family members to be matched with each other</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="allowExternalMatching">
+                                    <span>Allow family members to be matched with external families</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="ageAppropriateMatching" checked>
+                                    <span>Ensure age-appropriate matching (children matched with children)</span>
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="preventSpouseMatching" checked>
+                                    <span>Prevent spouses/partners from being matched together</span>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="family-themes">
+                            <h3>Family-Friendly Themes</h3>
+                            <div class="themes-grid">
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="educational">
+                                    <div class="theme-content">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>Educational</span>
+                                    </div>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="creative">
+                                    <div class="theme-content">
+                                        <i class="fas fa-palette"></i>
+                                        <span>Arts & Crafts</span>
+                                    </div>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="games">
+                                    <div class="theme-content">
+                                        <i class="fas fa-puzzle-piece"></i>
+                                        <span>Games & Puzzles</span>
+                                    </div>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="books">
+                                    <div class="theme-content">
+                                        <i class="fas fa-book"></i>
+                                        <span>Books & Stories</span>
+                                    </div>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="outdoor">
+                                    <div class="theme-content">
+                                        <i class="fas fa-tree"></i>
+                                        <span>Outdoor Fun</span>
+                                    </div>
+                                </label>
+                                <label class="theme-option">
+                                    <input type="checkbox" name="themes" value="cozy">
+                                    <div class="theme-content">
+                                        <i class="fas fa-home"></i>
+                                        <span>Cozy Home</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-method">
+                            <h3>Payment Method</h3>
+                            <div class="payment-options">
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="organizer" checked>
+                                    <div class="option-content">
+                                        <h4>Organizer Pays All</h4>
+                                        <p>You handle all payments for the family</p>
+                                    </div>
+                                </label>
+                                <label class="payment-option">
+                                    <input type="radio" name="paymentMethod" value="individual">
+                                    <div class="option-content">
+                                        <h4>Individual Adult Payments</h4>
+                                        <p>Each adult family member pays their own way</p>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                    
+                    <div class="step-navigation">
+                        <button type="button" class="prev-btn" onclick="prevStep(2)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Previous</span>
+                        </button>
+                        <button type="button" class="next-btn" onclick="nextStep(4)">
+                            <span>Next: Review & Launch</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Step 4: Launch -->
+                <div class="setup-step" id="step4">
+                    <div class="step-header">
+                        <h2><i class="fas fa-heart"></i> Review & Launch</h2>
+                        <p>Review your family gift exchange and launch the magical experience</p>
+                    </div>
+                    
+                    <div class="review-summary">
+                        <div class="summary-card">
+                            <h3><i class="fas fa-home"></i> Family Details</h3>
+                            <div class="summary-content" id="familySummary">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3><i class="fas fa-users"></i> Family Members</h3>
+                            <div class="summary-content" id="membersSummary">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                        
+                        <div class="summary-card">
+                            <h3><i class="fas fa-gift"></i> Settings & Themes</h3>
+                            <div class="summary-content" id="settingsSummary">
+                                <!-- Will be populated by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="family-launch-section">
+                        <div class="launch-preview">
+                            <h3><i class="fas fa-mobile-alt"></i> Family Invitation Preview</h3>
+                            <div class="sms-preview-container">
+                                <div class="phone-mockup">
+                                    <div class="phone-screen">
+                                        <div class="sms-bubble">
+                                            <strong>PlayConnect Family</strong><br>
+                                            🎁✨ You're invited to a family gift exchange!<br><br>
+                                            <strong id="previewFamilyName">Family Name</strong><br>
+                                            <strong id="previewEventName">Event Name</strong><br>
+                                            Organized by <span id="previewOrganizerName">Organizer</span><br><br>
+                                            Safe, family-friendly gift exchange with age-appropriate matching.<br><br>
+                                            Join here: <span class="link-preview">playconnect.com/family/xyz789</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="launch-actions">
+                            <div class="family-safety-reminder">
+                                <h4><i class="fas fa-shield-check"></i> Family Safety Features</h4>
+                                <ul>
+                                    <li>✅ All gifts are family-friendly and age-appropriate</li>
+                                    <li>✅ Enhanced monitoring for children under 18</li>
+                                    <li>✅ Parents maintain full control over their children's participation</li>
+                                    <li>✅ No inappropriate content or unsafe matching</li>
+                                    <li>✅ Secure delivery to family address only</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="final-checklist">
+                                <h4><i class="fas fa-clipboard-check"></i> Final Checklist</h4>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>Family information and address are correct</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>All family member details are accurate</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>Spending limits are appropriate for your family</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>I understand this is a family-safe, monitored platform</span>
+                                </label>
+                                <label class="checklist-item">
+                                    <input type="checkbox" required>
+                                    <span>I have permission from all adult family members</span>
+                                </label>
+                            </div>
+                            
+                            <button type="button" class="launch-btn family-launch-btn" onclick="launchFamilyExchange()" id="launchBtn" disabled>
+                                <i class="fas fa-heart"></i>
+                                <span>Launch Family Gift Exchange</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="step-navigation">
+                        <button type="button" class="prev-btn" onclick="prevStep(3)">
+                            <i class="fas fa-arrow-left"></i>
+                            <span>Previous</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+            <!-- Supabase CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+        
+        <script src="config.js"></script>
+        <script src="supabase-cdn.js"></script>
+        <script src="auth.js"></script>
+        <script src="script.js"></script>
+        <script src="setup.js"></script>
+</body>
+</html> 
